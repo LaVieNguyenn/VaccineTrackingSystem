@@ -1,0 +1,37 @@
+@model List<VaccineTrakingSystem.BLL.DTOs.NotificationResponseDTO>
+
+@{
+    ViewData["Title"] = "Thông báo";
+}
+
+<div class="container mt-4">
+    <h2>Thông báo</h2>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="list-group">
+                        @foreach (var notification in Model)
+                        {
+                            <div class="list-group-item @(!notification.IsSent ? "list-group-item-warning" : "")">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">@notification.Message</h5>
+                                    <small>@notification.NotificationDate.ToString("dd/MM/yyyy HH:mm")</small>
+                                </div>
+                                @if (notification.ChildId.HasValue)
+                                {
+                                    <p class="mb-1">Liên quan đến trẻ: @notification.ChildId</p>
+                                }
+                                @if (notification.AppointmentId.HasValue)
+                                {
+                                    <p class="mb-1">Liên quan đến cuộc hẹn: @notification.AppointmentId</p>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
