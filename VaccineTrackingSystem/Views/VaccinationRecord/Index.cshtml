@@ -1,0 +1,57 @@
+@model List<VaccineTrakingSystem.BLL.DTOs.VaccinationRecordResponseDTO>
+
+@{
+    ViewData["Title"] = "Hồ sơ tiêm chủng";
+}
+
+<div class="container mt-4">
+    <h2>Hồ sơ tiêm chủng</h2>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Trẻ</th>
+                                    <th>Vắc-xin</th>
+                                    <th>Ngày tiêm</th>
+                                    <th>Phản ứng</th>
+                                    <th>Nhân viên</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var record in Model)
+                                {
+                                    <tr>
+                                        <td>@record.RecordId</td>
+                                        <td>@record.ChildId</td>
+                                        <td>@record.VaccineId</td>
+                                        <td>@record.VaccinationDate.ToString("dd/MM/yyyy")</td>
+                                        <td>@(record.AdverseReaction ?? "Không có")</td>
+                                        <td>@record.StaffId</td>
+                                        <td>
+                                            <a href="@Url.Action("Details", new { id = record.RecordId })" class="btn btn-info btn-sm">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            @if (User.IsInRole("Staff"))
+                                            {
+                                                <a href="@Url.Action("Edit", new { id = record.RecordId })" class="btn btn-primary btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
