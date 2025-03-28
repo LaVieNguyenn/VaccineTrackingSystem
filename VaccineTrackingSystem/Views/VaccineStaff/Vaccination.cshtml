@@ -1,5 +1,5 @@
 ﻿@model VaccineTrakingSystem.DAL.Models.VaccineSchedule
-
+<link rel="stylesheet" href="~/css/Button.css" />
 <div class="page-title">
     <div class="container">
         <div class="row">
@@ -74,16 +74,18 @@
                                         <div class="card-header bg-info text-white">Vaccine History</div>
                                         <table class="table table-sm">
                                             <thead>
-                                                <tr><th>Date</th><th>vaccinator</th></tr>
+                                                <tr><th>Date</th><th>Vaccinator</th></tr>
                                             </thead>
                                             <tbody>
                                                 @if (Model.Appointment?.VaccinationRecords != null && Model.Appointment.VaccinationRecords.Any())
                                                 {
                                                     @foreach (var record in Model.Appointment.VaccinationRecords)
-                                                    { 
-                                                    <tr><td>@record.VaccinationDate</td><td>@record.Staff.FullName</td></tr>
-                                                    <tr>
-
+                                                    {
+                                                        <tr>
+                                                            <td>@record.VaccinationDate</td>
+                                                            <td>@record.Staff.FullName</td>
+                                                        </tr>
+                                                        <tr>
                                                             <td colspan="2"><strong>Adverse Reaction:</strong>@(record.AdverseReaction ?? "None")</td>
                                                         </tr>
                                                     }
@@ -96,6 +98,7 @@
                                         </table>
                                     </div>
                                 </div>
+
 
                                 <!-- Panel bổ sung 2 -->
                                 <div class="col-md-6">
@@ -128,60 +131,92 @@
                         <h2>Lịch tiêm không tồn tại</h2>
                     }
                 </div>
-                <button id="btnAddVaccineRecord" class="btn btn-primary mt-3">
-                    Thêm Vaccine Record
+                <button id="btnAddVaccineRecord" class="btn btn-primary mt-3 ripple-effect">
+                    Vaccination Report
                 </button>
+
             </div>
         </div>
     </div>
 </section>
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.getElementById("btnAddVaccineRecord").addEventListener("click", function () {
         Swal.fire({
-            title: "Thêm Vaccine Record",
+            title: "Vaccination Report Form",
             html: `
                 <label for="vaccinationDate" class="swal2-label">Vaccination Date</label>
-                <input type="date" id="vaccinationDate" class="swal2-input">
+                <input type="date" id="vaccinationDate" class="swal2-input" required>
 
                 <label for="adverseReaction" class="swal2-label">Adverse Reaction</label>
-                <input type="text" id="adverseReaction" class="swal2-input" placeholder="Nhập phản ứng nếu có">
+                <input type="text" id="adverseReaction" class="swal2-input" placeholder="Add Adverse Reaction If have">
             `,
             showCancelButton: true,
-            confirmButtonText: "Lưu",
-            cancelButtonText: "Hủy",
+            confirmButtonText: "Report",
+            cancelButtonText: "Cancle",
             preConfirm: () => {
+                let date = document.getElementById("vaccinationDate").value;
+                if (!date) {
+                    Swal.showValidationMessage("Please Input The Admitted date!");
+                    return false;
+                }
+
                 return {
-                    VaccinationDate: document.getElementById("vaccinationDate").value,
+                    VaccinationDate: date,
                     AdverseReaction: document.getElementById("adverseReaction").value,
-                    AppointmentID: "@Model.Appointment?.AppointmentId",
-                    ChildID: "@Model.Child?.ChildId",
-                    VaccineID: "@Model.Vaccine?.VaccineId",
-                    StaffID: 3 // Giả sử dùng Identity
+                    AppointmentID: parseInt("@Model.Appointment?.AppointmentId") || null,
+                    ChildID: parseInt("@Model.Child?.ChildId") || null,
+                    VaccineID: parseInt("@Model.Vaccine?.VaccineId") || null,
+                    StaffID: 3 // TODO: Lấy từ user login
                 };
             }
         }).then((result) => {
-            if (result.isConfirmed) {
+            if (result.isConfirmed && result.value.AppointmentID) {
                 $.ajax({
                     type: "POST",
-                    url: "/VaccineRecord/Create",
+                   url: "/VaccineStaff/Create",
                     contentType: "application/json",
                     data: JSON.stringify(result.value),
                     success: function () {
-                        Swal.fire("Thành công!", "Vaccine record đã được thêm!", "success")
+                        Swal.fire("Success!", "Vaccination Reported!", "success")
                             .then(() => location.reload());
                     },
-                    error: function () {
-                        Swal.fire("Lỗi!", "Có lỗi xảy ra khi lưu!", "error");
+                    error: function (xhr) {
+                        Swal.fire("Failed!", xhr.responseText || "Error While Reporting!", "error");
                     }
                 });
             }
         });
     });
 </script>
+
 <style>
+    .swal2-title {
+        font-size: 24px; /* Tăng kích thước title */
+    }
+
+    .swal2-input {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+        .swal2-input#adverseReaction {
+            height: 100px; /* Thêm chiều cao cho trường input */
+            resize: vertical; /* Cho phép người dùng thay đổi chiều cao */
+            overflow: hidden; /* Tắt thanh cuộn ngang */
+        }
+
+    #btnAddVaccineRecord {
+        position: fixed;
+        top: 40px; /* Khoảng cách từ đáy màn hình */
+        right: 20px; /* Khoảng cách từ bên phải màn hình */
+        z-index: 9999; /* Đảm bảo nút hiển thị trên các phần tử khác */
+    }
+
     .dashboard {
         display: grid;
         grid-template-columns: 1fr 2fr 1fr;

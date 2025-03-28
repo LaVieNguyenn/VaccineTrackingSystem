@@ -9,10 +9,10 @@ namespace VaccineTrakingSystem.BLL.VaccineRecordService
 {
     public interface IVaccineRecordService
     {
-        Task<IEnumerable<VaccinationRecord>> GetAllVaccineScheduleServiceAsync();
-        Task<VaccinationRecord?> GetVaccineScheduleServiceByIdAsync(int id);
-        Task<int> CreateVaccineScheduleServiceAsync(VaccinationRecord vaccinationRecord);
-        Task<bool> UpdateVaccineScheduleServiceAsync(VaccinationRecord vaccinationRecord);
-        Task<bool> DeleteVaccineScheduleServiceAsync(int id);
+        Task<IEnumerable<VaccinationRecord>> GetAllVaccineRecordServiceAsync();
+        Task<VaccinationRecord?> GetVaccineRecordServiceByIdAsync(int id);
+        Task<int> CreateVaccineRecordServiceAsync(VaccinationRecord vaccinationRecord);
+        Task<bool> UpdateVaccineRecordServiceAsync(VaccinationRecord vaccinationRecord);
+        Task<bool> DeleteVaccineRecordServiceAsync(int id);
     }
 }

@@ -16,27 +16,27 @@ namespace VaccineTrakingSystem.BLL.VaccineRecordService
         {
             _repository = repository;
         }
-        public Task<int> CreateVaccineScheduleServiceAsync(VaccinationRecord vaccinationRecord)
+        public Task<int> CreateVaccineRecordServiceAsync(VaccinationRecord vaccinationRecord)
         {
             return _repository.InsertAsync(vaccinationRecord);
         }
 
-        public Task<bool> DeleteVaccineScheduleServiceAsync(int id)
+        public Task<bool> DeleteVaccineRecordServiceAsync(int id)
         {
             return _repository.DeleteAsync(id);
         }
 
-        public Task<IEnumerable<VaccinationRecord>> GetAllVaccineScheduleServiceAsync()
+        public Task<IEnumerable<VaccinationRecord>> GetAllVaccineRecordServiceAsync()
         {
             return _repository.GetAllAsync();
         }
 
-        public Task<VaccinationRecord?> GetVaccineScheduleServiceByIdAsync(int id)
+        public Task<VaccinationRecord?> GetVaccineRecordServiceByIdAsync(int id)
         {
             return _repository.GetByIdAsync(id);
         }
 
-        public Task<bool> UpdateVaccineScheduleServiceAsync(VaccinationRecord vaccinationRecord)
+        public Task<bool> UpdateVaccineRecordServiceAsync(VaccinationRecord vaccinationRecord)
         {
             return _repository.UpdateAsync(vaccinationRecord);
         }

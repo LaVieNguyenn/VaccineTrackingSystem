@@ -1,8 +1,10 @@
 using VaccineTrackingSystem.Controllers;
 using VaccineTrakingSystem.BLL.ServicesService;
+using VaccineTrakingSystem.BLL.VaccineRecordService;
 using VaccineTrakingSystem.BLL.VaccineScheduleService;
 using VaccineTrakingSystem.DAL.DAOs;
 using VaccineTrakingSystem.DAL.DAOs.ServicesDAO;
+using VaccineTrakingSystem.DAL.DAOs.VaccineRecordDAO;
 using VaccineTrakingSystem.DAL.Models;
 using VaccineTrakingSystem.DAL.Repositories;
 
@@ -27,6 +29,10 @@ namespace VaccineTrackingSystem
             builder.Services.AddScoped<IGenericDAO<VaccineSchedule>, VaccineSchedulesDAO>();
             builder.Services.AddScoped<IGenericRepository<VaccineSchedule>, GenericRepository<VaccineSchedule>>();
             builder.Services.AddScoped<IVaccineScheduleService,VaccineScheduleService>();
+
+            builder.Services.AddScoped<IGenericDAO<VaccinationRecord>, VaccineRecordDAO>();
+            builder.Services.AddScoped<IGenericRepository<VaccinationRecord>, GenericRepository<VaccinationRecord>>();
+            builder.Services.AddScoped<IVaccineRecordService, VaccineRecordService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

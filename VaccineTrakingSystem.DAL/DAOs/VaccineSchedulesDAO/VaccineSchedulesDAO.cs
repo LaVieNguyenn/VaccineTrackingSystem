@@ -168,35 +168,23 @@ WHERE vs.ScheduleID = @ScheduleId";
                 var row = rawData.FirstOrDefault();
 
                 if (row == null) return null;
-
+                var firstRow = rawData.First();
                 var rowDict = (IDictionary<string, object>)row;
                 // Khởi tạo danh sách VaccinationRecords trong Appointment
-                List<VaccinationRecord> vaccinationRecords = new List<VaccinationRecord>();
-
-                // Nếu có RecordID thì thêm vào danh sách
-                if (rowDict.ContainsKey("RecordID") && rowDict["RecordID"] != DBNull.Value)
-                {
-                    vaccinationRecords.Add(new VaccinationRecord
-                    {
-                        RecordId = (int)rowDict["RecordID"],
-                        VaccinationDate = rowDict.ContainsKey("VaccinationDate") && rowDict["VaccinationDate"] != DBNull.Value
-                            ? DateOnly.FromDateTime((DateTime)rowDict["VaccinationDate"])
-                            : DateOnly.MinValue,
-                        AdverseReaction = rowDict.ContainsKey("AdverseReaction") ? (string?)rowDict["AdverseReaction"] : null,
-                        StaffId = rowDict.ContainsKey("StaffID") && rowDict["StaffID"] != DBNull.Value
-            ? (int)rowDict["StaffID"]
-            : 0,
-                        Staff = new User
-                        {
-                            UserId = rowDict.ContainsKey("StaffID") && rowDict["StaffID"] != DBNull.Value
-                ? (int)rowDict["StaffID"]
-                : 0,
-                            FullName = rowDict.ContainsKey("StaffFullName") && rowDict["StaffFullName"] != DBNull.Value
-                ? (string)rowDict["StaffFullName"]
-                : "Unknown"
-                        }
-                    });
-                }
+                var vaccinationRecords = rawData
+    .Where(row => row.RecordID != null) // Bỏ qua dòng không có record
+    .Select(row => new VaccinationRecord
+    {
+        RecordId = (int)row.RecordID,
+        VaccinationDate = row.VaccinationDate != null ? DateOnly.FromDateTime((DateTime)row.VaccinationDate) : DateOnly.MinValue,
+        AdverseReaction = row.AdverseReaction,
+        StaffId = row.StaffID != null ? (int)row.StaffID : 0,
+        Staff = new User
+        {
+            UserId = row.StaffID != null ? (int)row.StaffID : 0,
+            FullName = row.StaffFullName ?? "Unknown"
+        }
+    }).ToList();
                 return new VaccineSchedule
                 {
                     ScheduleId = rowDict.ContainsKey("ScheduleId") ? (int)rowDict["ScheduleId"] : 0,

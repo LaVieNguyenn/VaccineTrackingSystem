@@ -77,13 +77,28 @@ namespace VaccineTrakingSystem.DAL.DAOs.VaccineRecordDAO
 
                 record.CreatedAt = DateTime.UtcNow;
                 record.UpdatedAt = DateTime.UtcNow;
+
                 var sql = @"
-                    INSERT INTO VaccinationRecords (AppointmentID, ChildID, VaccineID, VaccinationDate, AdverseReaction, StaffID,CreatedAt,UpdatedAt)
-                    VALUES (@AppointmentID, @ChildID, @VaccineID, @VaccinationDate, @AdverseReaction, @StaffID,@CreatedAt,@UpdatedAt);
-                    SELECT CAST(SCOPE_IDENTITY() AS INT);";
-                return await connection.QuerySingleAsync<int>(sql, record);
+            INSERT INTO VaccinationRecords (AppointmentID, ChildID, VaccineID, VaccinationDate, AdverseReaction, StaffID, CreatedAt, UpdatedAt)
+            VALUES (@AppointmentID, @ChildID, @VaccineID, @VaccinationDate, @AdverseReaction, @StaffID, @CreatedAt, @UpdatedAt);
+            SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+                var param = new
+                {
+                    record.AppointmentId,
+                    record.ChildId,
+                    record.VaccineId,
+                    VaccinationDate = record.VaccinationDate.ToDateTime(TimeOnly.MinValue), // 🔥 Chuyển DateOnly → DateTime
+                    record.AdverseReaction,
+                    record.StaffId,
+                    record.CreatedAt,
+                    record.UpdatedAt
+                };
+
+                return await connection.QuerySingleAsync<int>(sql, param);
             }
         }
+
 
         public async Task<bool> UpdateAsync(VaccinationRecord record)
         {
