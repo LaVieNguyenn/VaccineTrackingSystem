@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using VaccineTrakingSystem.BLL.ServicesService;
 using VaccineTrakingSystem.BLL.VaccineScheduleService;
 using VaccineTrakingSystem.DAL.Models;
@@ -27,6 +28,19 @@ namespace VaccineTrackingSystem.Controllers
 
             // Debug để xem dữ liệu trước khi render View
             return View("Vaccination", vaccineSchedule);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] VaccinationRecord model)
+        {
+            if (model == null)
+                return BadRequest("Dữ liệu không hợp lệ");
+
+            model.CreatedAt = DateTime.UtcNow; // Gán ngày giờ hiện tại
+
+            await _services.CreateVaccineScheduleServiceAsync(model);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Thêm thành công!" });
         }
 
 

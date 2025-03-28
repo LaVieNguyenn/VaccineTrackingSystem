@@ -128,6 +128,9 @@
                         <h2>Lịch tiêm không tồn tại</h2>
                     }
                 </div>
+                <button id="btnAddVaccineRecord" class="btn btn-primary mt-3">
+                    Thêm Vaccine Record
+                </button>
             </div>
         </div>
     </div>
@@ -135,6 +138,49 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById("btnAddVaccineRecord").addEventListener("click", function () {
+        Swal.fire({
+            title: "Thêm Vaccine Record",
+            html: `
+                <label for="vaccinationDate" class="swal2-label">Vaccination Date</label>
+                <input type="date" id="vaccinationDate" class="swal2-input">
+
+                <label for="adverseReaction" class="swal2-label">Adverse Reaction</label>
+                <input type="text" id="adverseReaction" class="swal2-input" placeholder="Nhập phản ứng nếu có">
+            `,
+            showCancelButton: true,
+            confirmButtonText: "Lưu",
+            cancelButtonText: "Hủy",
+            preConfirm: () => {
+                return {
+                    VaccinationDate: document.getElementById("vaccinationDate").value,
+                    AdverseReaction: document.getElementById("adverseReaction").value,
+                    AppointmentID: "@Model.Appointment?.AppointmentId",
+                    ChildID: "@Model.Child?.ChildId",
+                    VaccineID: "@Model.Vaccine?.VaccineId",
+                    StaffID: 3 // Giả sử dùng Identity
+                };
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/VaccineRecord/Create",
+                    contentType: "application/json",
+                    data: JSON.stringify(result.value),
+                    success: function () {
+                        Swal.fire("Thành công!", "Vaccine record đã được thêm!", "success")
+                            .then(() => location.reload());
+                    },
+                    error: function () {
+                        Swal.fire("Lỗi!", "Có lỗi xảy ra khi lưu!", "error");
+                    }
+                });
+            }
+        });
+    });
+</script>
 <style>
     .dashboard {
         display: grid;
