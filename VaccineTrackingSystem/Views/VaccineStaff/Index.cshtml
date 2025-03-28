@@ -12,7 +12,6 @@
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
                     <li class="breadcrumb-item active">Vaccine Schedule</li>
                 </ol>
             </div>
@@ -105,7 +104,7 @@
             width: '800px'
         });
     }
-     function beginVaccination(scheduleId) {
+                function beginVaccination(scheduleId) {
         Swal.fire({
             title: "Confirm Vaccination",
             text: "Are you sure you want to begin vaccination for Schedule ID " + scheduleId + "?",
@@ -115,11 +114,22 @@
             cancelButtonText: "Cancel"
         }).then((result) => {
             if (result.isConfirmed) {
-                // Thực hiện logic cập nhật trạng thái tiêm chủng ở đây
-                Swal.fire("Started!", "The vaccination process has begun.", "success");
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = "/VaccineStaff/Vaccination";
+
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "id";
+                input.value = scheduleId;
+                form.appendChild(input);
+
+                document.body.appendChild(form);
+                form.submit();
             }
         });
     }
+
 </script>
 
 <style>

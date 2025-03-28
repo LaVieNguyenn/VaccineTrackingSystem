@@ -94,19 +94,195 @@ JOIN Children c ON vs.ChildID = c.ChildID
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                var sql = @"SELECT ScheduleID AS ScheduleId, 
-                                   ChildID, 
-                                   VaccineID, 
-                                   ScheduledDate, 
-                                   Status, 
-                                   AppointmentID, 
-                                   CreatedAt,
-                                   UpdatedAt
-                            FROM VaccineSchedules 
-                            WHERE ScheduleID = @ScheduleId";
-                return await connection.QueryFirstOrDefaultAsync<VaccineSchedule>(sql, new { ScheduleId = scheduleId });
+                var sql = @"
+        SELECT 
+    vs.ScheduleID AS ScheduleId, 
+    vs.ChildID, 
+    vs.VaccineID, 
+    vs.ScheduledDate, 
+    vs.Status, 
+    vs.AppointmentID, 
+    vs.CreatedAt,
+    vs.UpdatedAt,
+
+    -- Child Info
+    c.ChildID, 
+    c.ParentID, 
+    c.FullName AS ChildFullName, 
+    c.DateOfBirth, 
+    c.Gender, 
+    c.AdditionalInfo, 
+    c.CreatedAt AS ChildCreatedAt, 
+    c.UpdatedAt AS ChildUpdatedAt,
+
+    -- Parent Info
+    u.UserID AS ParentID,
+    u.FullName AS ParentFullName,
+    u.Address AS ParentAddress,
+    u.PhoneNumber AS ParentPhoneNumber,
+
+    -- Vaccine Info
+    v.VaccineID, 
+    v.VaccineName, 
+    v.Description AS VaccineDescription, 
+    v.NumberOfDoses, 
+    v.Manufacturer, 
+    v.VaccineType, 
+    v.ExpirationPeriod, 
+    v.ProductionDate, 
+    v.CreatedAt AS VaccineCreatedAt, 
+    v.UpdatedAt AS VaccineUpdatedAt,
+
+    -- Appointment Info
+    a.AppointmentID,
+    a.ServiceID,
+    a.AppointmentDate,
+    a.BookingDate,
+    a.Status AS AppointmentStatus,
+    a.PaymentStatus,
+
+    -- Service Info
+    s.ServiceName,
+s.Description AS ServiceDescription,
+s.Price,
+
+    -- Vaccination Record Info
+    vr.RecordID,
+    vr.VaccinationDate,
+    vr.AdverseReaction,
+    vr.StaffID,
+-- Staff Info
+    COALESCE(staff.FullName, 'Unknown') AS StaffFullName
+FROM VaccineSchedules vs
+JOIN Children c ON vs.ChildID = c.ChildID
+JOIN Users u ON c.ParentID = u.UserID
+JOIN Vaccines v ON vs.VaccineID = v.VaccineID
+LEFT JOIN Appointments a ON vs.AppointmentID = a.AppointmentID
+LEFT JOIN Services s ON a.ServiceID = s.ServiceID
+LEFT JOIN VaccinationRecords vr ON a.AppointmentID = vr.AppointmentID
+LEFT JOIN Users staff ON vr.StaffID = staff.UserID 
+WHERE vs.ScheduleID = @ScheduleId";
+
+                var rawData = await connection.QueryAsync<dynamic>(sql, new { ScheduleId = scheduleId });
+
+                var row = rawData.FirstOrDefault();
+
+                if (row == null) return null;
+
+                var rowDict = (IDictionary<string, object>)row;
+                // Khởi tạo danh sách VaccinationRecords trong Appointment
+                List<VaccinationRecord> vaccinationRecords = new List<VaccinationRecord>();
+
+                // Nếu có RecordID thì thêm vào danh sách
+                if (rowDict.ContainsKey("RecordID") && rowDict["RecordID"] != DBNull.Value)
+                {
+                    vaccinationRecords.Add(new VaccinationRecord
+                    {
+                        RecordId = (int)rowDict["RecordID"],
+                        VaccinationDate = rowDict.ContainsKey("VaccinationDate") && rowDict["VaccinationDate"] != DBNull.Value
+                            ? DateOnly.FromDateTime((DateTime)rowDict["VaccinationDate"])
+                            : DateOnly.MinValue,
+                        AdverseReaction = rowDict.ContainsKey("AdverseReaction") ? (string?)rowDict["AdverseReaction"] : null,
+                        StaffId = rowDict.ContainsKey("StaffID") && rowDict["StaffID"] != DBNull.Value
+            ? (int)rowDict["StaffID"]
+            : 0,
+                        Staff = new User
+                        {
+                            UserId = rowDict.ContainsKey("StaffID") && rowDict["StaffID"] != DBNull.Value
+                ? (int)rowDict["StaffID"]
+                : 0,
+                            FullName = rowDict.ContainsKey("StaffFullName") && rowDict["StaffFullName"] != DBNull.Value
+                ? (string)rowDict["StaffFullName"]
+                : "Unknown"
+                        }
+                    });
+                }
+                return new VaccineSchedule
+                {
+                    ScheduleId = rowDict.ContainsKey("ScheduleId") ? (int)rowDict["ScheduleId"] : 0,
+                    ChildId = rowDict.ContainsKey("ChildID") ? (int)rowDict["ChildID"] : 0,
+                    VaccineId = rowDict.ContainsKey("VaccineID") ? (int)rowDict["VaccineID"] : 0,
+                    ScheduledDate = rowDict.ContainsKey("ScheduledDate") && rowDict["ScheduledDate"] != DBNull.Value
+                        ? DateOnly.FromDateTime((DateTime)rowDict["ScheduledDate"])
+                        : DateOnly.MinValue,
+                    Status = rowDict.ContainsKey("Status") ? (byte)rowDict["Status"] : (byte)0,
+                    AppointmentId = rowDict.ContainsKey("AppointmentID") && rowDict["AppointmentID"] != DBNull.Value
+                        ? (int?)rowDict["AppointmentID"]
+                        : null,
+                    CreatedAt = rowDict.ContainsKey("CreatedAt") ? (DateTime)rowDict["CreatedAt"] : DateTime.MinValue,
+                    UpdatedAt = rowDict.ContainsKey("UpdatedAt") ? (DateTime)rowDict["UpdatedAt"] : DateTime.MinValue,
+
+                    Child = new Child
+                    {
+                        ChildId = rowDict.ContainsKey("ChildID") ? (int)rowDict["ChildID"] : 0,
+                        ParentId = rowDict.ContainsKey("ParentID") ? (int)rowDict["ParentID"] : 0,
+                        FullName = rowDict.ContainsKey("ChildFullName") ? (string)rowDict["ChildFullName"] : string.Empty,
+                        DateOfBirth = rowDict.ContainsKey("DateOfBirth") && rowDict["DateOfBirth"] != DBNull.Value
+                            ? DateOnly.FromDateTime((DateTime)rowDict["DateOfBirth"])
+                            : DateOnly.MinValue,
+                        Gender = rowDict.ContainsKey("Gender") ? (byte)rowDict["Gender"] : (byte)0,
+                        AdditionalInfo = rowDict.ContainsKey("AdditionalInfo") && rowDict["AdditionalInfo"] != DBNull.Value
+                            ? (string?)rowDict["AdditionalInfo"]
+                            : null,
+                        CreatedAt = rowDict.ContainsKey("ChildCreatedAt") ? (DateTime)rowDict["ChildCreatedAt"] : DateTime.MinValue,
+                        UpdatedAt = rowDict.ContainsKey("ChildUpdatedAt") ? (DateTime)rowDict["ChildUpdatedAt"] : DateTime.MinValue,
+
+                        Parent = new User
+                        {
+                            UserId = rowDict.ContainsKey("ParentID") ? (int)rowDict["ParentID"] : 0,
+                            FullName = rowDict.ContainsKey("ParentFullName") ? (string)rowDict["ParentFullName"] : string.Empty,
+                            Address = rowDict.ContainsKey("ParentAddress") ? (string)rowDict["ParentAddress"] : string.Empty,
+                            PhoneNumber = rowDict.ContainsKey("ParentPhoneNumber") ? (string)rowDict["ParentPhoneNumber"] : string.Empty
+                        }
+                    },
+
+                    Vaccine = new Vaccine
+                    {
+                        VaccineId = rowDict.ContainsKey("VaccineID") ? (int)rowDict["VaccineID"] : 0,
+                        VaccineName = rowDict.ContainsKey("VaccineName") ? (string)rowDict["VaccineName"] : string.Empty,
+                        Description = rowDict.ContainsKey("Descriptions") ? (string?)rowDict["Descriptions"] : null,
+                        NumberOfDoses = rowDict.ContainsKey("NumberOfDoses") ? (int)rowDict["NumberOfDoses"] : 0,
+                        Manufacturer = rowDict.ContainsKey("Manufacturer") ? (string)rowDict["Manufacturer"] : string.Empty,
+                        VaccineType = rowDict.ContainsKey("VaccineType") ? (string)rowDict["VaccineType"] : string.Empty,
+                        ExpirationPeriod = rowDict.ContainsKey("ExpirationPeriod") ? (int)rowDict["ExpirationPeriod"] : 0,
+                        ProductionDate = rowDict.ContainsKey("ProductionDate") && rowDict["ProductionDate"] != DBNull.Value
+                            ? DateOnly.FromDateTime((DateTime)rowDict["ProductionDate"])
+                            : DateOnly.MinValue,
+                        CreatedAt = rowDict.ContainsKey("VaccineCreatedAt") ? (DateTime)rowDict["VaccineCreatedAt"] : DateTime.MinValue,
+                        UpdatedAt = rowDict.ContainsKey("VaccineUpdatedAt") ? (DateTime)rowDict["VaccineUpdatedAt"] : DateTime.MinValue
+                    },
+
+                    Appointment = rowDict.ContainsKey("AppointmentID") && rowDict["AppointmentID"] != DBNull.Value
+                        ? new Appointment
+                        {
+                            AppointmentId = (int)rowDict["AppointmentID"],
+                            ServiceId = rowDict.ContainsKey("ServiceID") ? (int)rowDict["ServiceID"] : 0,
+                            Service = new Service
+                            {
+                                ServiceName = rowDict.ContainsKey("ServiceName") ? (string)rowDict["ServiceName"] : string.Empty,
+                                Price = rowDict.ContainsKey("Price") ? (decimal)rowDict["Price"] : 0,
+                                Description = rowDict.ContainsKey("ServiceDescription") ? (string)rowDict["ServiceDescription"] : string.Empty,
+
+                            },
+                            VaccinationRecords = vaccinationRecords,
+                            AppointmentDate = rowDict.ContainsKey("AppointmentDate") && rowDict["AppointmentDate"] != DBNull.Value
+                                ? DateTime.SpecifyKind((DateTime)rowDict["AppointmentDate"], DateTimeKind.Utc)
+                                : DateTime.MinValue,
+                            BookingDate = rowDict.ContainsKey("BookingDate") && rowDict["BookingDate"] != DBNull.Value
+                                ? DateTime.SpecifyKind((DateTime)rowDict["BookingDate"], DateTimeKind.Utc)
+                                : DateTime.MinValue,
+                            Status = rowDict.ContainsKey("AppointmentStatus") ? (byte)rowDict["AppointmentStatus"] : (byte)0,
+                            PaymentStatus = rowDict.ContainsKey("PaymentStatus") ? (byte)rowDict["PaymentStatus"] : (byte)0,
+                            CreatedAt = rowDict.ContainsKey("AppointmentCreatedAt") ? (DateTime)rowDict["AppointmentCreatedAt"] : DateTime.MinValue,
+                            UpdatedAt = rowDict.ContainsKey("AppointmentUpdatedAt") ? (DateTime)rowDict["AppointmentUpdatedAt"] : DateTime.MinValue
+                        }
+                        : null
+
+                };
             }
         }
+
+
 
         public async Task<int> InsertAsync(VaccineSchedule vaccineSchedule)
         {
