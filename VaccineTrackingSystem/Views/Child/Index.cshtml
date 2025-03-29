@@ -1,0 +1,201 @@
+﻿@model IEnumerable<VaccineTrakingSystem.DAL.Models.Child>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <h2><i class="fa fa-child"></i> Child List </h2>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Child List</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-wrapper">
+                    <h3>Child Information</h3>
+                    <a href="@Url.Action("Create", "Child")" class="btn btn-success mb-3">+ Create New Child</a>
+                </div>
+                @if (Model != null && Model.Any())
+                {
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Child ID</th>
+                                <th>Full Name</th>
+                                <th>Date of Birth</th>
+                                <th>Gender</th>
+                                <th>Parent ID</th>
+                                <th>Additional Info</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var child in Model)
+                            {
+                                <tr>
+                                    <td>@child.ChildId</td>
+                                    <td>
+                                        <a href="#" onclick="showChildDetails('@child.FullName', '@child.DateOfBirth', '@child.Gender', '@child.ParentId', '@child.AdditionalInfo', '@child.CreatedAt', '@child.UpdatedAt')">
+                                            @child.FullName
+                                        </a>
+                                    </td>
+                                    <td>@child.DateOfBirth.ToShortDateString()</td>
+                                    <td>@(child.Gender == 0 ? "Male" : "Female")</td>
+                                    <td>@child.ParentId</td>
+                                    <td>@child.AdditionalInfo</td>
+                                    <td>@child.CreatedAt.ToShortDateString()</td>
+                                    <td>@child.UpdatedAt.ToShortDateString()</td>
+                                    <td>
+                                        <a href="@Url.Action("AppointmentHistory", "Child", new { id = child.ChildId })" class="btn btn-info">Appointment History</a>
+                                        <a href="@Url.Action("VaccinationHistory", "Child", new { id = child.ChildId })" class="btn btn-warning">Vaccination History</a>
+                                        <a href="@Url.Action("Edit", "Child", new { id = child.ChildId })" class="btn btn-primary">Edit</a>
+                                        <button class="btn btn-danger" onclick="deleteChild(@child.ChildId)">Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p class="text-center text-danger">No child records found.</p>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function showChildDetails(name, dob, gender, parentId, info, createdAt, updatedAt) {
+        Swal.fire({
+            title: `<h2>${name}</h2>`,
+            html: `
+                <div style="max-height: 60vh; overflow-y: auto;">
+                    <table class="swal-table">
+                        <tr><td><strong> Date of Birth:</strong></td><td>${dob}</td></tr>
+                        <tr><td><strong> Gender:</strong></td><td>${gender == 0 ? "Male" : "Female"}</td></tr>
+                        <tr><td><strong> Parent ID:</strong></td><td>${parentId}</td></tr>
+                        <tr><td><strong> Created At:</strong></td><td>${createdAt}</td></tr>
+                        <tr><td><strong> Updated At:</strong></td><td>${updatedAt}</td></tr>
+                    </table>
+                    <div class="additional-info">
+                        <h4>Additional Information</h4>
+                        <p>${info || "No additional information available."}</p>
+                    </div>
+                </div>
+            `,
+            icon: 'info',
+            confirmButtonText: 'Close',
+            customClass: {
+                popup: 'swal2-popup-custom'
+            },
+            width: '800px'
+        });
+    }
+
+    function deleteChild(childId) {
+        Swal.fire({
+            title: "Confirm Deletion",
+            text: "Are you sure you want to delete Child ID " + childId + "?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, Delete!",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch('/Child/Delete/' + childId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire("Deleted!", "The child record has been deleted.", "success")
+                            .then(() => window.location.reload());
+                    } else {
+                        Swal.fire("Error!", "Failed to delete child record.", "error");
+                    }
+                })
+                .catch(error => {
+                    Swal.fire("Error!", "An error occurred.", "error");
+                });
+            }
+        });
+    }
+</script>
+
+
+<style>
+    .swal2-popup-custom {
+        font-size: 16px;
+        text-align: left;
+    }
+
+    table {
+        width: 100%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        table-layout: auto;
+    }
+
+    th, td {
+        white-space: nowrap;
+        padding: 8px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+    }
+
+    .swal-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .swal-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        .swal-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .swal-table td:first-child {
+            font-weight: bold;
+            background-color: #e9ecef;
+        }
+
+    .additional-info {
+        margin-top: 15px;
+        padding: 10px;
+        background: #f8f9fa;
+        border-left: 4px solid #007bff;
+    }
+
+        .additional-info h4 {
+            margin: 0;
+            color: #007bff;
+        }
+</style>

@@ -1,0 +1,42 @@
+﻿@model VaccineTrakingSystem.DAL.Models.Child
+
+@{
+    ViewData["Title"] = "Edit Child";
+}
+
+<h2>Edit Child Information</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="ChildId" />
+
+    <div class="form-group">
+        <label asp-for="FullName">Full Name</label>
+        <input asp-for="FullName" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateOfBirth">Date of Birth</label>
+        <input asp-for="DateOfBirth" type="date" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Gender">Gender</label>
+        <select asp-for="Gender" class="form-control">
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ParentId">Parent ID</label>
+        <input asp-for="ParentId" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AdditionalInfo">Additional Info</label>
+        <textarea asp-for="AdditionalInfo" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

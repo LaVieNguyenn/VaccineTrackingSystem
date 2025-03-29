@@ -3069,23 +3069,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\PhiHung\\.nuget\\packages\\": {},
+    "C:\\Users\\Hp\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PhiHung\\Documents\\code\\DotNet\\VaccineTrackingSystem\\VaccineTrakingSystem.BLL\\VaccineTrakingSystem.BLL.csproj",
+      "projectUniqueName": "D:\\Linh tinh\\New folder (2)\\VaccineTrakingSystem.BLL\\VaccineTrakingSystem.BLL.csproj",
       "projectName": "VaccineTrakingSystem.BLL",
-      "projectPath": "C:\\Users\\PhiHung\\Documents\\code\\DotNet\\VaccineTrackingSystem\\VaccineTrakingSystem.BLL\\VaccineTrakingSystem.BLL.csproj",
-      "packagesPath": "C:\\Users\\PhiHung\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PhiHung\\Documents\\code\\DotNet\\VaccineTrackingSystem\\VaccineTrakingSystem.BLL\\obj\\",
+      "projectPath": "D:\\Linh tinh\\New folder (2)\\VaccineTrakingSystem.BLL\\VaccineTrakingSystem.BLL.csproj",
+      "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+      "outputPath": "D:\\Linh tinh\\New folder (2)\\VaccineTrakingSystem.BLL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\PhiHung\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3101,8 +3101,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\PhiHung\\Documents\\code\\DotNet\\VaccineTrackingSystem\\VaccineTrakingSystem.DAL\\VaccineTrakingSystem.DAL.csproj": {
-              "projectPath": "C:\\Users\\PhiHung\\Documents\\code\\DotNet\\VaccineTrackingSystem\\VaccineTrakingSystem.DAL\\VaccineTrakingSystem.DAL.csproj"
+            "D:\\Linh tinh\\New folder (2)\\VaccineTrakingSystem.DAL\\VaccineTrakingSystem.DAL.csproj": {
+              "projectPath": "D:\\Linh tinh\\New folder (2)\\VaccineTrakingSystem.DAL\\VaccineTrakingSystem.DAL.csproj"
             }
           }
         }
@@ -3138,7 +3138,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

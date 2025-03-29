@@ -1,0 +1,31 @@
+﻿@model IEnumerable<VaccineTrakingSystem.DAL.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Appointment History";
+}
+
+<h2>Appointment History</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Appointment ID</th>
+            <th>Service</th>
+            <th>Appointment Date</th>
+            <th>Booking Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var appointment in Model)
+        {
+            <tr>
+                <td>@appointment.AppointmentId</td>
+                <td>@appointment.Service.ServiceName</td>
+                <td>@appointment.AppointmentDate.ToShortDateString()</td>
+                <td>@appointment.BookingDate.ToShortDateString()</td>
+                <td>@(appointment.Status == 1 ? "Confirmed" : "Pending")</td>
+            </tr>
+        }
+    </tbody>
+</table>
