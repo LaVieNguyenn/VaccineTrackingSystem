@@ -1,0 +1,31 @@
+﻿@model IEnumerable<VaccineTrakingSystem.DAL.Models.VaccinationRecord>
+
+@{
+    ViewData["Title"] = "Vaccination History";
+}
+
+<h2>Vaccination History</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Record ID</th>
+            <th>Vaccine</th>
+            <th>Vaccination Date</th>
+            <th>Staff</th>
+            <th>Adverse Reaction</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var record in Model)
+        {
+            <tr>
+                <td>@record.RecordId</td>
+                <td>@record.Vaccine.VaccineName</td>
+                <td>@record.VaccinationDate.ToShortDateString()</td>
+                <td>@record.Staff.FullName</td>
+                <td>@(string.IsNullOrEmpty(record.AdverseReaction) ? "None" : record.AdverseReaction)</td>
+            </tr>
+        }
+    </tbody>
+</table>
