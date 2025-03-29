@@ -34,6 +34,7 @@ namespace VaccineTrackingSystem
             builder.Services.AddScoped<IGenericRepository<Appointment>, GenericRepository<Appointment>>();
             builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 
+            builder.Services.AddScoped<IGenericDAO<VaccinationRecord>, VaccinationRecordDAO>();
             builder.Services.AddScoped<IGenericRepository<VaccinationRecord>, GenericRepository<VaccinationRecord>>();
             builder.Services.AddScoped<IVaccinationRecordService, VaccinationRecordService>();
             var app = builder.Build();
