@@ -1,0 +1,204 @@
+﻿@model IEnumerable<VaccineTrakingSystem.DAL.Models.VaccineSchedule>
+
+<!-- Add SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <h2><i class="fa fa-th"></i> Vaccine Schedule </h2>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Vaccine Schedule</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div class="row" style="justify-content:center">
+            <div  style="width:100%">
+                <div class="page-wrapper">
+                    <h3 >Vaccine Schedule List</h3>
+                </div>
+                @if (Model != null && Model.Any())
+                {
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Schedule ID</th>
+                                <th>Child Name</th>
+                                <th>Vaccine ID</th>
+                                <th>Appointment ID</th>
+                                <th>Scheduled Date</th>
+                                <th>Status</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var schedule in Model)
+                            {
+                                <tr>
+                                    <td>@schedule.ScheduleId</td>
+                                    <td>
+                                        <a href="#" onclick="showChildDetails('@schedule.Child.FullName', '@schedule.Child.DateOfBirth', '@schedule.Child.Gender', '@schedule.Child.ParentId', '@schedule.Child.AdditionalInfo', '@schedule.Child.CreatedAt', '@schedule.Child.UpdatedAt')">
+                                            @schedule.Child.FullName
+                                        </a>
+                                    </td>
+                                    <td>@schedule.VaccineId</td>
+                                    <td>@schedule.AppointmentId</td>
+                                    <td>@schedule.ScheduledDate</td>
+                                    <td>@(schedule.Status == 1 ? "Completed" : "Pending")</td>
+                                    <td>@schedule.CreatedAt</td>
+                                    <td>@schedule.UpdatedAt</td>
+                                    <td>
+                                        <button class="btn btn-primary" onclick="beginVaccination('@schedule.ScheduleId')">
+                                            Begin Vaccination
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p class="text-center text-danger">No vaccine schedules available.</p>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function showChildDetails(name, dob, gender, parentId, info, createdAt, updatedAt) {
+        Swal.fire({
+            title: `<h2>${name}</h2>`,
+            html: `
+                <div style="max-height: 60vh; overflow-y: auto;">
+                    <table class="swal-table">
+                        <tr><td><strong>📅 Date of Birth:</strong></td><td>${dob}</td></tr>
+                        <tr><td><strong>👦 Gender:</strong></td><td>${gender == 1 ? "Male" : "Female"}</td></tr>
+                        <tr><td><strong>👨‍👩‍👦 Parent ID:</strong></td><td>${parentId}</td></tr>
+                        <tr><td><strong>📆 Created At:</strong></td><td>${createdAt}</td></tr>
+                        <tr><td><strong>🕒 Updated At:</strong></td><td>${updatedAt}</td></tr>
+                    </table>
+                    <div class="additional-info">
+                        <h4>Additional Information</h4>
+                        <p>${info || "No additional information available."}</p>
+                    </div>
+                </div>
+            `,
+            icon: 'info',
+            confirmButtonText: 'Close',
+            customClass: {
+                popup: 'swal2-popup-custom'
+            },
+            width: '800px'
+        });
+    }
+                function beginVaccination(scheduleId) {
+        Swal.fire({
+            title: "Confirm Vaccination",
+            text: "Are you sure you want to begin vaccination for Schedule ID " + scheduleId + "?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, Start!",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = "/VaccineStaff/Vaccination";
+
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "id";
+                input.value = scheduleId;
+                form.appendChild(input);
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+
+</script>
+
+<style>
+    .swal2-popup-custom {
+        font-size: 16px;
+        text-align: left;
+    }
+
+
+    table {
+        width: 100%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        table-layout: auto;
+    }
+
+    th, td {
+        white-space: nowrap;
+        padding: 8px;
+        border: 1px solid #ddd;
+        text-align: center; /* Căn giữa nội dung trong ô */
+    }
+
+    th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+    }
+
+
+    .swal-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+
+        .swal-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            white-space: normal; /* Cho phép nội dung xuống dòng trong popup */
+            word-wrap: break-word; /* Xuống dòng khi quá dài */
+        }
+
+        .swal-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .swal-table tr:hover {
+            background-color: #ddd;
+        }
+
+        .swal-table td:first-child {
+            font-weight: bold;
+            background-color: #e9ecef;
+        }
+
+    .additional-info {
+        margin-top: 15px;
+        padding: 10px;
+        background: #f8f9fa;
+        border-left: 4px solid #007bff;
+    }
+
+        .additional-info h4 {
+            margin: 0;
+            color: #007bff;
+        }
+
+    td:last-child {
+        text-align: center;
+    }
+
+</style>
