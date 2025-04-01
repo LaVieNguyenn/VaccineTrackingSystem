@@ -86,7 +86,11 @@
                                                             <td>@record.Staff?.FullName</td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="2"><strong>Adverse Reaction:</strong> @(record.AdverseReaction ?? "None")</td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-primary view-reaction" data-reaction="@record.AdverseReaction">
+                                                                    View Reaction
+                                                                </button>
+                                                            </td>
                                                         </tr>
                                                     }
                                                 }
@@ -140,6 +144,23 @@
         </div>
     </div>
 </section>
+<!-- Modal View Adverse Reaction -->
+<div class="modal fade" id="adverseReactionModal" tabindex="-1" aria-labelledby="adverseReactionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adverseReactionModalLabel">Adverse Reaction Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="adverseReactionContent">No adverse reaction recorded.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -190,7 +211,25 @@
             }
         });
     });
+       $(document).ready(function () {
+        $('.view-reaction').on('click', function () {
+            let reactionText = $(this).data('reaction') || "No adverse reaction recorded.";
+
+            // Split the reactions by line breaks and format them accordingly
+            let formattedText = reactionText.replace(/(?:\r\n|\r|\n)/g, '<br>');
+
+            Swal.fire({
+                title: "Adverse Reaction Details",
+                html: formattedText,  // Use 'html' instead of 'text' to allow HTML tags
+                icon: "info",
+                confirmButtonText: "Close"
+            });
+        });
+    });
+
+
 </script>
+
 
 <style>
     .swal2-title {
@@ -215,6 +254,11 @@
         top: 40px; /* Khoảng cách từ đáy màn hình */
         right: 20px; /* Khoảng cách từ bên phải màn hình */
         z-index: 9999; /* Đảm bảo nút hiển thị trên các phần tử khác */
+    }
+
+    .modal-header {
+        background: #007bff;
+        color: white;
     }
 
     .dashboard {

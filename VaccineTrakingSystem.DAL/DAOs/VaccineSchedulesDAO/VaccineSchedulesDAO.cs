@@ -149,6 +149,7 @@ s.Price,
     -- Vaccination Record Info
     vr.RecordID,
     vr.VaccinationDate,
+vr.ChildID AS RecordChildID,
     vr.AdverseReaction,
     vr.StaffID,
 -- Staff Info
@@ -176,6 +177,7 @@ WHERE vs.ScheduleID = @ScheduleId";
     .Select(row => new VaccinationRecord
     {
         RecordId = (int)row.RecordID,
+        ChildId = (int)row.RecordChildID,
         VaccinationDate = row.VaccinationDate != null ? DateOnly.FromDateTime((DateTime)row.VaccinationDate) : DateOnly.MinValue,
         AdverseReaction = row.AdverseReaction,
         StaffId = row.StaffID != null ? (int)row.StaffID : 0,

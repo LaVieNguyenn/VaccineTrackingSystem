@@ -1,0 +1,238 @@
+﻿@model X.PagedList.IPagedList<VaccineTrakingSystem.DAL.Models.VaccinationRecord>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <h2><i class="fa fa-th"></i> Vaccine Records </h2>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="https://localhost:7017/">Home</a></li>
+                    <li class="breadcrumb-item active">Vaccine Records</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-4">
+
+    <!-- Vaccine Table -->
+    <table id="vaccineTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th class="toggle-col " data-col="0">Child Name</th>
+                <th class="toggle-col default-col" data-col="1">Vaccine Name</th>
+                <th class="toggle-col default-col" data-col="2">Vaccination Date</th>
+                <th class="toggle-col" data-col="3">Adverse Reaction</th>
+                <th class="toggle-col" data-col="4">Staff Name</th>
+                <th class="toggle-col default-col" data-col="5">Created At</th>
+                <th class="toggle-col default-col" data-col="6">Updated At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in Model)
+            {
+                <tr>
+                    <td class="toggle-col " data-col="0">@(record.Child?.FullName ?? "Unknown")</td>
+                    <td class="toggle-col default-col" data-col="1">@(record.Vaccine?.VaccineName ?? "N/A")</td>
+                    <td class="toggle-col default-col" data-col="2">@record.VaccinationDate</td>
+                    <td class="toggle-col" data-col="3">
+                        @if (!string.IsNullOrEmpty(record.AdverseReaction))
+                        {
+                            <button class="btn btn-link" onclick="viewAdverseReaction('@record.RecordId')">View</button>
+                        }
+                        else
+                        {
+                            <span>None</span>
+                        }
+                    </td>
+
+                    <td class="toggle-col" data-col="4">@(record.Staff?.FullName ?? "Unassigned")</td>
+                    <td class="toggle-col default-col" data-col="5">@record.CreatedAt</td>
+                    <td class="toggle-col default-col" data-col="6">@record.UpdatedAt</td>
+                    <td>
+                        <button class="btn btn-primary edit-btn" id="Add-btn" data-id="@record.RecordId">Add Reaction</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <!-- Modal for Adding Adverse Reaction -->
+    <div class="modal" id="adverseReactionModal" tabindex="-1" role="dialog" aria-labelledby="adverseReactionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="adverseReactionModalLabel">Add Adverse Reaction</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addReactionForm">
+                        <input type="hidden" id="recordId" name="RecordId" />
+                        <div class="form-group">
+                            <label for="adverseReaction">Adverse Reaction:</label>
+                            <textarea class="form-control" id="adverseReaction" name="AdverseReaction" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal to view full Adverse Reaction -->
+    <div class="modal" id="viewAdverseReactionModal" tabindex="-1" role="dialog" aria-labelledby="viewAdverseReactionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewAdverseReactionModalLabel">Full Adverse Reaction</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="fullAdverseReactionContent">
+                        <!-- Full Adverse Reaction content will go here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+     $(document).ready(function() {
+        $('.edit-btn').on('click', function() {
+            const recordId = $(this).data('id');
+
+            Swal.fire({
+                title: "<h2 style='color:#333;'>Add Adverse Reaction</h2>",
+                html: `
+                    <label style="font-size: 16px; font-weight: 500; display: block; margin-bottom: 8px;">
+                        Enter reaction details
+                    </label>
+                    <textarea id="adverse-reaction-input" rows="5"
+                        style="width:100%; padding:10px; font-size:14px; border: 1px solid #ddd;
+                               border-radius: 6px; outline: none; resize: none;"></textarea>
+                `,
+                showCancelButton: true,
+                confirmButtonText: "Submit",
+                cancelButtonText: "Cancel",
+                customClass: {
+                    popup: 'swal-custom-popup',
+                    confirmButton: 'swal-confirm-btn',
+                    cancelButton: 'swal-cancel-btn'
+                },
+                preConfirm: () => {
+                    const adverseReactionInput = document.getElementById("adverse-reaction-input").value.trim();
+
+                    if (!adverseReactionInput) {
+                        Swal.showValidationMessage("Please enter an adverse reaction.");
+                        return false;
+                    }
+
+                    return fetch('/CustomerRecords/AddReaction', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            RecordId: recordId,
+                            AdverseReaction: adverseReactionInput
+                        })
+                    }).then(response => response.json())
+                      .then(data => {
+                          if (!data.success) throw new Error(data.message || "Something went wrong.");
+                          return data;
+                      })
+                      .catch(error => {
+                          Swal.showValidationMessage(`Request failed: ${error.message}`);
+                      });
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Adverse reaction added successfully.",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    }).then(() => location.reload());
+                }
+            });
+        });
+    });
+
+
+          function viewAdverseReaction(recordId) {
+        $.ajax({
+            url: '/CustomerRecords/GetVaccineRecordById',
+            type: 'GET',
+            data: { id: recordId },
+            success: function(record) {
+                console.log("API Response:", record);
+
+                // Kiểm tra và xử lý phản ứng phụ
+                let formattedReaction = record.adverseReaction
+                    ? record.adverseReaction.replace(/\n/g, "<br>")  // Nếu có phản ứng, thay \n thành <br>
+                    : "<em>No reaction reported.</em>";  // Nếu không có phản ứng, hiển thị thông báo mặc định
+
+                // Hiển thị thông tin trong modal
+                Swal.fire({
+                    title: "Adverse Reaction Details",
+                    html: `
+                        <div style="max-height: 300px; overflow-y: auto; text-align: left; padding: 10px; margin: 10px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; font-size: 14px;">
+                            ${formattedReaction}
+                        </div>`,  // Hiển thị phản ứng phụ, chuyển \n thành <br> nếu có
+                    icon: "info",
+                    confirmButtonText: "OK"
+                });
+            },
+            error: function(err) {
+                console.error("Error fetching Adverse Reaction:", err);
+                Swal.fire({
+                    title: "Error!",
+                    text: "Error loading Adverse Reaction details.",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+            }
+        });
+    }
+
+</script>
+<style>
+    /* Tùy chỉnh pop-up */
+    .swal-custom-popup {
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    /* Nút xác nhận */
+    .swal-confirm-btn {
+        background-color: #28a745 !important;
+        color: white !important;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 6px;
+    }
+
+    /* Nút hủy */
+    .swal-cancel-btn {
+        background-color: #dc3545 !important;
+        color: white !important;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 6px;
+    }
+
+</style>

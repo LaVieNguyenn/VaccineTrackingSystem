@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,20 +35,42 @@ namespace VaccineTrakingSystem.DAL.DAOs.VaccineRecordDAO
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                var sql = @"SELECT RecordID AS recordID, 
-                                   AppointmentID, 
-                                    ChildID, 
-                                   VaccineID, 
-                                   VaccinationDate, 
-                                   AdverseReaction, 
-                                   StaffID,
-                                    CreatedAt,
-                                    UpdatedAt
-                            FROM VaccinationRecords 
-                            ORDER BY CreatedAt DESC";
-                return await connection.QueryAsync<VaccinationRecord>(sql);
+                var sql = @"
+            SELECT vr.RecordID, 
+                   vr.AppointmentID, 
+                   vr.ChildID, 
+                   vr.VaccineID, 
+                   vr.VaccinationDate, 
+                   vr.AdverseReaction, 
+                   vr.StaffID, 
+                   vr.CreatedAt, 
+                   vr.UpdatedAt,
+                   c.ChildID, c.FullName,  -- Đảm bảo lấy cột ChildID
+                   v.VaccineID, v.VaccineName, -- Đảm bảo lấy cột VaccineID
+                   s.UserID AS StaffID, s.FullName  -- Đảm bảo lấy cột StaffID
+            FROM VaccinationRecords vr
+            LEFT JOIN Children c ON vr.ChildID = c.ChildID
+            LEFT JOIN Vaccines v ON vr.VaccineID = v.VaccineID
+            LEFT JOIN Users s ON vr.StaffID = s.UserID
+            ORDER BY vr.CreatedAt DESC";
+
+                var records = await connection.QueryAsync<VaccinationRecord, Child, Vaccine, User, VaccinationRecord>(
+                    sql,
+                    (record, child, vaccine, staff) =>
+                    {
+                        record.Child = child;
+                        record.Vaccine = vaccine;
+                        record.Staff = staff;
+                        return record;
+                    },
+                    splitOn: "ChildID, VaccineID, StaffID"  // ⚡ Đúng cột để Dapper phân tách
+                );
+
+                return records;
             }
         }
+
+
 
         public async Task<VaccinationRecord?> GetByIdAsync(int recordID)
         {
