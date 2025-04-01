@@ -100,6 +100,10 @@
                                                     <a class="dropdown-item" asp-controller="Service" asp-action="Services">Manage Service</a>
                                                     <a class="dropdown-item" asp-controller="Users" asp-action="Index">Manage Account</a>
                                                     <a class="dropdown-item" asp-controller="CenterInfo" asp-action="CenterInfor">Manage Center Information</a>
+                                                <a class="dropdown-item" asp-controller="AdminDashboard" asp-action="Index">
+    <i class="fas fa-chart-line"></i> Dashboard
+</a>
+<div class="dropdown-divider"></div>
                                                 }else if(userRole == "3"){
                                                     <a class="dropdown-item" asp-controller="VaccineStaff" asp-action="Index">
                                                         <img src="~/images/VaccineLogo.png" style="height: 20px; width: 20px; margin-right: 8px;" /> Vaccine Schedule
