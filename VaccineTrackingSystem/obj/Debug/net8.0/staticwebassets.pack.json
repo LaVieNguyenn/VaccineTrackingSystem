@@ -17,12 +17,20 @@
       "PackagePath": "staticwebassets\\images\\VileLogo.png"
     },
     {
+      "Id": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\images\\cash.jpg",
+      "PackagePath": "staticwebassets\\images\\cash.jpg"
+    },
+    {
       "Id": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\images\\loginLogo.png",
       "PackagePath": "staticwebassets\\images\\loginLogo.png"
     },
     {
       "Id": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\images\\logout.png",
       "PackagePath": "staticwebassets\\images\\logout.png"
+    },
+    {
+      "Id": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\images\\momo.jpg",
+      "PackagePath": "staticwebassets\\images\\momo.jpg"
     },
     {
       "Id": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\index.html",

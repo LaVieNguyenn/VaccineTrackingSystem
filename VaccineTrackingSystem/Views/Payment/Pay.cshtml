@@ -1,0 +1,31 @@
+﻿@using VaccineTrakingSystem.DAL.Helper
+@model VaccineTrakingSystem.BLL.DTOs.PaymentDTO
+
+@{
+    ViewData["Title"] = "Payment";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Payment -
+    @if (Model.PaymentMethod == (byte)ConstantEnums.PaymentMethod.Momo)
+    {
+        <span>Momo</span>
+    }
+    else{
+        <span>Cash</span>
+    }
+    </h2>
+    <div class="card p-4 shadow">
+        <form asp-action="ProcessPayment" method="post">
+            <input type="hidden" asp-for="AppointmentId" value="@Model.AppointmentId" />
+            <input type="hidden" asp-for="Amount" value="@Model.Amount" />
+            <input type="hidden" asp-for="CustomerId" value="@Model.CustomerId" />
+            <input type="hidden" asp-for="PaymentMethod" value="@Model.PaymentMethod"/>
+            <div class="mb-3">
+                <label class="form-label">Amount to Pay</label>
+                <input type="text" class="form-control" value="@Model.Amount.ToString("C")" readonly />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Proceed Payment</button>
+        </form>
+    </div>
+</div>

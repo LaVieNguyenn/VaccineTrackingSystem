@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Titile"] = "Payment Method";
+    var appointmentId = (int)ViewBag.AppointmentId;
+    var amount = (decimal)ViewBag.Amount;
+    var userId = (int)ViewBag.UserId;
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Choose your payment method</h2>
+    <div class="card p-4 shadow">
+        <form asp-action="ChooseMethod" method="post">
+            <input type="hidden" name="appointmentId" value="@appointmentId" />
+            <input type="hidden" name="amount" value="@amount" />
+            <input type="hidden" name="userId" value="@userId" />
+            <div class="form-check d-flex align-items-center">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="momo" value="Momo" checked />
+                <label class="form-check-label ms-2" for="momo">
+                    <img src="~/images/momo.jpg" alt="MoMo" style="height: 40px;" />
+                    MoMo
+                </label>
+            </div>
+            <div class="form-check d-flex align-items-center mt-3">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="cash" value="Cash" />
+                <label class="form-check-label ms-2" for="cash">
+                    <img src="~/images/cash.jpg" alt="Cash" style="height: 40px;" />
+                    Cash
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary mt-4 w-100">Continue</button>
+        </form>
+    </div>
+</div>

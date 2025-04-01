@@ -23,6 +23,11 @@ using VaccineTrakingSystem.DAL.Repositories.CustomerReposity;
 using VaccineTrakingSystem.DAL.Repositories.UserRepository;
 using VaccineTrakingSystem.DAL.DAOs.FeedbackDAO;
 using VaccineTrakingSystem.BLL.FeedbackService;
+using Client.Controllers.V1.ThirdParty;
+using Client.Logics.Commons.MomoLogics;
+using VaccineTrakingSystem.BLL.PaymentService;
+using VaccineTrakingSystem.DAL.DAOs.PaymentDAO;
+using VaccineTrakingSystem.DAL.Repositories.PaymentRepository;
 namespace VaccineTrackingSystem
 {
     public class Program
@@ -77,6 +82,15 @@ namespace VaccineTrackingSystem
              //Feedback
             builder.Services.AddScoped<IFeedbackDAO, FeedbackDAO>();
             builder.Services.AddScoped<IFeedbackService, FeedbackService>();
+
+            //Connect MOMO API (NOT CHANGE)
+            builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
+            builder.Services.AddScoped<IMomoService, MomoService>();
+
+            builder.Services.AddScoped<IPaymentDAO, PaymentDAO>();
+            builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
+
 
             SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
 

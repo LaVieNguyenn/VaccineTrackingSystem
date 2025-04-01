@@ -1,6 +1,8 @@
 wwwroot\favicon.ico
+wwwroot\images\cash.jpg
 wwwroot\images\logout.png
 wwwroot\images\loginLogo.png
+wwwroot\images\momo.jpg
 wwwroot\images\VaccineLogo.png
 wwwroot\images\VileLogo.png
 wwwroot\index.html

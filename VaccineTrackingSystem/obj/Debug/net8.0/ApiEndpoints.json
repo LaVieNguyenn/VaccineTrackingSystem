@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "ContainingType": "Client.Controllers.V1.ThirdParty.MomoController",
+    "Method": "PaymentCallBack",
+    "RelativePath": "api/v1/Momo",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

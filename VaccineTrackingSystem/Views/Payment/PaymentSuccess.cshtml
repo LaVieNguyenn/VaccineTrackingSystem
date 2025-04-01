@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Payment Success";
+}
+
+<div class="container mt-5">
+    <div class="alert alert-success text-center p-5" style="background-color: #d4edda; color: #155724;">
+        Payment processed successfully! Your Payment ID is: @ViewBag.PaymentId.
+    </div>
+    <div class="text-center">
+        <a asp-action="Index" asp-controller="Appointment" class="btn btn-primary">Return to Appointments</a>
+    </div>
+</div>
