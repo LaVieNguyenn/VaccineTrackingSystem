@@ -11,10 +11,11 @@ namespace VaccineTrackingSystem.Controllers
     public class VaccineManagerStaffController : Controller
     {
         private readonly IVaccineService _services;
-
-        public VaccineManagerStaffController(IVaccineService Vaccine)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public VaccineManagerStaffController(IVaccineService Vaccine, IHttpContextAccessor httpContextAccessor)
         {
             _services = Vaccine;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> Index(int? page)
