@@ -22,13 +22,22 @@
 <section class="section">
     <div class="container">
         <div class="row" style="justify-content:center">
-            <div  style="width:100%">
+            <div style="width:100%">
                 <div class="page-wrapper">
-                    <h3 >Vaccine Schedule List</h3>
+                    <h3>Vaccine Schedule List</h3>
+                </div>
+                <div class="filter-container">
+                    <input type="text" id="searchInput" placeholder="🔍 Tìm kiếm theo tên trẻ..." onkeyup="filterTable()">
+                    <select id="statusFilter" onchange="filterTable()">
+                        <option value="">-- Trạng thái --</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                    <input type="date" id="dateFilter" onchange="filterTable()">
                 </div>
                 @if (Model != null && Model.Any())
                 {
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id="scheduleTable">
                         <thead>
                             <tr>
                                 <th>Schedule ID</th>
@@ -47,21 +56,15 @@
                             {
                                 <tr>
                                     <td>@schedule.ScheduleId</td>
-                                    <td>
-                                        <a href="#" onclick="showChildDetails('@schedule.Child.FullName', '@schedule.Child.DateOfBirth', '@schedule.Child.Gender', '@schedule.Child.ParentId', '@schedule.Child.AdditionalInfo', '@schedule.Child.CreatedAt', '@schedule.Child.UpdatedAt')">
-                                            @schedule.Child.FullName
-                                        </a>
-                                    </td>
+                                    <td class="child-name">@schedule.Child.FullName</td>
                                     <td>@schedule.VaccineId</td>
                                     <td>@schedule.AppointmentId</td>
-                                    <td>@schedule.ScheduledDate</td>
-                                    <td>@(schedule.Status == 1 ? "Completed" : "Pending")</td>
+                                    <td class="schedule-date">@schedule.ScheduledDate.ToString("yyyy-MM-dd")</td>
+                                    <td class="status">@(schedule.Status == 1 ? "Completed" : "Pending")</td>
                                     <td>@schedule.CreatedAt</td>
                                     <td>@schedule.UpdatedAt</td>
                                     <td>
-                                        <button class="btn btn-primary" onclick="beginVaccination('@schedule.ScheduleId')">
-                                            Begin Vaccination
-                                        </button>
+                                        <button class="btn btn-primary" onclick="beginVaccination('@schedule.ScheduleId')">Begin Vaccination</button>
                                     </td>
                                 </tr>
                             }
@@ -114,6 +117,14 @@
             cancelButtonText: "Cancel"
         }).then((result) => {
             if (result.isConfirmed) {
+                 Swal.fire({
+                title: "Processing...",
+                text: "Please wait",
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
                 const form = document.createElement("form");
                 form.method = "POST";
                 form.action = "/VaccineStaff/Vaccination";
@@ -129,7 +140,28 @@
             }
         });
     }
+      function filterTable() {
+        let searchInput = document.getElementById("searchInput").value.toLowerCase();
+        let statusFilter = document.getElementById("statusFilter").value;
+        let dateFilter = document.getElementById("dateFilter").value;
+        let rows = document.querySelectorAll("#scheduleTable tbody tr");
 
+        rows.forEach(row => {
+            let name = row.querySelector(".child-name").textContent.toLowerCase();
+            let status = row.querySelector(".status").textContent;
+            let scheduleDate = row.querySelector(".schedule-date").textContent;
+
+            let matchSearch = name.includes(searchInput);
+            let matchStatus = statusFilter === "" || status === statusFilter;
+            let matchDate = dateFilter === "" || scheduleDate === dateFilter;
+
+            if (matchSearch && matchStatus && matchDate) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
 </script>
 
 <style>
@@ -201,4 +233,14 @@
         text-align: center;
     }
 
+    .filter-container {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+        .filter-container input, .filter-container select {
+            padding: 5px;
+            font-size: 16px;
+        }
 </style>
