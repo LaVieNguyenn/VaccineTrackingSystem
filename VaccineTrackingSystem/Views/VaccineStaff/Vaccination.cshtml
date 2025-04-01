@@ -8,9 +8,9 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                    <li class="breadcrumb-item active">Lịch tiêm chủng</li>
-                    <li class="breadcrumb-item active">Quản lý Tiêm chủng</li>
+                    <li class="breadcrumb-item"><a href="https://localhost:7017/">Home</a></li>
+                    <li class="breadcrumb-item active"><a asp-controller="VaccineStaff" asp-action="Index">Vaccine Schedule</a></li>
+                    <li class="breadcrumb-item active">Vaccination</li>
                 </ol>
             </div>
         </div>
@@ -168,8 +168,7 @@
                     AdverseReaction: document.getElementById("adverseReaction").value,
                     AppointmentID: parseInt("@Model.Appointment?.AppointmentId") || null,
                     ChildID: parseInt("@Model.Child?.ChildId") || null,
-                    VaccineID: parseInt("@Model.Vaccine?.VaccineId") || null,
-                    StaffID: 3 // TODO: Lấy từ user login
+                    VaccineID: parseInt("@Model.Vaccine?.VaccineId") || null
                 };
             }
         }).then((result) => {

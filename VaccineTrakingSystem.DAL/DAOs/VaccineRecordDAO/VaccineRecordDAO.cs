@@ -64,7 +64,7 @@ namespace VaccineTrakingSystem.DAL.DAOs.VaccineRecordDAO
                                     CreatedAt,
                                     UpdatedAt
                             FROM VaccinationRecords 
-                            WHERE ServiceID = @ServiceId";
+                            WHERE RecordID = @recordID";
                 return await connection.QueryFirstOrDefaultAsync<VaccinationRecord>(sql, new { RecordID = recordID });
             }
         }
