@@ -18,6 +18,11 @@ namespace VaccineTrackingSystem.Controllers
             return View();
         }
 
+        public IActionResult Service()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
