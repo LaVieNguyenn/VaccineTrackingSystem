@@ -42,5 +42,10 @@ namespace VaccineTrakingSystem.BLL.VaccineScheduleService
         {
             return _repository.UpdateAsync(vaccineSchedule);
         }
+
+        public Task<int> CreateVaccineScheduleServiceAsyncc(VaccineSchedule vaccineSchedule)
+        {
+            return _repository.InsertAsyncc(vaccineSchedule);
+        }
     }
 }

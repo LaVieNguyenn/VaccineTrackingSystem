@@ -122,6 +122,10 @@ namespace VaccineTrakingSystem.DAL.DAOs.VaccineRecordDAO
             }
         }
 
+        public Task<int> InsertAsyncc(VaccinationRecord obj)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<bool> UpdateAsync(VaccinationRecord record)
         {

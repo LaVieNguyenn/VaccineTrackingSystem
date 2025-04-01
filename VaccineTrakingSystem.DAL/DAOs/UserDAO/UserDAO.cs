@@ -72,6 +72,11 @@ namespace VaccineTrakingSystem.DAL.DAOs.UserDAO
             throw new NotImplementedException();
         }
 
+        public Task<int> InsertAsyncc(User obj)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<bool> UpdateAsync(User obj)
         {
             throw new NotImplementedException();

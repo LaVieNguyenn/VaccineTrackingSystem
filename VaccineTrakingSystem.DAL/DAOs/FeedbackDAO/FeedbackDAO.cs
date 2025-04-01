@@ -150,5 +150,10 @@ namespace VaccineTrakingSystem.DAL.DAOs.FeedbackDAO
                 return await connection.QueryAsync<Feedback>(sql, new { AppointmentId = appointmentId });
             }
         }
+
+        public Task<int> InsertAsyncc(Feedback obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 } 

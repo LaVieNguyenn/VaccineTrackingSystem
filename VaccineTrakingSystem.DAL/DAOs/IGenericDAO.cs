@@ -13,6 +13,9 @@ namespace VaccineTrakingSystem.DAL.DAOs
         Task<T?> GetByIdAsync(int obj);
         Task<int> InsertAsync(T obj);
         Task<bool> UpdateAsync(T obj);
-        Task<bool> DeleteAsync(int obj); 
+        Task<bool> DeleteAsync(int obj);
+
+        Task<int> InsertAsyncc(T obj);
+
     }
 }
