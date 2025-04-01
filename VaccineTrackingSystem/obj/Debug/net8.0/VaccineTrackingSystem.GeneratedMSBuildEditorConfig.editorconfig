@@ -9,69 +9,69 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = VaccineTrackingSystem
 build_property.RootNamespace = VaccineTrackingSystem
-build_property.ProjectDir = C:\Users\Hoang\Desktop\PRN_FinalProject\Push\VaccineTrackingSystem\VaccineTrackingSystem\
+build_property.ProjectDir = D:\Code\ASP.Net\demo\VaccineTrackingSystem\VaccineTrackingSystem\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Hoang\Desktop\PRN_FinalProject\Push\VaccineTrackingSystem\VaccineTrackingSystem
+build_property.MSBuildProjectDirectory = D:\Code\ASP.Net\demo\VaccineTrackingSystem\VaccineTrackingSystem
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/Hoang/Desktop/PRN_FinalProject/Push/VaccineTrackingSystem/VaccineTrackingSystem/Views/Home/Index.cshtml]
+[D:/Code/ASP.Net/demo/VaccineTrackingSystem/VaccineTrackingSystem/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hoang/Desktop/PRN_FinalProject/Push/VaccineTrackingSystem/VaccineTrackingSystem/Views/Service/Services.cshtml]
+[D:/Code/ASP.Net/demo/VaccineTrackingSystem/VaccineTrackingSystem/Views/Service/Services.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZVxTZXJ2aWNlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hoang/Desktop/PRN_FinalProject/Push/VaccineTrackingSystem/VaccineTrackingSystem/Views/Shared/Components/Service/Default.cshtml]
+[D:/Code/ASP.Net/demo/VaccineTrackingSystem/VaccineTrackingSystem/Views/Shared/Components/Service/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcU2VydmljZVxEZWZhdWx0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hoang/Desktop/PRN_FinalProject/Push/VaccineTrackingSystem/VaccineTrackingSystem/Views/Shared/Error.cshtml]
+[D:/Code/ASP.Net/demo/VaccineTrackingSystem/VaccineTrackingSystem/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hoang/Desktop/PRN_FinalProject/Push/VaccineTrackingSystem/VaccineTrackingSystem/Views/Shared/_Footer.cshtml]
+[D:/Code/ASP.Net/demo/VaccineTrackingSystem/VaccineTrackingSystem/Views/Shared/_Footer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb290ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hoang/Desktop/PRN_FinalProject/Push/VaccineTrackingSystem/VaccineTrackingSystem/Views/Shared/_Navbar.cshtml]
+[D:/Code/ASP.Net/demo/VaccineTrackingSystem/VaccineTrackingSystem/Views/Shared/_Navbar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9OYXZiYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hoang/Desktop/PRN_FinalProject/Push/VaccineTrackingSystem/VaccineTrackingSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/Code/ASP.Net/demo/VaccineTrackingSystem/VaccineTrackingSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hoang/Desktop/PRN_FinalProject/Push/VaccineTrackingSystem/VaccineTrackingSystem/Views/Users/Index.cshtml]
+[D:/Code/ASP.Net/demo/VaccineTrackingSystem/VaccineTrackingSystem/Views/Users/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hoang/Desktop/PRN_FinalProject/Push/VaccineTrackingSystem/VaccineTrackingSystem/Views/VaccineManagerStaff/Index.cshtml]
+[D:/Code/ASP.Net/demo/VaccineTrackingSystem/VaccineTrackingSystem/Views/VaccineManagerStaff/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjY2luZU1hbmFnZXJTdGFmZlxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hoang/Desktop/PRN_FinalProject/Push/VaccineTrackingSystem/VaccineTrackingSystem/Views/VaccineStaff/Index.cshtml]
+[D:/Code/ASP.Net/demo/VaccineTrackingSystem/VaccineTrackingSystem/Views/VaccineStaff/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjY2luZVN0YWZmXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hoang/Desktop/PRN_FinalProject/Push/VaccineTrackingSystem/VaccineTrackingSystem/Views/VaccineStaff/Vaccination.cshtml]
+[D:/Code/ASP.Net/demo/VaccineTrackingSystem/VaccineTrackingSystem/Views/VaccineStaff/Vaccination.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjY2luZVN0YWZmXFZhY2NpbmF0aW9uLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hoang/Desktop/PRN_FinalProject/Push/VaccineTrackingSystem/VaccineTrackingSystem/Views/_ViewImports.cshtml]
+[D:/Code/ASP.Net/demo/VaccineTrackingSystem/VaccineTrackingSystem/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hoang/Desktop/PRN_FinalProject/Push/VaccineTrackingSystem/VaccineTrackingSystem/Views/_ViewStart.cshtml]
+[D:/Code/ASP.Net/demo/VaccineTrackingSystem/VaccineTrackingSystem/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Hoang/Desktop/PRN_FinalProject/Push/VaccineTrackingSystem/VaccineTrackingSystem/Views/Shared/_Layout.cshtml]
+[D:/Code/ASP.Net/demo/VaccineTrackingSystem/VaccineTrackingSystem/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-p71oax69b3

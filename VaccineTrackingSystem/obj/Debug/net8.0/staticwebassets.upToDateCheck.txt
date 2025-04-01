@@ -147,8 +147,8 @@ wwwroot\wp-content\plugins\woocommerce\assets\js\frontend\address-i18n.minab9f.j
 wwwroot\wp-content\plugins\woocommerce\assets\js\frontend\add-to-cart.minab9f.js
 wwwroot\wp-content\plugins\woocommerce\assets\js\frontend\add-to-cart-variation.minab9f.js
 wwwroot\wp-content\plugins\woocommerce\assets\js\frontend\cart.minab9f.js
-wwwroot\wp-content\plugins\woocommerce\assets\js\frontend\checkout.minab9f.js
 wwwroot\wp-content\plugins\woocommerce\assets\js\frontend\country-select.minab9f.js
+wwwroot\wp-content\plugins\woocommerce\assets\js\frontend\checkout.minab9f.js
 wwwroot\wp-content\plugins\woocommerce\assets\js\frontend\order-attribution.minab9f.js
 wwwroot\wp-content\plugins\woocommerce\assets\js\frontend\single-product.minab9f.js
 wwwroot\wp-content\plugins\woocommerce\assets\js\frontend\woocommerce.minab9f.js
@@ -251,13 +251,13 @@ wwwroot\wp-content\uploads\2019\01\tshirt-2-600x600.jpg
 wwwroot\wp-content\uploads\2019\01\t-shirt-with-logo-1.jpg
 wwwroot\wp-content\uploads\2019\01\t-shirt-with-logo-1-300x300.jpg
 wwwroot\wp-content\uploads\2019\01\t-shirt-with-logo-1-600x600.jpg
+wwwroot\wp-content\uploads\2019\01\vneck-tee-2.jpg
+wwwroot\wp-content\uploads\2019\01\vneck-tee-2-300x300.jpg
+wwwroot\wp-content\uploads\2019\01\vneck-tee-2-600x599.jpg
 wwwroot\wp-content\uploads\2019\01\vnech-tee-blue-1.jpg
 wwwroot\wp-content\uploads\2019\01\vnech-tee-blue-1-600x600.jpg
 wwwroot\wp-content\uploads\2019\01\vnech-tee-green-1.jpg
 wwwroot\wp-content\uploads\2019\01\vnech-tee-green-1-600x600.jpg
-wwwroot\wp-content\uploads\2019\01\vneck-tee-2.jpg
-wwwroot\wp-content\uploads\2019\01\vneck-tee-2-300x300.jpg
-wwwroot\wp-content\uploads\2019\01\vneck-tee-2-600x599.jpg
 wwwroot\wp-content\uploads\2021\09\Bg1.jpg
 wwwroot\wp-content\uploads\2021\09\Bg-1.jpg
 wwwroot\wp-content\uploads\2021\09\bg2.jpg

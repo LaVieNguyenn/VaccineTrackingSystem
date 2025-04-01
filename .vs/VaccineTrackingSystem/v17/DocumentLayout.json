@@ -1,121 +1,12 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Hoang\\Desktop\\PRN_FinalProject\\Push\\VaccineTrackingSystem\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{EE942D12-08A8-4730-ADB5-8F30B8D17E89}|VaccineTrackingSystem\\VaccineTrackingSystem.csproj|c:\\users\\hoang\\desktop\\prn_finalproject\\push\\vaccinetrackingsystem\\vaccinetrackingsystem\\views\\service\\services.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{EE942D12-08A8-4730-ADB5-8F30B8D17E89}|VaccineTrackingSystem\\VaccineTrackingSystem.csproj|solutionrelative:vaccinetrackingsystem\\views\\service\\services.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EE942D12-08A8-4730-ADB5-8F30B8D17E89}|VaccineTrackingSystem\\VaccineTrackingSystem.csproj|c:\\users\\hoang\\desktop\\prn_finalproject\\push\\vaccinetrackingsystem\\vaccinetrackingsystem\\controllers\\servicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EE942D12-08A8-4730-ADB5-8F30B8D17E89}|VaccineTrackingSystem\\VaccineTrackingSystem.csproj|solutionrelative:vaccinetrackingsystem\\controllers\\servicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A07EC78B-A3E3-4AC3-878A-22DA50948FF8}|VaccineTrakingSystem.DAL\\VaccineTrakingSystem.DAL.csproj|c:\\users\\hoang\\desktop\\prn_finalproject\\push\\vaccinetrackingsystem\\vaccinetrakingsystem.dal\\daos\\servicesdao\\servicedao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A07EC78B-A3E3-4AC3-878A-22DA50948FF8}|VaccineTrakingSystem.DAL\\VaccineTrakingSystem.DAL.csproj|solutionrelative:vaccinetrakingsystem.dal\\daos\\servicesdao\\servicedao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EE942D12-08A8-4730-ADB5-8F30B8D17E89}|VaccineTrackingSystem\\VaccineTrackingSystem.csproj|c:\\users\\hoang\\desktop\\prn_finalproject\\push\\vaccinetrackingsystem\\vaccinetrackingsystem\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{EE942D12-08A8-4730-ADB5-8F30B8D17E89}|VaccineTrackingSystem\\VaccineTrackingSystem.csproj|solutionrelative:vaccinetrackingsystem\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EE942D12-08A8-4730-ADB5-8F30B8D17E89}|VaccineTrackingSystem\\VaccineTrackingSystem.csproj|c:\\users\\hoang\\desktop\\prn_finalproject\\push\\vaccinetrackingsystem\\vaccinetrackingsystem\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EE942D12-08A8-4730-ADB5-8F30B8D17E89}|VaccineTrackingSystem\\VaccineTrackingSystem.csproj|solutionrelative:vaccinetrackingsystem\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A07EC78B-A3E3-4AC3-878A-22DA50948FF8}|VaccineTrakingSystem.DAL\\VaccineTrakingSystem.DAL.csproj|c:\\users\\hoang\\desktop\\prn_finalproject\\push\\vaccinetrackingsystem\\vaccinetrakingsystem.dal\\daos\\usersdao\\usersdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A07EC78B-A3E3-4AC3-878A-22DA50948FF8}|VaccineTrakingSystem.DAL\\VaccineTrakingSystem.DAL.csproj|solutionrelative:vaccinetrakingsystem.dal\\daos\\usersdao\\usersdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "WorkspaceRootPath": "D:\\Code\\ASP.Net\\demo\\VaccineTrackingSystem\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 6,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "UsersDAO.cs",
-              "DocumentMoniker": "C:\\Users\\Hoang\\Desktop\\PRN_FinalProject\\Push\\VaccineTrackingSystem\\VaccineTrakingSystem.DAL\\DAOs\\UsersDAO\\UsersDAO.cs",
-              "RelativeDocumentMoniker": "VaccineTrakingSystem.DAL\\DAOs\\UsersDAO\\UsersDAO.cs",
-              "ToolTip": "C:\\Users\\Hoang\\Desktop\\PRN_FinalProject\\Push\\VaccineTrackingSystem\\VaccineTrakingSystem.DAL\\DAOs\\UsersDAO\\UsersDAO.cs",
-              "RelativeToolTip": "VaccineTrakingSystem.DAL\\DAOs\\UsersDAO\\UsersDAO.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAwwEwAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T09:54:50.641Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ServiceDAO.cs",
-              "DocumentMoniker": "C:\\Users\\Hoang\\Desktop\\PRN_FinalProject\\Push\\VaccineTrackingSystem\\VaccineTrakingSystem.DAL\\DAOs\\ServicesDAO\\ServiceDAO.cs",
-              "RelativeDocumentMoniker": "VaccineTrakingSystem.DAL\\DAOs\\ServicesDAO\\ServiceDAO.cs",
-              "ToolTip": "C:\\Users\\Hoang\\Desktop\\PRN_FinalProject\\Push\\VaccineTrackingSystem\\VaccineTrakingSystem.DAL\\DAOs\\ServicesDAO\\ServiceDAO.cs",
-              "RelativeToolTip": "VaccineTrakingSystem.DAL\\DAOs\\ServicesDAO\\ServiceDAO.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAswEQAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T09:54:41.43Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Users\\Hoang\\Desktop\\PRN_FinalProject\\Push\\VaccineTrackingSystem\\VaccineTrackingSystem\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "VaccineTrackingSystem\\Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Users\\Hoang\\Desktop\\PRN_FinalProject\\Push\\VaccineTrackingSystem\\VaccineTrackingSystem\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "VaccineTrackingSystem\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAAEYAAAAAAAAAAAAcwFEAAABAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T09:30:29.514Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ServiceController.cs",
-              "DocumentMoniker": "C:\\Users\\Hoang\\Desktop\\PRN_FinalProject\\Push\\VaccineTrackingSystem\\VaccineTrackingSystem\\Controllers\\ServiceController.cs",
-              "RelativeDocumentMoniker": "VaccineTrackingSystem\\Controllers\\ServiceController.cs",
-              "ToolTip": "C:\\Users\\Hoang\\Desktop\\PRN_FinalProject\\Push\\VaccineTrackingSystem\\VaccineTrackingSystem\\Controllers\\ServiceController.cs",
-              "RelativeToolTip": "VaccineTrackingSystem\\Controllers\\ServiceController.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAYwEkAAABNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T09:30:16.979Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Hoang\\Desktop\\PRN_FinalProject\\Push\\VaccineTrackingSystem\\VaccineTrackingSystem\\Views\\Users\\Index.cshtml",
-              "RelativeDocumentMoniker": "VaccineTrackingSystem\\Views\\Users\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Hoang\\Desktop\\PRN_FinalProject\\Push\\VaccineTrackingSystem\\VaccineTrackingSystem\\Views\\Users\\Index.cshtml",
-              "RelativeToolTip": "VaccineTrackingSystem\\Views\\Users\\Index.cshtml",
-              "ViewState": "AgIAAEoBAAAAAAAAAAAAAEUAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-01T09:27:13.749Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Services.cshtml",
-              "DocumentMoniker": "C:\\Users\\Hoang\\Desktop\\PRN_FinalProject\\Push\\VaccineTrackingSystem\\VaccineTrackingSystem\\Views\\Service\\Services.cshtml",
-              "RelativeDocumentMoniker": "VaccineTrackingSystem\\Views\\Service\\Services.cshtml",
-              "ToolTip": "C:\\Users\\Hoang\\Desktop\\PRN_FinalProject\\Push\\VaccineTrackingSystem\\VaccineTrackingSystem\\Views\\Service\\Services.cshtml",
-              "RelativeToolTip": "VaccineTrackingSystem\\Views\\Service\\Services.cshtml",
-              "ViewState": "AgIAAM4AAAAAAAAAAAAqwEUBAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-01T09:27:10.521Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }
