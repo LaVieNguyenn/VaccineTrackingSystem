@@ -14,6 +14,9 @@ namespace VaccineTrakingSystem.DAL.Repositories
         Task<int> InsertAsync(T obj);
         Task<bool> UpdateAsync(T obj);
         Task<bool> DeleteAsync(int obj);
+
+        Task<int> InsertAsyncc(T obj);
+
     }
 }
 

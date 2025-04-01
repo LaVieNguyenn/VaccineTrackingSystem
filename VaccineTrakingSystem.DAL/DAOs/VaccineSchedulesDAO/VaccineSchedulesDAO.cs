@@ -291,6 +291,10 @@ WHERE vs.ScheduleID = @ScheduleId";
             }
         }
 
+        public Task<int> InsertAsyncc(VaccineSchedule obj)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<bool> UpdateAsync(VaccineSchedule vaccineSchedule)
         {

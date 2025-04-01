@@ -1,0 +1,373 @@
+﻿@model List<VaccineTrakingSystem.DAL.Models.Child>
+
+<!-- CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Child List</h3>
+        <div>
+            <button class="btn btn-success" id="addChildBtn">Add Child</button>
+        </div>
+    </div>
+
+    <table id="childTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Child ID</th>
+                <th>Name</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+                <th>Additional Info</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var child in Model)
+            {
+                <tr>
+                    <td>@child.ChildId</td>
+                    <td>@child.FullName</td>
+                    <td>@child.DateOfBirth.ToString("yyyy-MM-dd")</td>
+                    <td>@(child.Gender == 0 ? "Male" : "Female")</td>
+                    <td>@child.AdditionalInfo</td>
+                    <td>@child.CreatedAt</td>
+                    <td>@child.UpdatedAt</td>
+                    <td>
+                        <button class="btn btn-primary edit-btn" data-id="@child.ChildId">Edit</button>
+                        <button class="btn btn-danger delete-btn" data-id="@child.ChildId">Delete</button>
+                        <button class="btn btn-info generate-schedule-btn" data-id="@child.ChildId">Generate Schedule</button>
+                        <button class="btn btn-secondary view-schedule-btn" data-id="@child.ChildId">View Schedule</button>
+                        @* <button class="btn btn-warning view-appointments-btn" data-id="@child.ChildId">View Appointments</button> *@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+        $(document).ready(function () {
+            var table = $('#childTable').DataTable();
+
+            // Add Child
+            $('#addChildBtn').on("click", function () {
+                Swal.fire({
+                    title: "Add New Child",
+                    width: 600,
+                    html: `
+                        <input id="childFullName" class="swal2-input" type="text" placeholder="Child Full Name">
+                        <input id="dateOfBirth" class="swal2-input" type="date" placeholder="Date of Birth">
+                        <select id="gender" class="swal2-select">
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                        </select>
+                        <input id="additionalInfo" class="swal2-input" type="text" placeholder="Additional Info" value="No additional info">
+                    `,
+                    showCancelButton: true,
+                    confirmButtonText: "Save",
+                    preConfirm: () => {
+                        let data = {
+                            FullName: $("#childFullName").val().trim(),
+                            DateOfBirth: $("#dateOfBirth").val(),
+                            Gender: parseInt($("#gender").val()),
+                            AdditionalInfo: $("#additionalInfo").val().trim() || "No additional info"
+                        };
+
+                        if (!data.FullName || !data.DateOfBirth || !data.AdditionalInfo) {
+                            Swal.showValidationMessage("All fields are required!");
+                            return false;
+                        }
+
+                        console.log("Sending data:", JSON.stringify(data));
+
+                        return fetch("/Child/Create", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(data)
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.text().then(text => { throw new Error(text) });
+                            }
+                            return response.json();
+                        })
+                        .catch(error => {
+                            console.error("Fetch error:", error);
+                            Swal.showValidationMessage(`Error: ${error.message}`);
+                            return false;
+                        });
+                    }
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        Swal.fire("Success!", "Child added.", "success").then(() => location.reload());
+                    }
+                });
+            });
+
+            // Edit Child
+            $(document).on("click", ".edit-btn", function () {
+                let row = $(this).closest("tr");
+                let childId = $(this).data("id");
+                let fullName = row.find("td:eq(1)").text().trim();
+                let dateOfBirth = row.find("td:eq(2)").text().trim();
+                let gender = row.find("td:eq(3)").text().trim() === "Male" ? 0 : 1;
+                let additionalInfo = row.find("td:eq(4)").text().trim();
+
+                Swal.fire({
+                    title: "Edit Child",
+                    width: 600,
+                    html: `
+                        <input id="editChildFullName" class="swal2-input" type="text" value="${fullName}">
+                        <input id="editDateOfBirth" class="swal2-input" type="date" value="${dateOfBirth}">
+                        <select id="editGender" class="swal2-select">
+                            <option value="0" ${gender === 0 ? "selected" : ""}>Male</option>
+                            <option value="1" ${gender === 1 ? "selected" : ""}>Female</option>
+                        </select>
+                        <input id="editAdditionalInfo" class="swal2-input" type="text" value="${additionalInfo}">
+                    `,
+                    showCancelButton: true,
+                    confirmButtonText: "Save",
+                    preConfirm: () => {
+                        let data = {
+                            ChildId: parseInt(childId),
+                            FullName: $("#editChildFullName").val().trim(),
+                            DateOfBirth: $("#editDateOfBirth").val(),
+                            Gender: parseInt($("#editGender").val()),
+                            AdditionalInfo: $("#editAdditionalInfo").val().trim() || "No additional info"
+                        };
+
+                        if (!data.ChildId || !data.FullName || !data.DateOfBirth || !data.AdditionalInfo) {
+                            Swal.showValidationMessage("All fields are required!");
+                            return false;
+                        }
+
+                        console.log("Sending data:", JSON.stringify(data));
+
+                        return fetch(`/Child/Update`, {
+                            method: "PUT",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(data)
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.text().then(text => { throw new Error(text) });
+                            }
+                            return response.json();
+                        })
+                        .catch(error => {
+                            console.error("Fetch error:", error);
+                            Swal.showValidationMessage(`Error: ${error.message}`);
+                            return false;
+                        });
+                    }
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        Swal.fire("Success!", "Child updated.", "success").then(() => location.reload());
+                    }
+                });
+            });
+
+            // Delete Child
+            $(document).on("click", ".delete-btn", function () {
+                let childId = $(this).data("id");
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "This action cannot be undone!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, delete it!"
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        fetch(`/Child/Delete/${childId}`, { method: "DELETE" })
+                            .then(() => Swal.fire("Deleted!", "Child removed.", "success").then(() => location.reload()))
+                            .catch(() => Swal.fire("Error!", "Failed to delete child.", "error"));
+                    }
+                });
+            });
+        // Generate Schedule
+               $(document).on("click", ".generate-schedule-btn", function () {
+                   let childId = $(this).data("id");
+
+                   Swal.fire({
+                       title: "Generate Vaccination Schedule",
+                       text: `Are you sure you want to generate a schedule for Child ID: ${childId}?`,
+                       icon: "question",
+                       showCancelButton: true,
+                       confirmButtonText: "Yes, generate it!"
+                   }).then(result => {
+                       if (result.isConfirmed) {
+                           fetch(`/Child/GenerateSchedule/${childId}`, {
+                               method: "POST",
+                               headers: { "Content-Type": "application/json" }
+                           })
+                           .then(response => {
+                               if (!response.ok) {
+                                   return response.text().then(text => { throw new Error(text) });
+                               }
+                               return response.json();
+                           })
+                           .then(data => {
+                               const scheduleCount = data.schedules ? data.schedules.length : 0;
+                               Swal.fire({
+                                   title: "Success!",
+                                   text: data.message,
+                                   icon: "success",
+                                   html: `
+                                       <p>${data.message}</p>
+                                       <p>Generated ${scheduleCount} schedules.</p>
+                                   `
+                               });
+                           })
+                           .catch(error => {
+                               console.error("Fetch error:", error);
+                               Swal.fire("Error!", `Failed to generate schedule: ${error.message}`, "error");
+                           });
+                       }
+                   });
+               });
+
+        // View Schedule
+        $(document).on("click", ".view-schedule-btn", function () {
+            let childId = $(this).data("id");
+
+            fetch(`/Child/Schedules/${childId}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => { throw new Error(text) });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("API Response:", data); // Thêm log để kiểm tra dữ liệu trả về
+                console.log("Schedules:", data.schedules); // Kiểm tra data.schedules
+
+                let scheduleHtml = "<h5>No schedules found.</h5>";
+                if (data.schedules && data.schedules.length > 0) { // Sửa Schedules thành schedules
+                    console.log("Schedules found:", data.schedules.length); // Kiểm tra số lượng schedules
+                    scheduleHtml = `
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Schedule ID</th>
+                                    <th>Vaccine</th>
+                                    <th>Scheduled Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+                    data.schedules.forEach(schedule => { // Sửa Schedules thành schedules
+                        console.log("Processing schedule:", schedule); // Kiểm tra từng schedule
+                        scheduleHtml += `
+                            <tr>
+                                <td>${schedule.scheduleId}</td>
+                                <td>${schedule.vaccine ? schedule.vaccine.vaccineName : "Unknown Vaccine"}</td>
+                                <td>${new Date(schedule.scheduledDate).toLocaleDateString()}</td>
+                                <td>${schedule.status === 0 ? "Pending" : "Completed"}</td>
+                            </tr>
+                        `;
+                    });
+                    scheduleHtml += `
+                            </tbody>
+                        </table>
+                    `;
+                } else {
+                    console.log("No schedules found or data.schedules is invalid");
+                }
+
+                Swal.fire({
+                    title: `Vaccination Schedules for Child ID: ${childId}`,
+                    html: scheduleHtml,
+                    width: 800,
+                    showConfirmButton: true
+                });
+            })
+            .catch(error => {
+                console.error("Fetch error:", error);
+                Swal.fire("Error!", `Failed to load schedules: ${error.message}`, "error");
+            });
+        });
+        //     View Appointments
+        // $(document).on("click", ".view-appointments-btn", function () {
+        //     let childId = $(this).data("id");
+
+        //     fetch(`/Child/Appointments/${childId}`, {
+        //         method: "GET",
+        //         headers: { "Content-Type": "application/json" }
+        //     })
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             return response.text().then(text => { throw new Error(text) });
+        //         }
+        //         return response.json();
+        //     })
+        //     .then(data => {
+        //         console.log("API Response:", data);
+        //         console.log("Appointments:", data.appointments);
+
+        //         let appointmentHtml = "<h5>No appointments found.</h5>";
+        //         if (data.appointments && data.appointments.length > 0) {
+        //             console.log("Appointments found:", data.appointments.length);
+        //             appointmentHtml = `
+        //                 <table class="table table-bordered">
+        //                     <thead>
+        //                         <tr>
+        //                             <th>Appointment ID</th>
+        //                             <th>Service</th>
+        //                             <th>Vaccine</th>
+        //                             <th>Appointment Date</th>
+        //                             <th>Status</th>
+        //                             <th>Payment Status</th>
+        //                         </tr>
+        //                     </thead>
+        //                     <tbody>
+        //             `;
+        //             data.appointments.forEach(appointment => {
+        //                 console.log("Processing appointment:", appointment);
+        //                 appointmentHtml += `
+        //                     <tr>
+        //                         <td>${appointment.appointmentId}</td>
+        //                         <td>${appointment.service ? appointment.service.serviceName : "N/A"}</td>
+        //                         <td>${appointment.vaccine ? appointment.vaccine.vaccineName : "N/A"}</td>
+        //                         <td>${new Date(appointment.appointmentDate).toLocaleDateString()}</td>
+        //                         <td>${appointment.status === 0 ? "Pending" : "Confirmed"}</td>
+        //                         <td>${appointment.paymentStatus === 0 ? "Unpaid" : "Paid"}</td>
+        //                     </tr>
+        //                 `;
+        //             });
+        //             appointmentHtml += `
+        //                     </tbody>
+        //                 </table>
+        //             `;
+        //         } else {
+        //             console.log("No appointments found or data.appointments is invalid");
+        //         }
+
+        //         Swal.fire({
+        //             title: `Appointments for Child ID: ${childId}`,
+        //             html: appointmentHtml,
+        //             width: 800,
+        //             showConfirmButton: true
+        //         });
+        //     })
+        //     .catch(error => {
+        //         console.error("Fetch error:", error);
+        //         Swal.fire("Error!", `Failed to load appointments: ${error.message}`, "error");
+        //     });
+        // });
+    });
+</script>

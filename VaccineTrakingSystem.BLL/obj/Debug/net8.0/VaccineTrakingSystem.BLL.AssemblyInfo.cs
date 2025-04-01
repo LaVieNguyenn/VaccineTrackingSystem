@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VaccineTrakingSystem.BLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+61d8d2ba9bf823694ed248a32165a25588495df9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1be7208514d1296c0f82de2c973c6a6ecbe5ca1f")]
 [assembly: System.Reflection.AssemblyProductAttribute("VaccineTrakingSystem.BLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VaccineTrakingSystem.BLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

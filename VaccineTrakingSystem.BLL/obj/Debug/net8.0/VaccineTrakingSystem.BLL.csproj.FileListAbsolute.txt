@@ -30,3 +30,19 @@ D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.BLL\obj\Debug\net8.0\
 D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.BLL\obj\Debug\net8.0\refint\VaccineTrakingSystem.BLL.dll
 D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.BLL\obj\Debug\net8.0\VaccineTrakingSystem.BLL.pdb
 D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.BLL\obj\Debug\net8.0\ref\VaccineTrakingSystem.BLL.dll
+D:\New folder\VaccineTrakingSystem.BLL\bin\Debug\net8.0\VaccineTrakingSystem.BLL.deps.json
+D:\New folder\VaccineTrakingSystem.BLL\bin\Debug\net8.0\VaccineTrakingSystem.BLL.dll
+D:\New folder\VaccineTrakingSystem.BLL\bin\Debug\net8.0\VaccineTrakingSystem.BLL.pdb
+D:\New folder\VaccineTrakingSystem.BLL\bin\Debug\net8.0\VaccineTrakingSystem.DAL.dll
+D:\New folder\VaccineTrakingSystem.BLL\bin\Debug\net8.0\VaccineTrakingSystem.DAL.pdb
+D:\New folder\VaccineTrakingSystem.BLL\obj\Debug\net8.0\VaccineTrakingSystem.BLL.csproj.AssemblyReference.cache
+D:\New folder\VaccineTrakingSystem.BLL\obj\Debug\net8.0\VaccineTrakingSystem.BLL.GeneratedMSBuildEditorConfig.editorconfig
+D:\New folder\VaccineTrakingSystem.BLL\obj\Debug\net8.0\VaccineTrakingSystem.BLL.AssemblyInfoInputs.cache
+D:\New folder\VaccineTrakingSystem.BLL\obj\Debug\net8.0\VaccineTrakingSystem.BLL.AssemblyInfo.cs
+D:\New folder\VaccineTrakingSystem.BLL\obj\Debug\net8.0\VaccineTrakingSystem.BLL.csproj.CoreCompileInputs.cache
+D:\New folder\VaccineTrakingSystem.BLL\obj\Debug\net8.0\VaccineTrakingSystem.BLL.sourcelink.json
+D:\New folder\VaccineTrakingSystem.BLL\obj\Debug\net8.0\VaccineT.FBB36671.Up2Date
+D:\New folder\VaccineTrakingSystem.BLL\obj\Debug\net8.0\VaccineTrakingSystem.BLL.dll
+D:\New folder\VaccineTrakingSystem.BLL\obj\Debug\net8.0\refint\VaccineTrakingSystem.BLL.dll
+D:\New folder\VaccineTrakingSystem.BLL\obj\Debug\net8.0\VaccineTrakingSystem.BLL.pdb
+D:\New folder\VaccineTrakingSystem.BLL\obj\Debug\net8.0\ref\VaccineTrakingSystem.BLL.dll
