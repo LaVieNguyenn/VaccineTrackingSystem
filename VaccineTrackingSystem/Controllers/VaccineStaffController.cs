@@ -13,10 +13,12 @@ namespace VaccineTrackingSystem.Controllers
     {
         private readonly IVaccineScheduleService _services;
         private readonly IVaccineRecordService _recordService;
-        public VaccineStaffController(IVaccineScheduleService VaccineSchedules,IVaccineRecordService vaccineRecord)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public VaccineStaffController(IVaccineScheduleService VaccineSchedules,IVaccineRecordService vaccineRecord, IHttpContextAccessor httpContextAccessor)
         {
             _services = VaccineSchedules;
             _recordService = vaccineRecord;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpPost("Vaccination")]
@@ -38,8 +40,19 @@ namespace VaccineTrackingSystem.Controllers
             if (model == null || model.AppointmentId == 0)
                 return BadRequest("Dữ liệu không hợp lệ");
 
-            model.CreatedAt = DateTime.UtcNow; // Gán ngày giờ hiện tại
-
+            var userRole = _httpContextAccessor?.HttpContext?.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            Console.WriteLine("user: " + userRole);
+            model.CreatedAt = DateTime.UtcNow; // Gán ngày giờ hiện tại\
+            if (int.TryParse(userRole, out int staffId))
+            {
+                model.StaffId = staffId;
+            }
+            else
+            {
+                // Gán giá trị mặc định hoặc báo lỗi
+                model.StaffId = 0; // hoặc throw new Exception("Invalid role ID");
+            }
+            Console.WriteLine("Create: " + model.StaffId);
             await _recordService.CreateVaccineRecordServiceAsync(model);
 
             // 🌟 GỌI LẠI LOGIC CỦA VaccinationPost

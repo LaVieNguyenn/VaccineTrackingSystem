@@ -36,6 +36,30 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-JeqMq4FOFJBoMhQVpyR7tTOJn42C8YcCbpfgXaUB5yw="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"8528"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022JeqMq4FOFJBoMhQVpyR7tTOJn42C8YcCbpfgXaUB5yw=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 08:49:45 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VaccineTrackingSystem/images/VaccineLogo.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\VaccineLogo.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-t2avU5hn2LQwFGaV7asl4AgtVxOfY\u002BPMGtzn32v0dKI="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"23293"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022t2avU5hn2LQwFGaV7asl4AgtVxOfY\u002BPMGtzn32v0dKI=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 16:23:38 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VaccineTrackingSystem/images/VaccineLogo.rrxbfyvfkw.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\VaccineLogo.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"rrxbfyvfkw"},{"Name":"integrity","Value":"sha256-t2avU5hn2LQwFGaV7asl4AgtVxOfY\u002BPMGtzn32v0dKI="},{"Name":"label","Value":"_content/VaccineTrackingSystem/images/VaccineLogo.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"23293"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022t2avU5hn2LQwFGaV7asl4AgtVxOfY\u002BPMGtzn32v0dKI=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 16:23:38 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VaccineTrackingSystem/images/VileLogo.frxbijz882.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\VileLogo.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"frxbijz882"},{"Name":"integrity","Value":"sha256-qy3BF7zrK9F1ziYYDOMz9F8lg/jp1EJLDwPWBvDZyKU="},{"Name":"label","Value":"_content/VaccineTrackingSystem/images/VileLogo.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1324"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022qy3BF7zrK9F1ziYYDOMz9F8lg/jp1EJLDwPWBvDZyKU=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 16:23:38 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VaccineTrackingSystem/images/VileLogo.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\VileLogo.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-qy3BF7zrK9F1ziYYDOMz9F8lg/jp1EJLDwPWBvDZyKU="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"1324"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022qy3BF7zrK9F1ziYYDOMz9F8lg/jp1EJLDwPWBvDZyKU=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 16:23:38 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/VaccineTrackingSystem/index.6y4igi31c5.html">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
@@ -736,13 +760,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\VaccineTrackingSystem.y3cu08nqbr.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-MldhzS08/6bcpypp2ufEDeMGdedHntVN3MqeQ6xI6Mk="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022MldhzS08/6bcpypp2ufEDeMGdedHntVN3MqeQ6xI6Mk=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 14:57:16 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022MldhzS08/6bcpypp2ufEDeMGdedHntVN3MqeQ6xI6Mk=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 16:27:05 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/VaccineTrackingSystem/VaccineTrackingSystem.y3cu08nqbr.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\VaccineTrackingSystem.y3cu08nqbr.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"y3cu08nqbr"},{"Name":"integrity","Value":"sha256-MldhzS08/6bcpypp2ufEDeMGdedHntVN3MqeQ6xI6Mk="},{"Name":"label","Value":"_content/VaccineTrackingSystem/VaccineTrackingSystem.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022MldhzS08/6bcpypp2ufEDeMGdedHntVN3MqeQ6xI6Mk=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 14:57:16 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022MldhzS08/6bcpypp2ufEDeMGdedHntVN3MqeQ6xI6Mk=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 16:27:05 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/VaccineTrackingSystem/wp-content/plugins/contact-form-7/includes/css/styles1eb7.1jqz7twrm5.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\wp-content\plugins\contact-form-7\includes\css\styles1eb7.css'))</AssetFile>

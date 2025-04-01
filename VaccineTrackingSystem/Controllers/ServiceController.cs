@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VaccineTrakingSystem.BLL.ServicesService;
 using VaccineTrakingSystem.DAL.Models;
 
 namespace VaccineTrackingSystem.Controllers
 {
+    [Authorize(Roles = "4")]
     public class ServiceController : Controller
     {
         private readonly IServicesService _services;

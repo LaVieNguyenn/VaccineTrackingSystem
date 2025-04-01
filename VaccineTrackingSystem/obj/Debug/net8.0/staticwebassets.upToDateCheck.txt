@@ -1,6 +1,8 @@
 wwwroot\favicon.ico
 wwwroot\images\logout.png
 wwwroot\images\loginLogo.png
+wwwroot\images\VaccineLogo.png
+wwwroot\images\VileLogo.png
 wwwroot\index.html
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

@@ -9,6 +9,14 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\images\\VaccineLogo.png",
+      "PackagePath": "staticwebassets\\images\\VaccineLogo.png"
+    },
+    {
+      "Id": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\images\\VileLogo.png",
+      "PackagePath": "staticwebassets\\images\\VileLogo.png"
+    },
+    {
       "Id": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\images\\loginLogo.png",
       "PackagePath": "staticwebassets\\images\\loginLogo.png"
     },

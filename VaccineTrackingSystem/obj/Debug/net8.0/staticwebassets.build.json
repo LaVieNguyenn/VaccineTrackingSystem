@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "APn0r/xswEtYglADIQHzzl36UIzueMf3jv8jRjCxn8U=",
+  "Hash": "IbsnOQzSLR8A/5DPR176Ax8eTPVVY9dUCFtYYCkKZJE=",
   "Source": "VaccineTrackingSystem",
   "BasePath": "_content/VaccineTrackingSystem",
   "Mode": "Default",
@@ -120,6 +120,48 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\loginLogo.png"
+    },
+    {
+      "Identity": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\images\\VaccineLogo.png",
+      "SourceId": "VaccineTrackingSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\",
+      "BasePath": "_content/VaccineTrackingSystem",
+      "RelativePath": "images/VaccineLogo#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "rrxbfyvfkw",
+      "Integrity": "t2avU5hn2LQwFGaV7asl4AgtVxOfY+PMGtzn32v0dKI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\VaccineLogo.png"
+    },
+    {
+      "Identity": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\images\\VileLogo.png",
+      "SourceId": "VaccineTrackingSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\",
+      "BasePath": "_content/VaccineTrackingSystem",
+      "RelativePath": "images/VileLogo#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "frxbijz882",
+      "Integrity": "qy3BF7zrK9F1ziYYDOMz9F8lg/jp1EJLDwPWBvDZyKU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\VileLogo.png"
     },
     {
       "Identity": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\index.html",
@@ -11206,6 +11248,170 @@
       ]
     },
     {
+      "Route": "images/VaccineLogo.png",
+      "AssetFile": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\images\\VaccineLogo.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "23293"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"t2avU5hn2LQwFGaV7asl4AgtVxOfY+PMGtzn32v0dKI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 16:23:38 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-t2avU5hn2LQwFGaV7asl4AgtVxOfY+PMGtzn32v0dKI="
+        }
+      ]
+    },
+    {
+      "Route": "images/VaccineLogo.rrxbfyvfkw.png",
+      "AssetFile": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\images\\VaccineLogo.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "23293"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"t2avU5hn2LQwFGaV7asl4AgtVxOfY+PMGtzn32v0dKI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 16:23:38 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "rrxbfyvfkw"
+        },
+        {
+          "Name": "label",
+          "Value": "images/VaccineLogo.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-t2avU5hn2LQwFGaV7asl4AgtVxOfY+PMGtzn32v0dKI="
+        }
+      ]
+    },
+    {
+      "Route": "images/VileLogo.frxbijz882.png",
+      "AssetFile": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\images\\VileLogo.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1324"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qy3BF7zrK9F1ziYYDOMz9F8lg/jp1EJLDwPWBvDZyKU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 16:23:38 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "frxbijz882"
+        },
+        {
+          "Name": "label",
+          "Value": "images/VileLogo.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-qy3BF7zrK9F1ziYYDOMz9F8lg/jp1EJLDwPWBvDZyKU="
+        }
+      ]
+    },
+    {
+      "Route": "images/VileLogo.png",
+      "AssetFile": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\images\\VileLogo.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1324"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qy3BF7zrK9F1ziYYDOMz9F8lg/jp1EJLDwPWBvDZyKU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 16:23:38 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-qy3BF7zrK9F1ziYYDOMz9F8lg/jp1EJLDwPWBvDZyKU="
+        }
+      ]
+    },
+    {
       "Route": "index.6y4igi31c5.html",
       "AssetFile": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\wwwroot\\index.html",
       "Selectors": [],
@@ -15984,7 +16190,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 01 Apr 2025 14:57:16 GMT"
+          "Value": "Tue, 01 Apr 2025 16:27:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -16021,7 +16227,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 01 Apr 2025 14:57:16 GMT"
+          "Value": "Tue, 01 Apr 2025 16:27:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -16058,7 +16264,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 01 Apr 2025 14:57:16 GMT"
+          "Value": "Tue, 01 Apr 2025 16:27:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -16103,7 +16309,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 01 Apr 2025 14:57:16 GMT"
+          "Value": "Tue, 01 Apr 2025 16:27:05 GMT"
         },
         {
           "Name": "Cache-Control",

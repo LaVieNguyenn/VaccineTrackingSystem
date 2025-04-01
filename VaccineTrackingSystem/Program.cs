@@ -2,6 +2,7 @@ using Dapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using VaccineTrackingSystem.Controllers;
 using VaccineTrakingSystem.BLL.CustomerService;
+using VaccineTrakingSystem.BLL.CenterInfoService;
 using VaccineTrakingSystem.BLL.Services.UserService;
 using VaccineTrakingSystem.BLL.ServicesService;
 using VaccineTrakingSystem.BLL.UsersService;
@@ -60,6 +61,10 @@ namespace VaccineTrackingSystem
             builder.Services.AddScoped<IGenericDAO<User>, UsersDAO>();
             builder.Services.AddScoped<IGenericRepository<User>, GenericRepository<User>>();
             builder.Services.AddScoped<IUsersService, UsersService>();
+
+            builder.Services.AddScoped<IGenericDAO<CenterInfo>, CenterInfoDAO>();
+            builder.Services.AddScoped<IGenericRepository<CenterInfo>, GenericRepository<CenterInfo>>();
+            builder.Services.AddScoped<ICenterInfoService, CenterInfoService>();
 
             //User
             builder.Services.AddScoped<IUserDAO, UserDAO>();
