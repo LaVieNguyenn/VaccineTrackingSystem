@@ -77,23 +77,24 @@
                                                 <tr><th>Date</th><th>Vaccinator</th></tr>
                                             </thead>
                                             <tbody>
-                                                @if (Model.Appointment?.VaccinationRecords != null && Model.Appointment.VaccinationRecords.Any())
+                                                @if (Model.Appointment?.VaccinationRecords != null && Model.Appointment.VaccinationRecords.Any(r => r.ChildId == Model.ChildId))
                                                 {
-                                                    @foreach (var record in Model.Appointment.VaccinationRecords)
+                                                    @foreach (var record in Model.Appointment.VaccinationRecords.Where(r => r.ChildId == Model.ChildId))
                                                     {
                                                         <tr>
-                                                            <td>@record.VaccinationDate</td>
-                                                            <td>@record.Staff.FullName</td>
+                                                            <td>@record.VaccinationDate.ToString("dd/MM/yyyy")</td>
+                                                            <td>@record.Staff?.FullName</td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="2"><strong>Adverse Reaction:</strong>@(record.AdverseReaction ?? "None")</td>
+                                                            <td colspan="2"><strong>Adverse Reaction:</strong> @(record.AdverseReaction ?? "None")</td>
                                                         </tr>
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    <tr><td colspan="2"><strong>Chưa tiêm lần nào</strong></td></tr>
+                                                    <tr><td colspan="2"><strong>Not vaccinated yet!</strong></td></tr>
                                                 }
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -128,7 +129,7 @@
                     }
                     else
                     {
-                        <h2>Lịch tiêm không tồn tại</h2>
+                        <h2>Vaccine Schedule is empty!</h2>
                     }
                 </div>
                 <button id="btnAddVaccineRecord" class="btn btn-primary mt-3 ripple-effect">

@@ -60,11 +60,11 @@
                     <td class="toggle-col default-col" data-col="1">
                         @vaccine.VaccineName
                     </td>
-                    <td  class="toggle-col default-col" data-col="2">@vaccine.Description</td>
+                    <td class="toggle-col default-col" data-col="2">@vaccine.Description</td>
                     <td class="toggle-col" data-col="3">@vaccine.NumberOfDoses</td>
                     <td class="toggle-col" data-col="4">@vaccine.VaccineType</td>
-                    <td  class="toggle-col" data-col="5">@vaccine.Manufacturer</td>
-                    <td  class="toggle-col" data-col="6">@vaccine.ProductionDate</td>
+                    <td class="toggle-col" data-col="5">@vaccine.Manufacturer</td>
+                    <td class="toggle-col" data-col="6">@vaccine.ProductionDate</td>
                     <td class="toggle-col" data-col="7">@vaccine.ExpirationPeriod</td>
                     <td class="toggle-col default-col" data-col="8">@vaccine.CreatedAt</td>
                     <td class="toggle-col default-col" data-col="9">@vaccine.UpdatedAt</td>
@@ -170,7 +170,7 @@
     if (parts.length === 3) {
         var productionDateFormatted = `${parts[2]}-${parts[0].padStart(2, "0")}-${parts[1].padStart(2, "0")}`;
     } else {
-        var productionDateFormatted = "N/A"; 
+        var productionDateFormatted = "N/A";
     }
         Swal.fire({
             title: "Edit Vaccine",
@@ -249,3 +249,17 @@
 
     });
 </script>
+<style>
+    .swal2-input, .swal2-textarea {
+        width: 100%;
+        height: 40px; /* Điều chỉnh chiều cao nếu cần */
+        font-size: 16px; /* Đồng bộ font */
+        box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước */
+    }
+
+    .swal2-textarea {
+        height: 80px; /* Chỉnh chiều cao cho textarea */
+        resize: none; /* Ngăn người dùng thay đổi kích thước */
+    }
+
+</style>
