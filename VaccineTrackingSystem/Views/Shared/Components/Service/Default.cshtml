@@ -2,34 +2,34 @@
 
 <div class="elementor-section elementor-inner-section elementor-element elementor-element-5879775 elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-invisible" data-id="5879775" data-element_type="section" data-settings="{&quot;animation&quot;:&quot;fadeIn&quot;}">
     <div class="elementor-container elementor-column-gap-default" style="gap: 14px; flex-wrap: wrap;">
-        @foreach (var i in Model)
+        @foreach (var i in Model.Where(service => service.Status == true))
         {
             <div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-03a7788 box-shadow-hover" data-id="03a7788" data-element_type="column" data-settings="{&quot;animation&quot;:&quot;none&quot;,&quot;background_background&quot;:&quot;classic&quot;}">
                 <div class="elementor-widget-wrap elementor-element-populated">
-                <div class="elementor-element elementor-element-680fdcd elementor-widget elementor-widget-dustro-pricebox" data-id="680fdcd" data-element_type="widget" data-widget_type="dustro-pricebox.default">
-                    <div class="elementor-widget-container">
+                    <div class="elementor-element elementor-element-680fdcd elementor-widget elementor-widget-dustro-pricebox" data-id="680fdcd" data-element_type="widget" data-widget_type="dustro-pricebox.default">
+                        <div class="elementor-widget-container">
 
-                        <div class="pricebox">
-                            <div>
-                                <img decoding="async" src="../wp-content/uploads/2021/10/Img-11-1.jpg" alt="">
-                            </div>
-                            <div class="pricebox-border priceborder-color1">
-                            </div>
-                            <div class="text-wrapper">
-                                <h3 style="height: 51px">@i.ServiceName</h3>
-                                <h4>$ @Math.Round(i.Price)</h4>
-                                <div class="pricebox-border2">
+                            <div class="pricebox">
+                                <div>
+                                    <img decoding="async" src="../wp-content/uploads/2021/10/Img-11-1.jpg" alt="">
                                 </div>
-                                <ul class="pricebox-list show3">
-                                    <li><i class="fas fa-circle"></i><span style="height: 40px">@i.Description</span></li>
-                                </ul>
-                                <a class="custom-button1" href="../about-us/index.html">Sign up for a test </a>
+                                <div class="pricebox-border priceborder-color1">
+                                </div>
+                                <div class="text-wrapper">
+                                    <h3 style="height: 51px">@i.ServiceName</h3>
+                                    <h4>$ @Math.Round(i.Price)</h4>
+                                    <div class="pricebox-border2">
+                                    </div>
+                                    <ul class="pricebox-list show3">
+                                        <li><i class="fas fa-circle"></i><span style="height: 40px">@i.Description</span></li>
+                                    </ul>
+                                    <a class="custom-button1" href="../about-us/index.html">Sign up for a test </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         }
     </div>
 </div>
