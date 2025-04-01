@@ -1,0 +1,15 @@
+D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.DAL\bin\Debug\net8.0\VaccineTrakingSystem.DAL.deps.json
+D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.DAL\bin\Debug\net8.0\VaccineTrakingSystem.DAL.runtimeconfig.json
+D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.DAL\bin\Debug\net8.0\VaccineTrakingSystem.DAL.dll
+D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.DAL\bin\Debug\net8.0\VaccineTrakingSystem.DAL.pdb
+D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.DAL\obj\Debug\net8.0\VaccineTrakingSystem.DAL.csproj.AssemblyReference.cache
+D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.DAL\obj\Debug\net8.0\VaccineTrakingSystem.DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.DAL\obj\Debug\net8.0\VaccineTrakingSystem.DAL.AssemblyInfoInputs.cache
+D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.DAL\obj\Debug\net8.0\VaccineTrakingSystem.DAL.AssemblyInfo.cs
+D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.DAL\obj\Debug\net8.0\VaccineTrakingSystem.DAL.csproj.CoreCompileInputs.cache
+D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.DAL\obj\Debug\net8.0\VaccineTrakingSystem.DAL.sourcelink.json
+D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.DAL\obj\Debug\net8.0\VaccineTrakingSystem.DAL.dll
+D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.DAL\obj\Debug\net8.0\refint\VaccineTrakingSystem.DAL.dll
+D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.DAL\obj\Debug\net8.0\VaccineTrakingSystem.DAL.pdb
+D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.DAL\obj\Debug\net8.0\VaccineTrakingSystem.DAL.genruntimeconfig.cache
+D:\Code\ASP.Net\VaccineTrackingSystem\VaccineTrakingSystem.DAL\obj\Debug\net8.0\ref\VaccineTrakingSystem.DAL.dll

@@ -1,4 +1,9 @@
-﻿<div class="white-nav
+﻿<@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor _httpContextAccessor
+@{
+    var isLogin = _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
+}
+<div class="white-nav
  sticky-top">
     <div class="container">
         <div class="row">
@@ -74,8 +79,29 @@
                                         </div>
 
                                     </div>
-                                        <a class="paoc-popup-click paoc-popup-cust-624 paoc-popup-button paoc-popup-btn custom-button1" href="javascript:void(0);">Sign Up</a>
-                                        <a class="paoc-popup-click paoc-popup-cust-624 paoc-popup-button paoc-popup-btn custom-button1" style="background-color: transparent; color: black" href="javascript:void(0);">Sign In</a>
+                                    @if (!isLogin)
+                                    {
+                                        //<a class="paoc-popup-click paoc-popup-cust-624 paoc-popup-button paoc-popup-btn custom-button1" href="javascript:void(0);">Sign Up</a>
+                                        <a asp-controller="Authentication" asp-action="Login" style="background-color: transparent; color: black">
+                                            <img src="~/images/loginLogo.png" style="height: auto; width: 26px;" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        var userName = _httpContextAccessor.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
+                                        var userRole = _httpContextAccessor.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+                                        <div class="dropdown d-inline">
+                                            <a class="dropdown-toggle" href="#" role="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left: 2rem;">
+                                                Hi, @userName
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item text-danger d-flex align-items-center" asp-controller="Authentication" asp-action="Logout">
+                                                    <img src="~/images/logout.png" style="height: 20px; width: 20px; margin-right: 8px;" /> Logout
+                                                </a>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
