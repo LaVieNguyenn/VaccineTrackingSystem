@@ -1,0 +1,119 @@
+@model IEnumerable<VaccineTrakingSystem.BLL.DTOs.FeedbackDTO>
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container-fluid mt-4">
+    <h2>Thống kê Feedback</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Phân bố Rating</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="ratingChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Thống kê tổng quan</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="stats-box bg-primary text-white p-3 rounded">
+                                <h3>@Model.Count()</h3>
+                                <p class="mb-0">Tổng số feedback</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stats-box bg-success text-white p-3 rounded">
+                                <h3>@Model.Average(f => f.Rating).ToString("F1")</h3>
+                                <p class="mb-0">Rating trung bình</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Danh sách Feedback</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Rating</th>
+                            <th>Comments</th>
+                            <th>Ngày đánh giá</th>
+                            <th>Customer ID</th>
+                            <th>Appointment ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @for (int i = 1; i <= item.Rating; i++)
+                                    {
+                                        <i class="fas fa-star text-warning"></i>
+                                    }
+                                </td>
+                                <td>@item.Comments</td>
+                                <td>@item.FeedbackDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>@item.CustomerId</td>
+                                <td>@item.AppointmentId</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Dữ liệu cho biểu đồ
+        var ctx = document.getElementById('ratingChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: @Html.Raw(Json.Serialize(ViewBag.Labels)),
+                datasets: [{
+                    data: @Html.Raw(Json.Serialize(ViewBag.Data)),
+                    backgroundColor: [
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#4BC0C0',
+                        '#9966FF'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Phân bố Rating'
+                    }
+                }
+            }
+        });
+    </script>
+} 
