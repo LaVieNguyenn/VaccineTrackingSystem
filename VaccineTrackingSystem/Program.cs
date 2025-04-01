@@ -73,6 +73,9 @@ namespace VaccineTrackingSystem
             builder.Services.AddScoped<IChildDAO, ChildDAO>();
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<ICustomerService, CustomerService>();
+             //Feedback
+            builder.Services.AddScoped<IFeedbackDAO, FeedbackDAO>();
+            builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 
             SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
 
