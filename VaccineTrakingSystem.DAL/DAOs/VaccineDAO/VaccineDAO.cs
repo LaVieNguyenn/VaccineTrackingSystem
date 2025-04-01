@@ -114,6 +114,10 @@ namespace VaccineTrakingSystem.DAL.DAOs.VaccineDAO
             }
         }
 
+        public Task<int> InsertAsyncc(Vaccine obj)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<bool> UpdateAsync(Vaccine model)
         {

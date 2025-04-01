@@ -105,5 +105,10 @@ namespace VaccineTrakingSystem.DAL.DAOs
                 return affectedRows > 0;
             }
         }
+
+        public Task<int> InsertAsyncc(CenterInfo obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

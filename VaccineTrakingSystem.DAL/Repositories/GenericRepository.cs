@@ -40,5 +40,10 @@ namespace VaccineTrakingSystem.DAL.Repositories
         {
             return _dao.DeleteAsync(id);
         }
+
+        public Task<int> InsertAsyncc(T entity)
+        {
+            return _dao.InsertAsyncc(entity);
+        }
     }
 }

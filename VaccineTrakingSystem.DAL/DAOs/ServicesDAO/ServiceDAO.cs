@@ -101,5 +101,10 @@ namespace VaccineTrakingSystem.DAL.DAOs.ServicesDAO
                 return affectedRows > 0;
             }
         }
+
+        public Task<int> InsertAsyncc(Service obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

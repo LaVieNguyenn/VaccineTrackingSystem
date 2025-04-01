@@ -23,6 +23,7 @@ using VaccineTrakingSystem.DAL.Repositories.CustomerReposity;
 using VaccineTrakingSystem.DAL.Repositories.UserRepository;
 using VaccineTrakingSystem.DAL.DAOs.FeedbackDAO;
 using VaccineTrakingSystem.BLL.FeedbackService;
+using VaccineTrakingSystem.BLL.Services;
 namespace VaccineTrackingSystem
 {
     public class Program
@@ -67,6 +68,14 @@ namespace VaccineTrackingSystem
             builder.Services.AddScoped<IGenericRepository<CenterInfo>, GenericRepository<CenterInfo>>();
             builder.Services.AddScoped<ICenterInfoService, CenterInfoService>();
 
+            builder.Services.AddScoped<IGenericDAO<Appointment>, AppointmentDAO>();
+            builder.Services.AddScoped<IGenericRepository<Appointment>, GenericRepository<Appointment>>();
+            builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+
+            builder.Services.AddScoped<IGenericDAO<Child>, ChildDAO>();
+            builder.Services.AddScoped<IGenericRepository<Child>, GenericRepository<Child>>();
+            builder.Services.AddScoped<IChildService, ChildService>();
+
             //User
             builder.Services.AddScoped<IUserDAO, UserDAO>();
             builder.Services.AddScoped<IUserRepo, UserRepo>();
@@ -78,7 +87,7 @@ namespace VaccineTrackingSystem
             builder.Services.AddScoped<IFeedbackDAO, FeedbackDAO>();
             builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 
-            SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
+            SqlMapper.AddTypeHandler(new VaccineTrakingSystem.DAL.Helper.DateOnlyTypeHandler());
 
 
             var app = builder.Build();
