@@ -39,6 +39,19 @@ namespace VaccineTrakingSystem.DAL.DAOs.UserDAO
             }
         }
 
+        public async Task<int> CreateCustomerAsync(User user)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var sql = @"
+                    INSERT INTO Users (Username, PasswordHash, Email, FullName, PhoneNumber, Address, RoleID, CreatedAt, UpdatedAt)
+                    VALUES (@Username, @PasswordHash, @Email, @FullName, @PhoneNumber, @Address, @RoleID, @CreatedAt, @UpdatedAt);
+                    SELECT CAST(SCOPE_IDENTITY() AS INT);";
+                return await connection.QuerySingleAsync<int>(sql, user);
+            }
+        }
+
         public Task<bool> DeleteAsync(int obj)
         {
             throw new NotImplementedException();

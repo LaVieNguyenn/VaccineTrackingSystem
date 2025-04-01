@@ -736,13 +736,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\VaccineTrackingSystem.y3cu08nqbr.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-MldhzS08/6bcpypp2ufEDeMGdedHntVN3MqeQ6xI6Mk="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022MldhzS08/6bcpypp2ufEDeMGdedHntVN3MqeQ6xI6Mk=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 11:01:03 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022MldhzS08/6bcpypp2ufEDeMGdedHntVN3MqeQ6xI6Mk=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 14:57:16 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/VaccineTrackingSystem/VaccineTrackingSystem.y3cu08nqbr.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\VaccineTrackingSystem.y3cu08nqbr.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"y3cu08nqbr"},{"Name":"integrity","Value":"sha256-MldhzS08/6bcpypp2ufEDeMGdedHntVN3MqeQ6xI6Mk="},{"Name":"label","Value":"_content/VaccineTrackingSystem/VaccineTrackingSystem.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022MldhzS08/6bcpypp2ufEDeMGdedHntVN3MqeQ6xI6Mk=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 11:01:03 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1139"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022MldhzS08/6bcpypp2ufEDeMGdedHntVN3MqeQ6xI6Mk=\u0022"},{"Name":"Last-Modified","Value":"Tue, 01 Apr 2025 14:57:16 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/VaccineTrackingSystem/wp-content/plugins/contact-form-7/includes/css/styles1eb7.1jqz7twrm5.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\wp-content\plugins\contact-form-7\includes\css\styles1eb7.css'))</AssetFile>

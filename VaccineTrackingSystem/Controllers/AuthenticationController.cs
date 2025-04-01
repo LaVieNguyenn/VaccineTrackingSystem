@@ -5,22 +5,50 @@ using System.Security.Claims;
 using VaccineTrakingSystem.BLL.Services.UserService;
 using VaccineTrakingSystem.BLL.DTOs;
 using Microsoft.AspNetCore.Authorization;
+using VaccineTrakingSystem.BLL.CustomerService;
+using VaccineTrackingSystem.Models;
 
 namespace VaccineTrackingSystem.Controllers
 {
     public class AuthenticationController : Controller
     {
         private readonly IUserService _service;
+        private readonly ICustomerService _customerService;
 
-        public AuthenticationController(IUserService userService)
+
+        public AuthenticationController(IUserService userService, ICustomerService customerService)
         {
             _service = userService;
+            _customerService = customerService;
         }
 
         [HttpGet]
         public ActionResult Login(string? returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(CustomerRegisterModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            int userId = await _customerService.RegisterCustomerAsync(model);
+            return RedirectToAction("RegisterSuccess");
+        }
+
+        public IActionResult RegisterSuccess()
+        {
             return View();
         }
 

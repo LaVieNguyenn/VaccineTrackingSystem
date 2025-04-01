@@ -1,5 +1,7 @@
+using Dapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using VaccineTrackingSystem.Controllers;
+using VaccineTrakingSystem.BLL.CustomerService;
 using VaccineTrakingSystem.BLL.Services.UserService;
 using VaccineTrakingSystem.BLL.ServicesService;
 using VaccineTrakingSystem.BLL.UsersService;
@@ -7,13 +9,16 @@ using VaccineTrakingSystem.BLL.VaccineRecordService;
 using VaccineTrakingSystem.BLL.VaccineScheduleService;
 using VaccineTrakingSystem.BLL.VaccineService;
 using VaccineTrakingSystem.DAL.DAOs;
+using VaccineTrakingSystem.DAL.DAOs.ChildDAO;
 using VaccineTrakingSystem.DAL.DAOs.ServicesDAO;
 using VaccineTrakingSystem.DAL.DAOs.UserDAO;
 using VaccineTrakingSystem.DAL.DAOs.UsersDAO;
 using VaccineTrakingSystem.DAL.DAOs.VaccineDAO;
 using VaccineTrakingSystem.DAL.DAOs.VaccineRecordDAO;
+using VaccineTrakingSystem.DAL.Helper;
 using VaccineTrakingSystem.DAL.Models;
 using VaccineTrakingSystem.DAL.Repositories;
+using VaccineTrakingSystem.DAL.Repositories.CustomerReposity;
 using VaccineTrakingSystem.DAL.Repositories.UserRepository;
 
 namespace VaccineTrackingSystem
@@ -60,6 +65,13 @@ namespace VaccineTrackingSystem
             builder.Services.AddScoped<IUserDAO, UserDAO>();
             builder.Services.AddScoped<IUserRepo, UserRepo>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IChildDAO, ChildDAO>();
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
+
+            SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

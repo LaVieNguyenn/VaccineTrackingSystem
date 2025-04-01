@@ -10,5 +10,6 @@ namespace VaccineTrakingSystem.DAL.DAOs.UserDAO
     public interface IUserDAO : IGenericDAO<User>
     {
         Task<User?> AuthenticateAsync(string username, string password);
+        Task<int> CreateCustomerAsync(User user);
     }
 }
