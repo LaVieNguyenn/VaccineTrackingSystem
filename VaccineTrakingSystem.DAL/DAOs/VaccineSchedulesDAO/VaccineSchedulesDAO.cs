@@ -293,6 +293,24 @@ WHERE vs.ScheduleID = @ScheduleId";
             }
         }
 
+        public async Task<int> InsertAsyncc(VaccineSchedule vaccineSchedule)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                // Gán giá trị ngày giờ hiện tại
+                vaccineSchedule.CreatedAt = DateTime.UtcNow;
+                vaccineSchedule.UpdatedAt = DateTime.UtcNow;
+
+                var sql = @"
+            INSERT INTO VaccineSchedules (ChildID, VaccineID, ScheduledDate, Status, AppointmentID, CreatedAt, UpdatedAt)
+            VALUES (@ChildID, @VaccineID, @ScheduledDate, @Status, @AppointmentID, @CreatedAt, @UpdatedAt);
+            SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+                return await connection.QuerySingleAsync<int>(sql, vaccineSchedule);
+            }
+        }
 
         public async Task<bool> UpdateAsync(VaccineSchedule vaccineSchedule)
         {

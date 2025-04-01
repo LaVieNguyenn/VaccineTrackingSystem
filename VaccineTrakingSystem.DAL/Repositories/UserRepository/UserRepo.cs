@@ -42,6 +42,11 @@ namespace VaccineTrakingSystem.DAL.Repositories.UserRepository
             throw new NotImplementedException();
         }
 
+        public Task<int> InsertAsyncc(User obj)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<bool> UpdateAsync(User obj)
         {
             throw new NotImplementedException();
