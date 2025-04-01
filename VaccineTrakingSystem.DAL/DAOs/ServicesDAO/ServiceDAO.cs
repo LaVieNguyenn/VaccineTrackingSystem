@@ -33,7 +33,7 @@ namespace VaccineTrakingSystem.DAL.DAOs.ServicesDAO
                                    CreatedAt, 
                                    UpdatedAt 
                             FROM Services 
-                            ORDER BY CreatedAt DESC";
+                            ORDER BY CreatedAt ASC";
                 return await connection.QueryAsync<Service>(sql);
             }
         }
@@ -63,14 +63,19 @@ namespace VaccineTrakingSystem.DAL.DAOs.ServicesDAO
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
+
+                var currentTime = DateTime.Now;
+                service.CreatedAt = currentTime;
+                service.UpdatedAt = currentTime;
+
                 var sql = @"
-                    INSERT INTO Services (ServiceName, Description, Price, Status, CreatedAt, UpdatedAt)
-                    VALUES (@ServiceName, @Description, @Price, @Status, @CreatedAt, @UpdatedAt);
-                    SELECT CAST(SCOPE_IDENTITY() AS INT);";
+            INSERT INTO Services (ServiceName, Description, Price, Status, CreatedAt, UpdatedAt)
+            VALUES (@ServiceName, @Description, @Price, @Status, @CreatedAt, @UpdatedAt);
+            SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
                 return await connection.QuerySingleAsync<int>(sql, service);
             }
         }
-
         // Cập nhật service
         public async Task<bool> UpdateAsync(Service service)
         {

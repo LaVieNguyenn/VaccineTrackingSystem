@@ -1,0 +1,326 @@
+﻿@model IEnumerable<VaccineTrakingSystem.DAL.Models.Service>
+
+@{
+    ViewData["Title"] = "Danh sách dịch vụ tiêm chủng";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-wrapper">
+                <h3 class="fw-bold text-dark mb-4">Vaccination Service List</h3>
+
+                <div class="d-flex justify-content-end mb-3">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createServiceModal">Add New Service</button>
+                </div>
+
+                @if (Model != null && Model.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-bordered shadow-sm">
+                            <thead class="table-light text-primary text-center">
+                                <tr>
+                                    <th style="width: 10%;text-align:center">Service ID</th>
+                                    <th style="width: 25%;text-align:center">Service Name</th>
+                                    <th style="width: 25%;text-align:center">Description</th>
+                                    <th style="width: 15%;text-align:center">Price</th>
+                                    <th style="width: 15%;text-align:center">Status</th>
+                                    <th style="width: 20%;text-align:center">Created At</th>
+                                    <th style="width: 18%;text-align:center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var service in Model)
+                                {
+                                    <tr class="align-middle text-center">
+                                        <td style="text-align:center">@service.ServiceId</td>
+                                        <td style="text-align:center" class="fw-bold">@service.ServiceName</td>
+                                        <td style="text-align:center">@service.Description</td>
+                                        <td style="text-align:center">@service.Price.ToString("N0") VNĐ</td>
+                                        <td style="text-align:center">
+                                            @if (service.Status)
+                                            {
+                                                <span class="badge bg-success">Active</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-danger">Inactive</span>
+                                            }
+                                        </td>
+                                        <td style="text-align:center">@service.CreatedAt.ToString("dd/MM/yyyy")</td>
+                                        <td class="text-center">
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btn-warning btn-sm btn-spacing" onclick="editService(@service.ServiceId)">
+                                                    <i class="fa fa-edit"></i> Edit
+                                                </button>
+                                                <button class="btn btn-danger btn-sm" onclick="deleteService(@service.ServiceId)">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </button>
+                                              
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-center text-muted">No services found.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal to Add New Service -->
+<div class="modal fade" id="createServiceModal" tabindex="-1" aria-labelledby="createServiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createServiceModalLabel">Add New Service</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form to Add New Service -->
+                <form id="createServiceForm">
+                    <div class="mb-3">
+                        <label for="ServiceName" class="form-label">Service Name</label>
+                        <input type="text" class="form-control" id="ServiceName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Description" class="form-label">Description</label>
+                        <textarea class="form-control" id="Description" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Price" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="Price" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Status" class="form-label">Status</label>
+                        <select class="form-control" id="Status" required>
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal to Edit  Service -->
+<div class="modal fade" id="editServiceModal" tabindex="-1" aria-labelledby="editServiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editServiceModalLabel">Edit Service</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form to Edit Service -->
+                <form id="editServiceForm">
+                    <input type="hidden" id="editServiceId"> <!-- Hidden field to hold the Service ID -->
+                    <div class="mb-3">
+                        <label for="editServiceName" class="form-label">Service Name</label>
+                        <input type="text" class="form-control" id="editServiceName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="editDescription" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editPrice" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="editPrice" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editStatus" class="form-label">Status</label>
+                        <select class="form-control" id="editStatus" required>
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to open the Edit modal with pre-filled data
+    function editService(serviceId) {
+        fetch(`/Service/GetServiceById/${serviceId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    // Fill the modal fields with the current service details
+                    document.getElementById('editServiceId').value = data.serviceId;
+                    document.getElementById('editServiceName').value = data.serviceName;
+                    document.getElementById('editDescription').value = data.description;
+                    document.getElementById('editPrice').value = data.price;
+                    document.getElementById('editStatus').value = data.status ? 'true' : 'false';
+
+                    // Show the modal
+                    var editModal = new bootstrap.Modal(document.getElementById('editServiceModal'));
+                    editModal.show();
+                } else {
+                    Swal.fire("Error!", "Service not found!", "error");
+                }
+            })
+            .catch(() => Swal.fire("Error!", "Failed to load service data!", "error"));
+    }
+
+    // Handle form submission for editing
+    document.getElementById('editServiceForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var updatedService = {
+            ServiceId: document.getElementById('editServiceId').value,
+            ServiceName: document.getElementById('editServiceName').value,
+            Description: document.getElementById('editDescription').value,
+            Price: document.getElementById('editPrice').value,
+            Status: document.getElementById('editStatus').value === 'true' ? true : false
+        };
+
+        fetch('/Service/UpdateService', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify(updatedService)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                Swal.fire("Updated!", "Service updated successfully.", "success")
+                    .then(() => location.reload());
+            } else {
+                Swal.fire("Error!", "Failed to update service.", "error");
+            }
+        })
+        .catch(() => Swal.fire("Error!", "Something went wrong!", "error"));
+    });
+          function deleteService(ServiceId) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/Service/DeleteService/${ServiceId}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire("Deleted!", "Service has been deleted.", "success")
+                            .then(() => location.reload());
+                    } else {
+                        Swal.fire("Error!", "Failed to delete Service.", "error");
+                    }
+                })
+                .catch(() => Swal.fire("Error!", "Something went wrong!", "error"));
+            }
+        });
+        }
+               document.getElementById("createServiceForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const serviceData = {
+            serviceName: document.getElementById("ServiceName").value.trim(), 
+            description: document.getElementById("Description").value.trim(), 
+            price: parseFloat(document.getElementById("Price").value.trim()),
+            status: document.getElementById("Status").value === "true"
+        };
+
+        fetch("/Service/CreateService", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(serviceData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                Swal.fire("Success!", "Service created successfully.", "success")
+                    .then(() => location.reload());
+            } else {
+                Swal.fire("Error!", data.message || "Failed to create service.", "error");
+            }
+        })
+        .catch(() => Swal.fire("Error!", "Something went wrong!", "error"));
+    });
+
+
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+    .btn-spacing {
+        margin-right: 10px;
+    }
+
+    .modal-body .form-label {
+        font-weight: 600;
+    }
+
+    .modal-body .form-control {
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .modal-body .btn {
+        padding: 10px 15px;
+        font-weight: 600;
+    }
+
+    .table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .table thead th {
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+    #editStatus {
+        height: auto !important;
+        min-height: 40px;
+        padding: 8px 12px;
+        line-height: normal;
+    }
+
+    #Status {
+        height: auto !important;
+        min-height: 40px;
+        padding: 8px 12px;
+        line-height: normal;
+    }
+</style>

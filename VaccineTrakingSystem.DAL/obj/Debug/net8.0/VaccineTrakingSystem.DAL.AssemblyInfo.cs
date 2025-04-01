@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VaccineTrakingSystem.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+56117d11eee2269540f4473c2c76f01a1c19f368")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b0ec5b7e209db7d94415d220fed81dfe74676266")]
 [assembly: System.Reflection.AssemblyProductAttribute("VaccineTrakingSystem.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VaccineTrakingSystem.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
