@@ -35,29 +35,24 @@ namespace VaccineTrakingSystem.DAL.DAOs.VaccineDAO
             {
                 await connection.OpenAsync();
                 var sql = @"SELECT VaccineID AS VaccineId, 
-                    VaccineName, 
-                    Description, 
-                    NumberOfDoses, 
-                    Manufacturer, 
-                    VaccineType, 
-                    ExpirationPeriod,
-                    ProductionDate,
-                    CreatedAt,
-                    UpdatedAt
-             FROM Vaccines 
-             ORDER BY CreatedAt DESC";
+                           VaccineName, 
+                           Description, 
+                           NumberOfDoses, 
+                           Manufacturer, 
+                           VaccineType, 
+                           ExpirationPeriod,
+                           ProductionDate,
+                           CreatedAt,
+                           UpdatedAt
+                    FROM Vaccines 
+                    ORDER BY CreatedAt DESC";
 
-                var result = await connection.QueryAsync(sql, (Vaccine v, DateTime productionDate) =>
-                {
-                    v.ProductionDate = DateOnly.FromDateTime(productionDate); // ✅ Convert DateTime -> DateOnly
-                    return v;
-                },
-                splitOn: "ProductionDate"); // ⚡ Quan trọng: Cho Dapper biết đây là column cần map
+                var result = await connection.QueryAsync<Vaccine>(sql);
 
-                // 🔥 Log dữ liệu sau khi query từ DB
+                // 🔥 Debug log
                 foreach (var v in result)
                 {
-                    Console.WriteLine($"ID: {v.VaccineId}, CreatedAt: {v.CreatedAt}, UpdatedAt: {v.UpdatedAt}");
+                    Console.WriteLine($"ID: {v.VaccineId}, CreatedAt: {v.CreatedAt:yyyy-MM-dd HH:mm:ss}, UpdatedAt: {v.UpdatedAt:yyyy-MM-dd HH:mm:ss}");
                 }
 
                 return result;

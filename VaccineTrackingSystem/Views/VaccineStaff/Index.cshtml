@@ -29,9 +29,10 @@
                 <div class="filter-container">
                     <input type="text" id="searchInput" placeholder="🔍 Tìm kiếm theo tên trẻ..." onkeyup="filterTable()">
                     <select id="statusFilter" onchange="filterTable()">
-                        <option value="">-- Trạng thái --</option>
-                        <option value="Pending">Pending</option>
-                        <option value="Completed">Completed</option>
+                        <option value="">-- All --</option>
+                        <option value="Processing">Processing</option>
+                        <option value="Success">Success</option>
+                        <option value="Canceled">Canceled</option>
                     </select>
                     <input type="date" id="dateFilter" onchange="filterTable()">
                 </div>
@@ -60,7 +61,12 @@
                                     <td>@schedule.VaccineId</td>
                                     <td>@schedule.AppointmentId</td>
                                     <td class="schedule-date">@schedule.ScheduledDate.ToString("yyyy-MM-dd")</td>
-                                    <td class="status">@(schedule.Status == 1 ? "Completed" : "Pending")</td>
+                                    <td class="status">
+                                        @(schedule.Status == 1 ? "Success" :
+                                            schedule.Status == 0 ? "Processing" :
+                                            schedule.Status == 3 ? "Canceled" : "Unknown")
+                                    </td>
+
                                     <td>@schedule.CreatedAt</td>
                                     <td>@schedule.UpdatedAt</td>
                                     <td>
@@ -140,19 +146,23 @@
             }
         });
     }
-      function filterTable() {
-        let searchInput = document.getElementById("searchInput").value.toLowerCase();
-        let statusFilter = document.getElementById("statusFilter").value;
+         function filterTable() {
+        let searchInput = document.getElementById("searchInput").value.toLowerCase().trim();
+        let statusFilter = document.getElementById("statusFilter").value.trim();
         let dateFilter = document.getElementById("dateFilter").value;
         let rows = document.querySelectorAll("#scheduleTable tbody tr");
 
         rows.forEach(row => {
-            let name = row.querySelector(".child-name").textContent.toLowerCase();
-            let status = row.querySelector(".status").textContent;
-            let scheduleDate = row.querySelector(".schedule-date").textContent;
+            let name = row.querySelector(".child-name").textContent.toLowerCase().trim();
+            let status = row.querySelector(".status").textContent.trim();
+            let scheduleDate = row.querySelector(".schedule-date").textContent.trim();
+
+            // Chuẩn hóa status (tránh lỗi khoảng trắng, chữ hoa/chữ thường)
+            let normalizedStatus = status.toLowerCase();
+            let normalizedFilter = statusFilter.toLowerCase();
 
             let matchSearch = name.includes(searchInput);
-            let matchStatus = statusFilter === "" || status === statusFilter;
+            let matchStatus = statusFilter === "" || normalizedStatus === normalizedFilter;
             let matchDate = dateFilter === "" || scheduleDate === dateFilter;
 
             if (matchSearch && matchStatus && matchDate) {
@@ -162,6 +172,7 @@
             }
         });
     }
+
 </script>
 
 <style>
