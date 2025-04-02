@@ -59,5 +59,10 @@ namespace VaccineTrakingSystem.BLL.Services
         {
             return _repository.DeleteAsync(id);
         }
+        public async Task<IEnumerable<Appointment>> GetAppointmentsByChildIdAsync(int childId)
+        {
+            var allAppointments = await _repository.GetAllAsync();
+            return allAppointments.Where(a => a.ChildId == childId).ToList();
+        }
     }
 }

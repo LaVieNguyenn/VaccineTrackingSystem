@@ -136,15 +136,47 @@ namespace VaccineTrackingSystem.Controllers
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            if (id <= 0)
-                return BadRequest("ID không hợp lệ");
+            try
+            {
+                if (id <= 0)
+                    return BadRequest("ID không hợp lệ");
 
-            var success = await _childService.DeleteChildAsync(id);
+                // Kiểm tra xem trẻ có tồn tại không
+                var child = await _childService.GetChildByIdAsync(id);
+                if (child == null)
+                    return NotFound("Không tìm thấy thông tin trẻ em để xóa");
 
-            if (success)
-                return Ok("Xóa thông tin trẻ em thành công");
+                // Kiểm tra quyền: chỉ parent của child này mới được xóa
+                var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                if (child.ParentId != userId)
+                    return Forbid();
 
-            return NotFound("Không tìm thấy thông tin trẻ em để xóa");
+                // Xóa tất cả lịch tiêm chủng liên quan đến ChildId
+                var schedules = await _vaccineScheduleService.GetVaccineSchedulesByChildIdAsync(id);
+                foreach (var schedule in schedules)
+                {
+                    await _vaccineScheduleService.DeleteVaccineScheduleServiceAsync(schedule.ScheduleId);
+                }
+
+                // Xóa tất cả cuộc hẹn liên quan đến ChildId (nếu có)
+                var appointments = await _appointmentService.GetAppointmentsByChildIdAsync(id); // Sử dụng phương thức mới
+                foreach (var appointment in appointments)
+                {
+                    await _appointmentService.CancelAppointmentAsync(appointment.AppointmentId); // Sử dụng CancelAppointmentAsync
+                }
+                // Sau khi xóa các bản ghi liên quan, xóa trẻ
+                var success = await _childService.DeleteChildAsync(id);
+
+                if (success)
+                    return Ok("Xóa thông tin trẻ em thành công");
+
+                return StatusCode(500, "Lỗi hệ thống khi xóa trẻ em");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in Delete: {ex.Message}");
+                return StatusCode(500, new { Message = "Lỗi hệ thống", Error = ex.Message });
+            }
         }
 
         [HttpGet("Detail/{id}")]
