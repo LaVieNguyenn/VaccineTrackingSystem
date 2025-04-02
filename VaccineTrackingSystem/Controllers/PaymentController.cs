@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
+using VaccineTrackingSystem.Models;
 using VaccineTrakingSystem.BLL.DTOs;
 using VaccineTrakingSystem.BLL.PaymentService;
+using VaccineTrakingSystem.BLL.Services;
+using VaccineTrakingSystem.BLL.ServicesService;
 using VaccineTrakingSystem.DAL.Helper;
 using VaccineTrakingSystem.DAL.Models;
 
@@ -11,9 +14,15 @@ namespace VaccineTrackingSystem.Controllers
     public class PaymentController : Controller
     {
         private readonly IPaymentService _paymentService;
-        public PaymentController(IPaymentService paymentService)
+        private readonly IServicesService _servicesService;
+        private readonly IAppointmentService _appointmentService;
+        private readonly IChildService _childService;
+        public PaymentController(IPaymentService paymentService, IServicesService servicesService, IAppointmentService appointmentService, IChildService childService)
         {
             _paymentService = paymentService;
+            _servicesService = servicesService;
+            _appointmentService = appointmentService;
+            _childService = childService;
         }
 
         // GET: /Payment/ChooseMethod?appointmentId=123&amount=50.0
@@ -84,6 +93,29 @@ namespace VaccineTrackingSystem.Controllers
         {
             ViewBag.PaymentId = id;
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index(int? appointmentId, string? phoneNumber, string? username)
+        {
+            var appointments = await _paymentService.GetUnpaidAppointmentsAsync(appointmentId, phoneNumber, username);
+            var viewModel = new SearchAppointmentsViewModel
+            {
+                AppointmentID = appointmentId,
+                PhoneNumber = phoneNumber,
+                Username = username,
+                Appointments = appointments
+            };
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SelectForPayment(int appointmentId)
+        {
+            var appointment = await _appointmentService.GetAppointmentByIdAsync(appointmentId);
+            var service = await _servicesService.GetServiceByIdAsync(appointment.ServiceId);
+            var child = await _childService.GetChildByIdAsync(appointment.ChildId);
+            return Redirect($"/Payment/ChooseMethod?appointmentId={appointment.AppointmentId}&amount={service.Price}&userId={child.ParentId}");
         }
     }
 }

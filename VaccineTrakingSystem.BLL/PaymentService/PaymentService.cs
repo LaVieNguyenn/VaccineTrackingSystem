@@ -1,10 +1,12 @@
 ﻿using Client.Controllers.V1.ThirdParty;
 using Client.Logics.Commons.MomoLogics;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VaccineTrakingSystem.BLL.Services;
 using VaccineTrakingSystem.DAL.Helper;
 using VaccineTrakingSystem.DAL.Models;
 using VaccineTrakingSystem.DAL.Repositories.PaymentRepository;
@@ -15,10 +17,12 @@ namespace VaccineTrakingSystem.BLL.PaymentService
     {
         private readonly IPaymentRepository _paymentRepository;
         private readonly IMomoService _momoService;
-        public PaymentService(IPaymentRepository paymentRepository, IMomoService momoService)
+        private readonly IAppointmentService _appoitmentService;
+        public PaymentService(IPaymentRepository paymentRepository, IMomoService momoService, IAppointmentService appointmentService)
         {
             _paymentRepository = paymentRepository;
             _momoService = momoService;
+            _appoitmentService = appointmentService;
         }
 
         public Task<Payment?> GetPaymentByAppointmentAsync(int appointmentId) => _paymentRepository.GetPaymentByAppointmentAsync(appointmentId);
@@ -37,7 +41,6 @@ namespace VaccineTrakingSystem.BLL.PaymentService
             {
                 var momoRequest = new MomoExecuteResponseModel
                 {
-                    // Sử dụng Payment.Amount và AppointmentID để tạo OrderInfo nếu cần
                     Amount = (Math.Round(payment.Amount)*1000).ToString(),
                     OrderInfo = $"Payment for appointment {payment.AppointmentId}",
                     OrderId = paymentId.ToString() + "_" + DateTime.UtcNow.Ticks.ToString(),
@@ -49,12 +52,20 @@ namespace VaccineTrakingSystem.BLL.PaymentService
             }
             else if (payment.PaymentMethod == (byte)ConstantEnums.PaymentMethod.Cash)
             {
-                // Với tiền mặt, ta giả định thanh toán được xử lý trực tiếp
+                var appoitment = await _appoitmentService.GetAppointmentByIdAsync(payment.AppointmentId);
                 await _paymentRepository.UpdatePaymentStatusAsync(paymentId, (byte)ConstantEnums.PaymentStatus.Paid, DateTime.Now);
+                appoitment.PaymentStatus = (byte)ConstantEnums.PaymentStatus.Paid;
+                _appoitmentService.UpdateAppointmentAsync(appoitment);
+                
             }
             return paymentId.ToString();
         }
 
         public Task<bool> UpdatePaymentStatusAsync(int paymentId, int status, DateTime paymentDat) => _paymentRepository.UpdatePaymentStatusAsync(paymentId, status, paymentDat);
+
+        public Task<IEnumerable<AppointmentDTO>> GetUnpaidAppointmentsAsync(int? appointmentId, string? phoneNumber, string? username)
+        {
+            return _paymentRepository.GetUnpaidAppointmentsAsync(appointmentId, phoneNumber, username);
+        }
     }
 }

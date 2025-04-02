@@ -13,6 +13,8 @@ namespace VaccineTrakingSystem.DAL.Repositories.PaymentRepository
         Task<bool> UpdatePaymentStatusAsync(int paymentId, int status, DateTime paymentDate);
         Task<Payment?> GetPaymentByAppointmentAsync(int appointmentId);
         Task<Payment?> GetPaymentByIdAsync(int id);
+        Task<IEnumerable<AppointmentDTO>> GetUnpaidAppointmentsAsync(int? appointmentId, string? phoneNumber, string? username);
+
 
     }
 }

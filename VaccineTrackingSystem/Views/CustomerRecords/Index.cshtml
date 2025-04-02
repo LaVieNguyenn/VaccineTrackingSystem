@@ -1,4 +1,8 @@
 ﻿@model X.PagedList.IPagedList<VaccineTrakingSystem.DAL.Models.VaccinationRecord>
+@inject IHttpContextAccessor _httpContextAccessor
+@{
+    var UserId = _httpContextAccessor?.HttpContext?.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+}
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap JS -->
@@ -40,28 +44,47 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var record in Model)
+            @{
+                int userIdInt = int.TryParse(UserId, out var parsedUserId) ? parsedUserId : 0; // Chuyển UserId thành int
+                var filteredRecords = Model.Where(r => r.Child?.ParentId == userIdInt).ToList(); // Lọc danh sách trước
+            }
+
+            @if (filteredRecords.Any())  // Nếu có dữ liệu, hiển thị bảng
+            {
+                @foreach (var record in filteredRecords)
+                {
+                    Console.WriteLine("child's parentID: " + record.Child?.ParentId);
+                    Console.WriteLine("UserId: " + userIdInt);
+
+                    <tr>
+                        <td class="toggle-col" data-col="0">@(record.Child?.FullName ?? "Unknown")</td>
+                        <td class="toggle-col default-col" data-col="1">@(record.Vaccine?.VaccineName ?? "N/A")</td>
+                        <td class="toggle-col default-col" data-col="2">@record.VaccinationDate</td>
+                        <td class="toggle-col" data-col="3">
+                            @if (!string.IsNullOrEmpty(record.AdverseReaction))
+                            {
+                                <button class="btn btn-link" onclick="viewAdverseReaction('@record.RecordId')">View</button>
+                            }
+                            else
+                            {
+                                <span>None</span>
+                            }
+                        </td>
+
+                        <td class="toggle-col" data-col="4">@(record.Staff?.FullName ?? "Unassigned")</td>
+                        <td class="toggle-col default-col" data-col="5">@record.CreatedAt</td>
+                        <td class="toggle-col default-col" data-col="6">@record.UpdatedAt</td>
+                        <td>
+                            <button class="btn btn-primary edit-btn" id="Add-btn" data-id="@record.RecordId">Add Reaction</button>
+                        </td>
+                    </tr>
+                }
+            }
+            else  // Nếu không có dữ liệu, hiển thị thông báo
             {
                 <tr>
-                    <td class="toggle-col " data-col="0">@(record.Child?.FullName ?? "Unknown")</td>
-                    <td class="toggle-col default-col" data-col="1">@(record.Vaccine?.VaccineName ?? "N/A")</td>
-                    <td class="toggle-col default-col" data-col="2">@record.VaccinationDate</td>
-                    <td class="toggle-col" data-col="3">
-                        @if (!string.IsNullOrEmpty(record.AdverseReaction))
-                        {
-                            <button class="btn btn-link" onclick="viewAdverseReaction('@record.RecordId')">View</button>
-                        }
-                        else
-                        {
-                            <span>None</span>
-                        }
-                    </td>
-
-                    <td class="toggle-col" data-col="4">@(record.Staff?.FullName ?? "Unassigned")</td>
-                    <td class="toggle-col default-col" data-col="5">@record.CreatedAt</td>
-                    <td class="toggle-col default-col" data-col="6">@record.UpdatedAt</td>
-                    <td>
-                        <button class="btn btn-primary edit-btn" id="Add-btn" data-id="@record.RecordId">Add Reaction</button>
+                    <td colspan="7" class="text-center text-muted">
+                        No records found for the current user.
                     </td>
                 </tr>
             }

@@ -1,0 +1,63 @@
+﻿@model VaccineTrackingSystem.Models.SearchAppointmentsViewModel
+
+@{
+    ViewData["Title"] = "Unpaid Appointments";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Unpaid Appointments for Payment</h2>
+
+    <!-- Form tìm kiếm -->
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-3">
+            <input type="number" name="appointmentId" class="form-control" placeholder="Appointment ID" value="@Model.AppointmentID" />
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="phoneNumber" class="form-control" placeholder="Customer Phone Number" value="@Model.PhoneNumber" />
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="username" class="form-control" placeholder="Username" value="@Model.Username" />
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+        </div>
+    </form>
+
+    <!-- Danh sách appointment -->
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Appointment ID</th>
+                <th>Appointment Date</th>
+                <th>Booking Date</th>
+                <th>Status</th>
+                <th>Payment Status</th>
+                <th>Username</th>
+                <th>Phone Number</th>
+                <th>Full Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Appointments != null)
+            {
+                foreach (var appt in Model.Appointments)
+                {
+                    <tr>
+                        <td>@appt.AppointmentID</td>
+                        <td>@appt.AppointmentDate.ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>@appt.BookingDate.ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>@appt.Status</td>
+                        <td>@appt.PaymentStatus</td>
+                        <td>@appt.Username</td>
+                        <td>@appt.PhoneNumber</td>
+                        <td>@appt.FullName</td>
+                        <td>
+                            <a asp-action="SelectForPayment" asp-route-appointmentId="@appt.AppointmentID" class="btn btn-sm btn-success">Process Payment</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

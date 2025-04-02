@@ -13,6 +13,6 @@ namespace VaccineTrakingSystem.BLL.PaymentService
         Task<Payment?> GetPaymentByAppointmentAsync(int appointmentId);
         Task<bool> UpdatePaymentStatusAsync(int paymentId, int status, DateTime paymentDate);
         Task<Payment?> GetPaymentByIdAsync(int id);
-
+        Task<IEnumerable<AppointmentDTO>> GetUnpaidAppointmentsAsync(int? appointmentId, string? phoneNumber, string? username);
     }
 }

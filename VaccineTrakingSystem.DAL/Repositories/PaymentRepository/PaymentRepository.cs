@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VaccineTrakingSystem.DAL.DAOs;
 using VaccineTrakingSystem.DAL.DAOs.PaymentDAO;
 using VaccineTrakingSystem.DAL.Models;
 
@@ -33,5 +34,9 @@ namespace VaccineTrakingSystem.DAL.Repositories.PaymentRepository
 
         public Task<Payment?> GetPaymentByIdAsync(int id) => _paymentDAO.GetPaymentByIdAsync(id);
 
+        public Task<IEnumerable<AppointmentDTO>> GetUnpaidAppointmentsAsync(int? appointmentId, string? phoneNumber, string? username)
+        {
+            return _paymentDAO.GetUnpaidAppointmentsAsync(appointmentId, phoneNumber, username);
+        }
     }
 }
