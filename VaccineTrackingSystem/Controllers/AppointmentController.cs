@@ -113,6 +113,16 @@ namespace VaccineTrackingSystem.Controllers
                     return BadRequest(new { Message = "ChildId hoặc ServiceId không hợp lệ" });
                 }
 
+                // Lấy thông tin cuộc hẹn hiện tại từ database để giữ nguyên PaymentStatus
+                var existingAppointment = await _appointmentService.GetAppointmentByIdAsync(model.AppointmentId);
+                if (existingAppointment == null)
+                {
+                    return NotFound(new { Message = "Không tìm thấy lịch hẹn để cập nhật" });
+                }
+
+                // Giữ nguyên PaymentStatus từ bản ghi cũ, không cho phép cập nhật từ dữ liệu gửi lên
+                model.PaymentStatus = existingAppointment.PaymentStatus;
+
                 if (model.BookingDate == default || model.BookingDate < new DateTime(1753, 1, 1))
                 {
                     model.BookingDate = DateTime.UtcNow;

@@ -219,110 +219,99 @@
     });
 
         // Edit Appointment
-    $(document).on("click", ".edit-btn", function () {
-        let row = $(this).closest("tr");
-        let appointmentId = $(this).data("id");
-        let childId = $(this).data("child-id");
+        $(document).on("click", ".edit-btn", function () {
+            let row = $(this).closest("tr");
+            let appointmentId = $(this).data("id");
+            let childId = $(this).data("child-id");
 
-        let childName = row.find("td:eq(1)").text().trim();
-        let serviceName = row.find("td:eq(2)").text().trim();
-        let bookingDateRaw = row.find("td:eq(3)").text().trim();
-        let status = row.find("td:eq(4)").text().trim() === "Pending" ? 0 : 1;
-        let paymentStatus = row.find("td:eq(5)").text().trim() === "Unpaid" ? 0 : 1;
+            let childName = row.find("td:eq(1)").text().trim();
+            let serviceName = row.find("td:eq(2)").text().trim();
+            let bookingDateRaw = row.find("td:eq(3)").text().trim();
+            let status = row.find("td:eq(4)").text().trim() === "Pending" ? 0 : 1;
+            let paymentStatus = row.find("td:eq(5)").text().trim() === "Unpaid" ? 0 : 1;
 
-        let bookingDate = new Date(bookingDateRaw).toISOString().split("T")[0];
+            let bookingDate = new Date(bookingDateRaw).toISOString().split("T")[0];
 
-        loadServices(services => {
-            loadChildren(children => {
-                let serviceOptions = services.map(s =>
-                    `<option value="${s.serviceId}" ${s.serviceName === serviceName ? "selected" : ""}>${s.serviceName}</option>`
-                ).join('');
-                let childOptions = children.map(c =>
-                    `<option value="${c.childId}" ${c.childId === childId ? "selected" : ""}>${c.fullName}</option>` // Sửa ChildId thành childId, FullName thành fullName
-                ).join('');
+            loadServices(services => {
+                loadChildren(children => {
+                    let serviceOptions = services.map(s =>
+                        `<option value="${s.serviceId}" ${s.serviceName === serviceName ? "selected" : ""}>${s.serviceName}</option>`
+                    ).join('');
+                    let childOptions = children.map(c =>
+                        `<option value="${c.childId}" ${c.childId === childId ? "selected" : ""}>${c.fullName}</option>`
+                    ).join('');
 
-                Swal.fire({
-                    title: "Edit Appointment",
-                    width: 600,
-                    html: `
-                        <select id="editChildId" class="swal2-select">
-                            <option value="" disabled>Select a child</option>
-                            ${childOptions}
-                        </select>
-                        <select id="editServiceId" class="swal2-select">
-                            <option value="" disabled>Select a service</option>
-                            ${serviceOptions}
-                        </select>
-                        <input id="editAppointmentDate" class="swal2-input" type="date" value="${bookingDate}">
-                        <input id="editBookingDate" class="swal2-input" type="date" value="${bookingDate}">
-                        <select id="editStatus" class="swal2-select">
-                            <option value="0" ${status === 0 ? "selected" : ""}>Pending</option>
-                            <option value="1" ${status === 1 ? "selected" : ""}>Confirmed</option>
-                        </select>
-                        <select id="editPaymentStatus" class="swal2-select">
-                            <option value="0" ${paymentStatus === 0 ? "selected" : ""}>Unpaid</option>
-                            <option value="1" ${paymentStatus === 1 ? "selected" : ""}>Paid</option>
-                        </select>
-                    `,
-                    showCancelButton: true,
-                    confirmButtonText: "Save",
-                    preConfirm: () => {
-                        let appointmentDate = $("#editAppointmentDate").val();
-                        let bookingDate = $("#editBookingDate").val();
-                        if (!bookingDate) {
-                            let today = new Date();
-                            let yyyy = today.getFullYear();
-                            let mm = String(today.getMonth() + 1).padStart(2, "0");
-                            let dd = String(today.getDate()).padStart(2, "0");
-                            bookingDate = `${yyyy}-${mm}-${dd}`;
-                        }
-                        if (!appointmentDate) {
-                            appointmentDate = bookingDate;
-                        }
-
-                        let data = {
-                            AppointmentId: parseInt(appointmentId),
-                            ChildId: parseInt($("#editChildId").val()) || 0,
-                            ServiceId: parseInt($("#editServiceId").val()) || 0,
-                            AppointmentDate: appointmentDate,
-                            BookingDate: bookingDate,
-                            Status: parseInt($("#editStatus").val()) || 0,
-                            PaymentStatus: parseInt($("#editPaymentStatus").val()) || 0
-                        };
-
-                        if (!data.AppointmentId || !data.ChildId || !data.ServiceId || !data.BookingDate || !data.AppointmentDate) {
-                            Swal.showValidationMessage("All fields are required!");
-                            return false;
-                        }
-
-                        console.log("Sending data:", JSON.stringify(data));
-
-                        return fetch(`/Appointment/Update`, {
-                            method: "PUT",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(data)
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                return response.text().then(text => { throw new Error(text || "Failed to update appointment.") });
+                    Swal.fire({
+                        title: "Edit Appointment",
+                        width: 600,
+                        html: `
+                            <select id="editChildId" class="swal2-select">
+                                <option value="" disabled>Select a child</option>
+                                ${childOptions}
+                            </select>
+                            <select id="editServiceId" class="swal2-select">
+                                <option value="" disabled>Select a service</option>
+                                ${serviceOptions}
+                            </select>
+                            <input id="editAppointmentDate" class="swal2-input" type="date" value="${bookingDate}">
+                            <input id="editBookingDate" class="swal2-input" type="date" value="${bookingDate}">
+                        `,
+                        showCancelButton: true,
+                        confirmButtonText: "Save",
+                        preConfirm: () => {
+                            let appointmentDate = $("#editAppointmentDate").val();
+                            let bookingDate = $("#editBookingDate").val();
+                            if (!bookingDate) {
+                                let today = new Date();
+                                let yyyy = today.getFullYear();
+                                let mm = String(today.getMonth() + 1).padStart(2, "0");
+                                let dd = String(today.getDate()).padStart(2, "0");
+                                bookingDate = `${yyyy}-${mm}-${dd}`;
                             }
-                            return response.json();
-                        })
-                        .catch(error => {
-                            console.error("Fetch error:", error);
-                            Swal.showValidationMessage(`Error: ${error.message}`);
-                            return false;
-                        });
-                    }
-                }).then(result => {
-                    if (result.isConfirmed) {
-                        Swal.fire("Success!", "Appointment updated.", "success").then(() => location.reload());
-                    }
+                            if (!appointmentDate) {
+                                appointmentDate = bookingDate;
+                            }
+
+                            let data = {
+                                AppointmentId: parseInt(appointmentId),
+                                ChildId: parseInt($("#editChildId").val()) || 0,
+                                ServiceId: parseInt($("#editServiceId").val()) || 0,
+                                AppointmentDate: appointmentDate,
+                                BookingDate: bookingDate
+                            };
+
+                            if (!data.AppointmentId || !data.ChildId || !data.ServiceId || !data.BookingDate || !data.AppointmentDate) {
+                                Swal.showValidationMessage("All fields are required!");
+                                return false;
+                            }
+
+                            console.log("Sending data:", JSON.stringify(data));
+
+                            return fetch(`/Appointment/Update`, {
+                                method: "PUT",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify(data)
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    return response.text().then(text => { throw new Error(text || "Failed to update appointment.") });
+                                }
+                                return response.json();
+                            })
+                            .catch(error => {
+                                console.error("Fetch error:", error);
+                                Swal.showValidationMessage(`Error: ${error.message}`);
+                                return false;
+                            });
+                        }
+                    }).then(result => {
+                        if (result.isConfirmed) {
+                            Swal.fire("Success!", "Appointment updated.", "success").then(() => location.reload());
+                        }
+                    });
                 });
             });
         });
-    });
-
         // Delete Appointment
         $(document).on("click", ".delete-btn", function () {
             let appointmentId = $(this).data("id");
