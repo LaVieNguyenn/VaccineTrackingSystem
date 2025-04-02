@@ -16,5 +16,6 @@ namespace VaccineTrakingSystem.BLL.VaccineScheduleService
         Task<bool> DeleteVaccineScheduleServiceAsync(int id);
 
         Task<int> CreateVaccineScheduleServiceAsyncc(VaccineSchedule vaccineSchedule);
+        Task<IEnumerable<VaccineSchedule>> GetVaccineSchedulesByChildIdAsync(int childId);
     }
 }

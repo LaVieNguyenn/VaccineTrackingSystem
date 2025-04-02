@@ -260,9 +260,8 @@ namespace VaccineTrackingSystem.Controllers
         {
             try
             {
-                var schedules = await _vaccineScheduleService.GetAllVaccineScheduleServiceAsync();
-                var childSchedules = schedules.Where(s => s.ChildId == childId).ToList();
-                return Ok(new { Message = "Danh sách lịch tiêm chủng", schedules = childSchedules }); // Sửa Schedules thành schedules
+                var childSchedules = await _vaccineScheduleService.GetVaccineSchedulesByChildIdAsync(childId);
+                return Ok(new { Message = "Danh sách lịch tiêm chủng", schedules = childSchedules });
             }
             catch (Exception ex)
             {
