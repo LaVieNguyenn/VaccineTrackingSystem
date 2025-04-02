@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using VaccineTrakingSystem.DAL.Models;
 using VaccineTrakingSystem.DAL.Repositories;
 
@@ -12,10 +13,11 @@ namespace VaccineTrakingSystem.BLL.VaccineScheduleService
     {
 
         private readonly IGenericRepository<VaccineSchedule> _repository;
-
-        public VaccineScheduleService(IGenericRepository<VaccineSchedule> repository)
+        private readonly IGenericRepository<Vaccine> _vaccineRepository; // Thêm repository cho Vaccine
+        public VaccineScheduleService(IGenericRepository<VaccineSchedule> repository, IGenericRepository<Vaccine> vaccineRepository)
         {
             _repository = repository;
+            _vaccineRepository = vaccineRepository;
         }
 
         public Task<int> CreateVaccineScheduleServiceAsync(VaccineSchedule vaccineSchedule)
@@ -46,6 +48,22 @@ namespace VaccineTrakingSystem.BLL.VaccineScheduleService
         public Task<int> CreateVaccineScheduleServiceAsyncc(VaccineSchedule vaccineSchedule)
         {
             return _repository.InsertAsyncc(vaccineSchedule);
+        }
+        public async Task<IEnumerable<VaccineSchedule>> GetVaccineSchedulesByChildIdAsync(int childId)
+        {
+            var allSchedules = await _repository.GetAllAsync();
+            var filteredSchedules = allSchedules.Where(vs => vs.ChildId == childId).ToList();
+
+            // Lấy dữ liệu Vaccine cho từng VaccineSchedule
+            foreach (var schedule in filteredSchedules)
+            {
+                if (schedule.VaccineId > 0)
+                {
+                    schedule.Vaccine = await _vaccineRepository.GetByIdAsync(schedule.VaccineId);
+                }
+            }
+
+            return filteredSchedules;
         }
     }
 }
