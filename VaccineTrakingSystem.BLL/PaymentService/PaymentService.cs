@@ -1,11 +1,5 @@
 ﻿using Client.Controllers.V1.ThirdParty;
 using Client.Logics.Commons.MomoLogics;
-using Microsoft.Identity.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VaccineTrakingSystem.BLL.Services;
 using VaccineTrakingSystem.DAL.Helper;
 using VaccineTrakingSystem.DAL.Models;

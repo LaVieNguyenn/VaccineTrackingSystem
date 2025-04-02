@@ -11,5 +11,6 @@ namespace VaccineTrakingSystem.BLL.Services
         Task<Appointment?> GetAppointmentByIdAsync(int id);
         Task<bool> UpdateAppointmentAsync(Appointment appointment);
         Task<bool> CancelAppointmentAsync(int id);
+        Task<IEnumerable<Appointment>> GetAppointmentsByChildIdAsync(int childId);
     }
 }
