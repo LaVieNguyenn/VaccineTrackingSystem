@@ -46,6 +46,7 @@ namespace VaccineTrakingSystem.DAL.DAOs.VaccineRecordDAO
                    vr.CreatedAt, 
                    vr.UpdatedAt,
                    c.ChildID, c.FullName,  -- Đảm bảo lấy cột ChildID
+                  c.ParentId,
                    v.VaccineID, v.VaccineName, -- Đảm bảo lấy cột VaccineID
                    s.UserID AS StaffID, s.FullName  -- Đảm bảo lấy cột StaffID
             FROM VaccinationRecords vr
