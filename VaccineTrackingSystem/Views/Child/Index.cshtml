@@ -176,24 +176,35 @@
             });
         });
 
-        // Delete Child
-        $(document).on("click", ".delete-btn", function () {
-            let childId = $(this).data("id");
+    // Delete Child
+            $(document).on("click", ".delete-btn", function () {
+                let childId = $(this).data("id");
 
-            Swal.fire({
-                title: "Are you sure?",
-                text: "This action cannot be undone!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Yes, delete it!"
-            }).then(result => {
-                if (result.isConfirmed) {
-                    fetch(`/Child/Delete/${childId}`, { method: "DELETE" })
-                        .then(() => Swal.fire("Deleted!", "Child removed.", "success").then(() => location.reload()))
-                        .catch(() => Swal.fire("Error!", "Failed to delete child.", "error"));
-                }
+                Swal.fire({
+                    title: "Bạn có chắc chắn?",
+                    text: "Hành động này không thể hoàn tác!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Có, xóa!"
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        fetch(`/Child/Delete/${childId}`, { method: "DELETE" })
+                            .then(response => {
+                                if (!response.ok) {
+                                    return response.json().then(data => { throw new Error(data.Message || data.Error || "Lỗi không xác định") });
+                                }
+                                return response.text();
+                            })
+                            .then(message => {
+                                Swal.fire("Đã xóa!", message || "Đã xóa thông tin trẻ em.", "success").then(() => location.reload());
+                            })
+                            .catch(error => {
+                                console.error("Fetch error:", error);
+                                Swal.fire("Lỗi!", `Không thể xóa trẻ em: ${error.message}`, "error");
+                            });
+                    }
+                });
             });
-        });
 
         // Generate Schedule
         $(document).on("click", ".generate-schedule-btn", function () {
