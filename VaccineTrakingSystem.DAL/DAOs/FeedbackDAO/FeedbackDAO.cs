@@ -111,25 +111,34 @@ namespace VaccineTrakingSystem.DAL.DAOs.FeedbackDAO
             }
         }
 
-        public async Task<IEnumerable<Feedback>> GetFeedbacksByCustomerId(int customerId)
+        public async Task<IEnumerable<Feedback>> GetFeedbacksByCustomerId(int customerId, int? appointmentId = null)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
+
                 var sql = @"SELECT FeedbackId,
-                                  AppointmentId,
-                                  CustomerId,
-                                  Rating,
-                                  Comments,
-                                  FeedbackDate,
-                                  CreatedAt,
-                                  UpdatedAt
-                           FROM Feedback
-                           WHERE CustomerId = @CustomerId
-                           ORDER BY FeedbackDate DESC";
-                return await connection.QueryAsync<Feedback>(sql, new { CustomerId = customerId });
+                           AppointmentId,
+                           CustomerId,
+                           Rating,
+                           Comments,
+                           FeedbackDate,
+                           CreatedAt,
+                           UpdatedAt
+                    FROM Feedback
+                    WHERE CustomerId = @CustomerId";
+
+                if (appointmentId.HasValue)
+                {
+                    sql += " AND AppointmentId = @AppointmentId";
+                }
+
+                sql += " ORDER BY FeedbackDate DESC";
+
+                return await connection.QueryAsync<Feedback>(sql, new { CustomerId = customerId, AppointmentId = appointmentId });
             }
         }
+
 
         public async Task<IEnumerable<Feedback>> GetFeedbacksByAppointmentId(int appointmentId)
         {

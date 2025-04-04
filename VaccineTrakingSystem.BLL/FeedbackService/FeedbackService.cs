@@ -88,11 +88,12 @@ namespace VaccineTrakingSystem.BLL.FeedbackService
             return await _feedbackDAO.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<FeedbackDTO>> GetFeedbacksByCustomerId(int customerId)
+        public async Task<IEnumerable<FeedbackDTO>> GetFeedbacksByCustomerId(int customerId, int? appointmentId = null)
         {
-            var feedbacks = await _feedbackDAO.GetFeedbacksByCustomerId(customerId);
+            var feedbacks = await _feedbackDAO.GetFeedbacksByCustomerId(customerId, appointmentId);
             return feedbacks.Select(MapToDTO);
         }
+
 
         public async Task<IEnumerable<FeedbackDTO>> GetFeedbacksByAppointmentId(int appointmentId)
         {
