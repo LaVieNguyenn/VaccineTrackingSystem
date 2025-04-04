@@ -11,6 +11,7 @@ namespace VaccineTrakingSystem.BLL.NotificationService
     public class NotificationService : INotificationService
     {
         private readonly INotificationRepository _notificationRepository;
+
         public NotificationService(INotificationRepository notificationRepository)
         {
             _notificationRepository = notificationRepository;

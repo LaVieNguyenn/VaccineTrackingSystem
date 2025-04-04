@@ -15,12 +15,14 @@ namespace VaccineTrakingSystem.BLL.DTOs
         public int AppointmentId { get; set; }
 
         public int ChildId { get; set; }
+        public string? ChildName { get; set; }
 
         public int VaccineId { get; set; }
 
         public DateOnly VaccinationDate { get; set; }
 
         public string? AdverseReaction { get; set; }
+        public int? UserId { get; set; }
 
         public int StaffId { get; set; }
 

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VaccineTrakingSystem.BLL.DTOs;
 using VaccineTrakingSystem.BLL.FeedbackService;
+using VaccineTrakingSystem.DAL.Models;
 
 namespace VaccineTrackingSystem.Controllers
 {
@@ -12,7 +13,6 @@ namespace VaccineTrackingSystem.Controllers
     public class FeedbackController : Controller
     {
         private readonly IFeedbackService _feedbackService;
-
         public FeedbackController(IFeedbackService feedbackService)
         {
             _feedbackService = feedbackService;

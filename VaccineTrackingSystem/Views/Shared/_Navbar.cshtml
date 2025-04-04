@@ -132,23 +132,28 @@
             updateNotificationsUI();
         });
 
-        function updateNotificationsUI() {
-            const container = $("#notificationsContainer");
-            container.empty();
-            if (notifications.length === 0) {
-                container.append('<p class="dropdown-item text-muted mb-0">No notifications</p>');
-            } else {
-                notifications.forEach(function (notification) {
-                    container.append('<a class="dropdown-item" href="#">' + notification + '</a>');
-                });
-            }
-            $("#notificationCount").text(notifications.length);
+    function updateNotificationsUI() {
+        const container = $("#notificationsContainer");
+        container.empty();
+        if (notifications.length === 0) {
+            container.append('<p class="dropdown-item text-muted mb-0">No notifications</p>');
+        } else {
+            notifications.forEach(function (notification) {
+                container.append('<a class="dropdown-item" href="#">' + notification + '</a>');
+            });
         }
+        $("#notificationCount").text(notifications.length);
+    }
 
-        connection.start().then(function () {
-            console.log("SignalR connected.");
-            // Nếu cần, bạn có thể gửi userId lên server để đăng ký nhóm riêng (nếu cấu hình authentication)
-        }).catch(function (err) {
-            console.error(err.toString());
+    connection.start().then(function () {
+        console.log("SignalR connected.");
+        $.get("/Notification/GetOldNotifications", function (data) {
+            if (data && data.length > 0) {
+                notifications = data.map(n => n.message); 
+                updateNotificationsUI();
+            }
         });
+    }).catch(function (err) {
+        console.error(err.toString());
+    });
     </script>

@@ -62,7 +62,7 @@
                         <button class="btn btn-danger delete-btn" data-id="@appointment.AppointmentId">Delete</button>
                         @if (appointment.Status == (int)AppointmentStatus.Process || appointment.Status == (int)AppointmentStatus.Success)
                         {
-                            <button class="btn btn-secondary feedback-btn" data-bs-toggle="modal" data-bs-target="#createFeedbackModal" data-id="@appointment.AppointmentId">
+                            <button class="btn btn-secondary feedback-btn" data-bs-toggle="modal" data-bs-target="#createFeedbackModal" data-id="@appointment.AppointmentId" data-child-id="@appointment.ChildId">
                                 Feedback
                             </button>
                             <button class="btn btn-info view-feedback-btn" data-id="@appointment.AppointmentId">
@@ -89,6 +89,7 @@
                 <form id="feedbackForm">
                     <!-- Hidden field to store AppointmentId -->
                     <input type="hidden" id="appointmentId" name="appointmentId">
+                    <input type="hidden" id="ChildId" name="ChildId">
 
                     <div class="mb-3">
                         <label for="comments" class="form-label">Comments</label>
@@ -173,8 +174,10 @@
     document.querySelectorAll('.feedback-btn').forEach(button => {
         button.addEventListener('click', function (event) {
             const appointmentId = event.target.getAttribute('data-id');
+            const childId = event.target.getAttribute('data-child-id');
 
             document.getElementById('appointmentId').value = appointmentId;
+            document.getElementById('ChildId').value = childId;
 
             const feedbackModal = new bootstrap.Modal(document.getElementById('feedbackModal'));
             feedbackModal.show();

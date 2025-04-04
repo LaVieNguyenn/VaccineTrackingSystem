@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using System.Security.Claims;
 using VaccineTrackingSystem.Hubs;
 using VaccineTrakingSystem.BLL.NotificationService;
 
@@ -25,6 +27,15 @@ namespace VaccineTrackingSystem.Controllers
             // Gửi thông báo qua SignalR đến user có userId
             await _hubContext.Clients.User(userId.ToString()).SendAsync("ReceiveNotification", message);
             return Ok(new { success = true });
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetOldNotifications()
+        {
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var notifications = await _notificationService.GetNotificationsByUserAsync(userId);
+            return Json(notifications);
         }
     }
 }

@@ -4272,11 +4272,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\VaccineTrackingSystem.csproj",
+      "projectUniqueName": "D:\\Code\\ASP.Net\\demo\\VaccineTrackingSystem\\VaccineTrackingSystem\\VaccineTrackingSystem.csproj",
       "projectName": "VaccineTrackingSystem",
-      "projectPath": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\VaccineTrackingSystem.csproj",
+      "projectPath": "D:\\Code\\ASP.Net\\demo\\VaccineTrackingSystem\\VaccineTrackingSystem\\VaccineTrackingSystem.csproj",
       "packagesPath": "C:\\Users\\phihu\\.nuget\\packages\\",
-      "outputPath": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrackingSystem\\obj\\",
+      "outputPath": "D:\\Code\\ASP.Net\\demo\\VaccineTrackingSystem\\VaccineTrackingSystem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4298,8 +4298,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrakingSystem.BLL\\VaccineTrakingSystem.BLL.csproj": {
-              "projectPath": "D:\\Code\\ASP.Net\\VaccineTrackingSystem\\VaccineTrakingSystem.BLL\\VaccineTrakingSystem.BLL.csproj"
+            "D:\\Code\\ASP.Net\\demo\\VaccineTrackingSystem\\VaccineTrakingSystem.BLL\\VaccineTrakingSystem.BLL.csproj": {
+              "projectPath": "D:\\Code\\ASP.Net\\demo\\VaccineTrackingSystem\\VaccineTrakingSystem.BLL\\VaccineTrakingSystem.BLL.csproj"
             }
           }
         }

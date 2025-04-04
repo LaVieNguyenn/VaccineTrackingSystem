@@ -16,11 +16,13 @@ namespace VaccineTrackingSystem.Controllers
         private readonly IVaccineScheduleService _services;
         private readonly IVaccineRecordService _recordService;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public VaccineStaffController(IVaccineScheduleService VaccineSchedules,IVaccineRecordService vaccineRecord, IHttpContextAccessor httpContextAccessor)
+        private readonly NotificationController _notificationController;
+        public VaccineStaffController(IVaccineScheduleService VaccineSchedules,IVaccineRecordService vaccineRecord, IHttpContextAccessor httpContextAccessor, NotificationController notificationController)
         {
             _services = VaccineSchedules;
             _recordService = vaccineRecord;
             _httpContextAccessor = httpContextAccessor;
+            _notificationController = notificationController;
         }
 
         [HttpPost("Vaccination")]
@@ -70,6 +72,7 @@ namespace VaccineTrackingSystem.Controllers
             if (vaccineSchedule == null)
                 return NotFound("Không tìm thấy lịch tiêm chủng này.");
 
+             await _notificationController.SendChildUpdate(input.UserId.Value, input.ChildId, input.ChildName );
             return View("Vaccination", vaccineSchedule);
         }
 

@@ -12,5 +12,6 @@ namespace VaccineTrakingSystem.BLL.DTOs
         public DateTime FeedbackDate { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public int? ChildId { get; set; }
     }
 } 

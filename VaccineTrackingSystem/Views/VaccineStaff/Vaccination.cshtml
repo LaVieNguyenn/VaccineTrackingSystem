@@ -145,7 +145,7 @@
     </div>
 </section>
 <!-- Modal View Adverse Reaction -->
-<div class="modal fade" id="adverseReactionModal" tabindex="-1" aria-labelledby="adverseReactionModalLabel" aria-hidden="true">
+<div class="modal fade" id="adverseReactionModal" aria-labelledby="adverseReactionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -166,6 +166,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.getElementById("btnAddVaccineRecord").addEventListener("click", function () {
+        console.log("clicked");
         Swal.fire({
             title: "Vaccination Report Form",
             html: `
@@ -186,12 +187,14 @@
                 }
 
                 return {
-                    ScheduleId: parseInt("@Model.ScheduleId") || null,
                     VaccinationDate: date,
                     AdverseReaction: document.getElementById("adverseReaction").value,
                     AppointmentID: parseInt("@Model.Appointment?.AppointmentId") || null,
                     ChildID: parseInt("@Model.Child?.ChildId") || null,
-                    VaccineID: parseInt("@Model.Vaccine?.VaccineId") || null
+                    VaccineID: parseInt("@Model.Vaccine?.VaccineId") || null,
+                    ScheduleId: parseInt("@Model.ScheduleId") || null,
+                    ChildName: "@Model.Child!.FullName",
+                    UserId: parseInt("@Model.Child.ParentId") || null,
                 };
             }
         }).then((result) => {

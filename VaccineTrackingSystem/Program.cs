@@ -30,6 +30,12 @@ using VaccineTrakingSystem.DAL.DAOs.PaymentDAO;
 using VaccineTrakingSystem.DAL.Repositories.PaymentRepository;
 using VaccineTrakingSystem.BLL.Services;
 using VaccineTrackingSystem.Hubs;
+using VaccineTrakingSystem.DAL.DAOs.NotificationDAO;
+using VaccineTrakingSystem.BLL.NotificationService;
+using VaccineTrakingSystem.DAL.Repositories.NotificationRepository;
+using VaccineTrakingSystem.DAL.DAOs.DashboardDao;
+using VaccineTrakingSystem.DAL.Repositories.DashboardRepository;
+using VaccineTrakingSystem.BLL.DashboardService;
 namespace VaccineTrackingSystem
 {
     public class Program
@@ -102,6 +108,14 @@ namespace VaccineTrackingSystem
             builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
             builder.Services.AddScoped<IPaymentService, PaymentService>();
 
+            builder.Services.AddScoped<INotificationDAO, NotificationDAO>();
+            builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+            builder.Services.AddScoped<INotificationService, NotificationService>();
+            builder.Services.AddScoped<NotificationController>();
+
+            builder.Services.AddScoped<IDashboardDAO, DashboardDao>();
+            builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+            builder.Services.AddScoped<IDashboardService, DashboardService>();
 
             SqlMapper.AddTypeHandler(new VaccineTrakingSystem.DAL.Helper.DateOnlyTypeHandler());
 
