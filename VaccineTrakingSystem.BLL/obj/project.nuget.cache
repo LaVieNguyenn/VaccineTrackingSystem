@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WRwSaiZjwvk=",
+  "dgSpecHash": "l9y3lcDiYMY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Hoang\\Desktop\\prn222\\VaccineTrackingSystem\\VaccineTrakingSystem.BLL\\VaccineTrakingSystem.BLL.csproj",
+  "projectFilePath": "C:\\Users\\Hoang\\Desktop\\git\\VaccineTrackingSystem\\VaccineTrakingSystem.BLL\\VaccineTrakingSystem.BLL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Hoang\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Hoang\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

@@ -6,14 +6,14 @@
 }
 
 <div class="container-fluid mt-4">
-    <h2 class="mb-4">Bảng điều khiển quản trị</h2>
+    <h2 class="mb-4">Admin Dashboard</h2>
 
-    <!-- Thống kê tổng quan -->
+    <!-- Overview Statistics -->
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="card bg-info text-white">
                 <div class="card-body">
-                    <h5 class="card-title">Tổng số đánh giá</h5>
+                    <h5 class="card-title">Total Feedbacks</h5>
                     <h2 class="card-text">@ViewBag.TotalFeedbacks</h2>
                 </div>
             </div>
@@ -21,20 +21,20 @@
         <div class="col-md-6">
             <div class="card bg-warning text-white">
                 <div class="card-body">
-                    <h5 class="card-title">Đánh giá trung bình</h5>
+                    <h5 class="card-title">Average Rating</h5>
                     <h2 class="card-text">@ViewBag.AverageRating.ToString("F1")</h2>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Biểu đồ và Bảng -->
+    <!-- Chart and Table -->
     <div class="row">
-        <!-- Biểu đồ phân bố Rating -->
+        <!-- Rating Distribution Chart -->
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Phân bố đánh giá</h5>
+                    <h5 class="card-title mb-0">Rating Distribution</h5>
                 </div>
                 <div class="card-body">
                     <canvas id="ratingChart"></canvas>
@@ -42,11 +42,11 @@
             </div>
         </div>
 
-        <!-- Bảng Feedback -->
+        <!-- Feedback Table -->
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Danh sách đánh giá</h5>
+                    <h5 class="card-title mb-0">Feedback List</h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -54,9 +54,9 @@
                             <thead>
                                 <tr>
                                     <th>Rating</th>
-                                    <th>Nhận xét</th>
-                                    <th>Ngày</th>
-                                    <th>Customer ID</th>
+                                    <th>Comments</th>
+                                    <th>Date</th>
+                                    <th>Customer Name</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -86,7 +86,7 @@
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Khởi tạo biểu đồ
+        // Initialize chart
         var ctx = document.getElementById('ratingChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'pie',
@@ -111,10 +111,10 @@
                     },
                     title: {
                         display: true,
-                        text: 'Phân bố đánh giá theo số sao'
+                        text: 'Rating Distribution by Stars'
                     }
                 }
             }
         });
     </script>
-} 
+}

@@ -32,25 +32,21 @@ namespace VaccineTrackingSystem.Controllers
         public async Task<IActionResult> Create([FromBody] FeedbackDTO feedback)
         {
             feedback.CustomerId = GetCurrentUserId();
-            feedback.FeedbackDate = DateTime.UtcNow;
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    // Gọi service để lưu feedback
                     await _feedbackService.CreateAsync(feedback);
                     return Json(new { success = true, message = "Feedback submitted successfully!" });
                 }
                 catch (Exception ex)
                 {
-                    // Xử lý lỗi nếu có
                     return Json(new { success = false, message = $"Error: {ex.Message}" });
                 }
             }
             else
             {
-                // Nếu model không hợp lệ, trả về lỗi
                 return Json(new { success = false, message = "Please provide all required fields!" });
             }
         }
