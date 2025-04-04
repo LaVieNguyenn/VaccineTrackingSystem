@@ -34,9 +34,9 @@ namespace VaccineTrakingSystem.DAL.Repositories.PaymentRepository
 
         public Task<Payment?> GetPaymentByIdAsync(int id) => _paymentDAO.GetPaymentByIdAsync(id);
 
-        public Task<IEnumerable<AppointmentDTO>> GetUnpaidAppointmentsAsync(int? appointmentId, string? phoneNumber, string? username)
+        public Task<IEnumerable<AppointmentDTO>> GetFilteredAppointmentsAsync(int? appointmentId, string? paymentStatus, string? phoneNumber, DateTime? appointmentDate, string? username)
         {
-            return _paymentDAO.GetUnpaidAppointmentsAsync(appointmentId, phoneNumber, username);
+            return _paymentDAO.GetFilteredAppointmentsAsync(appointmentId, paymentStatus, phoneNumber, appointmentDate, username);
         }
     }
 }

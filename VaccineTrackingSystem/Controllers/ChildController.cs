@@ -189,8 +189,8 @@ namespace VaccineTrackingSystem.Controllers
             return View(child);
         }
 
-        [HttpPost("GenerateSchedule/{childId}")]
-        public async Task<IActionResult> GenerateSchedule(int childId)
+        [HttpPost("GenerateSchedule/{childId}&{id}")]
+        public async Task<IActionResult> GenerateSchedule(int childId, int id)
         {
             try
             {
@@ -244,6 +244,7 @@ namespace VaccineTrackingSystem.Controllers
                                 {
                                     ChildId = childId,
                                     VaccineId = vaccine.VaccineId,
+                                    AppointmentId = id,
                                     ScheduledDate = scheduledDate,
                                     Status = 0, // Chưa tiêm
                                     CreatedAt = DateTime.UtcNow,

@@ -16,7 +16,7 @@ namespace VaccineTrakingSystem.DAL.Helper
 
         public enum PaymentStatus
         {
-            Pending,
+            UnPaid,
             Paid,
             Failed,
             Cancel,
@@ -36,6 +36,5 @@ namespace VaccineTrakingSystem.DAL.Helper
             Failed,
             Cancelled
         }
-
     }
 }

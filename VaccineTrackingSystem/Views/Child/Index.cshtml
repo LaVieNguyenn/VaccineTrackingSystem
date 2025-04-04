@@ -47,7 +47,7 @@
                         <button class="btn btn-danger delete-btn" data-id="@child.ChildId">Delete</button>
                         <button class="btn btn-info generate-schedule-btn" data-id="@child.ChildId">Generate Schedule</button>
                         <button class="btn btn-secondary view-schedule-btn" data-id="@child.ChildId">View Schedule</button>
-                    </td>
+                     </td>
                 </tr>
             }
         </tbody>
@@ -206,47 +206,47 @@
                 });
             });
 
-        // Generate Schedule
-        $(document).on("click", ".generate-schedule-btn", function () {
-            let childId = $(this).data("id");
+        // // Generate Schedule
+        // $(document).on("click", ".generate-schedule-btn", function () {
+        //     let childId = $(this).data("id");
 
-            Swal.fire({
-                title: "Generate Vaccination Schedule",
-                text: `Are you sure you want to generate a schedule for Child ID: ${childId}?`,
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonText: "Yes, generate it!"
-            }).then(result => {
-                if (result.isConfirmed) {
-                    fetch(`/Child/GenerateSchedule/${childId}`, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" }
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            return response.text().then(text => { throw new Error(text) });
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        const scheduleCount = data.schedules ? data.schedules.length : 0;
-                        Swal.fire({
-                            title: "Success!",
-                            text: data.message,
-                            icon: "success",
-                            html: `
-                                <p>${data.message}</p>
-                                <p>Generated ${scheduleCount} schedules.</p>
-                            `
-                        });
-                    })
-                    .catch(error => {
-                        console.error("Fetch error:", error);
-                        Swal.fire("Error!", `Failed to generate schedule: ${error.message}`, "error");
-                    });
-                }
-            });
-        });
+        //     Swal.fire({
+        //         title: "Generate Vaccination Schedule",
+        //         text: `Are you sure you want to generate a schedule for Child ID: ${childId}?`,
+        //         icon: "question",
+        //         showCancelButton: true,
+        //         confirmButtonText: "Yes, generate it!"
+        //     }).then(result => {
+        //         if (result.isConfirmed) {
+        //             fetch(`/Child/GenerateSchedule/${childId}`, {
+        //                 method: "POST",
+        //                 headers: { "Content-Type": "application/json" }
+        //             })
+        //             .then(response => {
+        //                 if (!response.ok) {
+        //                     return response.text().then(text => { throw new Error(text) });
+        //                 }
+        //                 return response.json();
+        //             })
+        //             .then(data => {
+        //                 const scheduleCount = data.schedules ? data.schedules.length : 0;
+        //                 Swal.fire({
+        //                     title: "Success!",
+        //                     text: data.message,
+        //                     icon: "success",
+        //                     html: `
+        //                         <p>${data.message}</p>
+        //                         <p>Generated ${scheduleCount} schedules.</p>
+        //                     `
+        //                 });
+        //             })
+        //             .catch(error => {
+        //                 console.error("Fetch error:", error);
+        //                 Swal.fire("Error!", `Failed to generate schedule: ${error.message}`, "error");
+        //             });
+        //         }
+        //     });
+        // });
 
         // View Schedule
         $(document).on("click", ".view-schedule-btn", function () {

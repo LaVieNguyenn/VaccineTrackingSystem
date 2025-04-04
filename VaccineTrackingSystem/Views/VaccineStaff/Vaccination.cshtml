@@ -186,6 +186,7 @@
                 }
 
                 return {
+                    ScheduleId: parseInt("@Model.ScheduleId") || null,
                     VaccinationDate: date,
                     AdverseReaction: document.getElementById("adverseReaction").value,
                     AppointmentID: parseInt("@Model.Appointment?.AppointmentId") || null,

@@ -1,148 +1,155 @@
-<@using Microsoft.AspNetCore.Http
+﻿@using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor _httpContextAccessor
 @{
     var isLogin = _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
+    var userName = isLogin ? _httpContextAccessor.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value : "";
+    var userRole = isLogin ? _httpContextAccessor.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value : "";
 }
-<div class="white-nav
- sticky-top">
-    <div class="container">
-        <div class="row">
-            <!-- nav -->
-            <div class="col paddingfirstnav1">
-                <nav class="navbar paddingfirstnav2 navbar-expand-lg">
-                    <!-- logo1 -->
-                    <a class="navbar-brand p-0" href='/' title='Vaxi' rel='home'>
-                        <img src='../wp-content/uploads/2021/09/Logo1.png' alt='Vaxi'>
-                    </a>
+    <style>
+        /* Tùy chỉnh badge thông báo */
+        #notificationCount {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-size: 0.7rem;
+        }
+    </style>
+    <div class="white-nav sticky-top">
+        <div class="container">
+            <div class="row">
+                <!-- Navbar -->
+                <div class="col paddingfirstnav1">
+                    <nav class="navbar navbar-expand-lg paddingfirstnav2">
+                        <!-- Logo -->
+                        <a class="navbar-brand p-0" href='/' title='Vaxi' rel='home'>
+                            <img src='~/wp-content/uploads/2021/09/Logo1.png' alt='Vaxi' />
+                        </a>
 
-                    <div class="
-          justify-content-end custom-mega-menu collapse navbar-collapse" id="main_nav">
-                        <div class="menu-menu-1-container">
-                            <ul id="menu-menu-1" class="navbar-nav">
-                                <li id="menu-item-1591" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor menu-item-1591">
-                                    <a href="/">Home</a>
+                        <div class="collapse navbar-collapse justify-content-end" id="main_nav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/">Home</a>
                                 </li>
-                                <li id="menu-item-1652" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1652"><a asp-controller="Home" asp-action="Service">Services</a></li>
-@*                                 <li id="menu-item-1595" class="mega-menu-column menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1595">
-                                    <a href="#">Pages</a><span class="icon"></span>
-                                    <ul class="sub-menu">
-                                        <li id="menu-item-4579" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4579">
-                                            <a href="#">Blog single</a><span class="icon"></span>
-                                            <ul class="sub-menu">
-                                                <li id="menu-item-2665" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-2665"><a href="https://rayoflightthemes.com/wordpress-themes/vaxi-wordpress-theme/ensuring-covid-19-vaccine-safety-in-the-monitoring-systems/">Single post</a></li>
-                                                <li id="menu-item-4580" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-4580"><a href="https://rayoflightthemes.com/wordpress-themes/vaxi-wordpress-theme/ensuring-covid-19-vaccine-safety-in-the-monitoring-systems-2/">Single post second</a></li>
-                                            </ul>
-                                        </li>
-                                        <li id="menu-item-1596" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1596">
-                                            <a href="#">Blog</a><span class="icon"></span>
-                                            <ul class="sub-menu">
-                                                <li id="menu-item-1842" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1842"><a href="https://rayoflightthemes.com/wordpress-themes/vaxi-wordpress-theme/blog-archive/">Blog archive</a></li>
-                                                <li id="menu-item-2131" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2131"><a href="https://rayoflightthemes.com/wordpress-themes/vaxi-wordpress-theme/blog-archive-sidebar/">Blog archive sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li id="menu-item-1597" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1597">
-                                            <a href="#">Team</a><span class="icon"></span>
-                                            <ul class="sub-menu">
-                                                <li id="menu-item-617" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-617"><a href="https://rayoflightthemes.com/wordpress-themes/vaxi-wordpress-theme/team/">Our doctors</a></li>
-                                                <li id="menu-item-1367" class="menu-item menu-item-type-post_type menu-item-object-rtvaxi-team menu-item-1367"><a href="https://rayoflightthemes.com/wordpress-themes/vaxi-wordpress-theme/team/jordan-hewwit-md/">Jordan Hewwit, MD</a></li>
-                                            </ul>
-                                        </li>
-                                        <li id="menu-item-1653" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1653">
-                                            <a href="#">Speciality</a><span class="icon"></span>
-                                            <ul class="sub-menu">
-                                                <li id="menu-item-1365" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1365"><a href="https://rayoflightthemes.com/wordpress-themes/vaxi-wordpress-theme/family-physician/">Family Physician</a></li>
-                                                <li id="menu-item-1760" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1760"><a href="https://rayoflightthemes.com/wordpress-themes/vaxi-wordpress-theme/programs/">Programs</a></li>
-                                                <li id="menu-item-2200" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2200"><a href="../404.html">404</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Service">Services</a>
                                 </li>
-                                <li id="menu-item-1594" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1594"><a href="../contact/index.html">Contact</a></li>
-                                <li id="menu-item-1839" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1839"><a href="../faq/index.html">FAQ</a></li>
-                                <li id="menu-item-8418" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8418"><a href="../shop/index.html">Shop</a></li> *@
                             </ul>
-                        </div>
-                        <div class="widget-menu">
-                            <div class="widget widget_block">
-                                <div class="widget-content">
-                                    <div style="margin-right: 18px;display: inline-block;">
-                                        <div class="paoc-image-popup">
-                                            <a class="paoc-popup-click paoc-popup-cust-625 paoc-popup-image paoc-popup-image" href="javascript:void(0);"><img decoding="async" class="popupaoc-img" src="../wp-content/uploads/2021/09/Button5.png" alt="" /></a>
-
-                                        </div>
-
-                                    </div>
-                                    @if (!isLogin)
-                                    {
-                                        //<a class="paoc-popup-click paoc-popup-cust-624 paoc-popup-button paoc-popup-btn custom-button1" href="javascript:void(0);">Sign Up</a>
-                                        <a asp-controller="Authentication" asp-action="Login" style="background-color: transparent; color: black">
-                                            <img src="~/images/loginLogo.png" style="height: auto; width: 26px;" />
+                            <div class="widget-menu d-flex align-items-center">
+                                <div class="mr-3">
+                                    <a class="paoc-popup-click" href="javascript:void(0);">
+                                        <img decoding="async" class="popupaoc-img" src="~/wp-content/uploads/2021/09/Button5.png" alt="" />
+                                    </a>
+                                </div>
+                                @if (!isLogin)
+                                {
+                                    <a asp-controller="Authentication" asp-action="Login" style="background-color: transparent; color: black">
+                                        <img src="~/images/loginLogo.png" style="height: auto; width: 26px;" />
+                                    </a>
+                                }
+                                else
+                                {
+                                    <div class="dropdown d-inline mr-3">
+                                        <a class="dropdown-toggle" href="#" role="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left: 2rem;">
+                                            Hi, @userName
                                         </a>
-                                    }
-                                    else
-                                    {
-                                        var userName = _httpContextAccessor.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
-                                        var userRole = _httpContextAccessor.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
-                                        <div class="dropdown d-inline">
-                                            <a class="dropdown-toggle" href="#" role="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left: 2rem;">
-                                                Hi, @userName
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                                @if (userRole == "2")
-                                                {
-                                                    <a class="dropdown-item" asp-controller="Feedback" asp-action="Index">
-                                                        Feedback
-                                                    </a>
-                                                    <a class="dropdown-item" asp-controller="Child" asp-action="Index">
-                                                        Manage Child
-                                                    </a>
-                                                    <a class="dropdown-item" asp-controller="Appointment" asp-action="Index">
-                                                        Manage Appointment
-                                                    </a>
-                                                    <div class="dropdown-divider"></div>
-
-                                                    <a class="dropdown-item" asp-controller="CustomerRecords" asp-action="Index">
-                                                        Vaccine Records
-                                                    </a>
-                                                    <div class="dropdown-divider"></div>
-                                                }
-                                                @if (userRole == "4")
-                                                {
-                                                    <a class="dropdown-item" asp-controller="Service" asp-action="Services">Manage Service</a>
-                                                    <a class="dropdown-item" asp-controller="Users" asp-action="Index">Manage Account</a>
-                                                    <a class="dropdown-item" asp-controller="CenterInfo" asp-action="CenterInfor">Manage Center Information</a>
-                                                <a class="dropdown-item" asp-controller="AdminDashboard" asp-action="Index">
-    <i class="fas fa-chart-line"></i> Dashboard
-</a>
-<div class="dropdown-divider"></div>
-                                                }else if(userRole == "3"){
-                                                    <a class="dropdown-item" asp-controller="VaccineStaff" asp-action="Index">
-                                                        <img src="~/images/VaccineLogo.png" style="height: 20px; width: 20px; margin-right: 8px;" /> Vaccine Schedule
-                                                    </a>
-                                                    <a class="dropdown-item" asp-controller="VaccineManagerStaff" asp-action="Index">
-                                                        <img src="~/images/VileLogo.png" style="height: 20px; width: 20px; margin-right: 8px;" />Manage Vaccines
-                                                    </a>
-                                                    <a class="dropdown-item" asp-controller="Payment" asp-action="Index">
-                                                        <img src="~/images/VileLogo.png" style="height: 20px; width: 20px; margin-right: 8px;" />View Appointment
-                                                    </a>
-                                                }
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                            @if (userRole == "2")
+                                            {
+                                                <a class="dropdown-item" asp-controller="Feedback" asp-action="Index">Feedback</a>
+                                                <a class="dropdown-item" asp-controller="Child" asp-action="Index">Manage Child</a>
+                                                <a class="dropdown-item" asp-controller="Appointment" asp-action="Index">Manage Appointment</a>
                                                 <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item text-danger d-flex align-items-center" asp-controller="Authentication" asp-action="Logout">
-                                                    <img src="~/images/logout.png" style="height: 20px; width: 20px; margin-right: 8px;" /> Logout
+                                                <a class="dropdown-item" asp-controller="CustomerRecords" asp-action="Index">Vaccine Records</a>
+                                                <div class="dropdown-divider"></div>
+                                            }
+                                            else if (userRole == "4")
+                                            {
+                                                <a class="dropdown-item" asp-controller="Service" asp-action="Services">Manage Service</a>
+                                                <a class="dropdown-item" asp-controller="Users" asp-action="Index">Manage Account</a>
+                                                <a class="dropdown-item" asp-controller="CenterInfo" asp-action="CenterInfor">Manage Center Information</a>
+                                                <a class="dropdown-item" asp-controller="AdminDashboard" asp-action="Index">
+                                                    <i class="fas fa-chart-line"></i> Dashboard
                                                 </a>
+                                                <div class="dropdown-divider"></div>
+                                            }
+                                            else if (userRole == "3")
+                                            {
+                                                <a class="dropdown-item" asp-controller="VaccineStaff" asp-action="Index">
+                                                    <img src="~/images/VaccineLogo.png" style="height: 20px; width: 20px; margin-right: 8px;" /> Vaccine Schedule
+                                                </a>
+                                                <a class="dropdown-item" asp-controller="VaccineManagerStaff" asp-action="Index">
+                                                    <img src="~/images/VileLogo.png" style="height: 20px; width: 20px; margin-right: 8px;" />Manage Vaccines
+                                                </a>
+                                                <a class="dropdown-item" asp-controller="Payment" asp-action="Index">
+                                                    <img src="~/images/VileLogo.png" style="height: 20px; width: 20px; margin-right: 8px;" />View Appointment
+                                                </a>
+                                            }
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item text-danger d-flex align-items-center" asp-controller="Authentication" asp-action="Logout">
+                                                <img src="~/images/logout.png" style="height: 20px; width: 20px; margin-right: 8px;" /> Logout
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- Nút thông báo riêng, bên cạnh dropdown user -->
+                                    <li class="nav-item dropdown list-unstyled d-inline">
+                                        <a class="nav-link" href="#" id="notificationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position: relative;">
+                                            <i class="fa fa-bell" style="font-size: 1.2rem;"></i>
+                                            <span id="notificationCount" class="badge badge-danger">0</span>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="notificationDropdown" id="notificationList" style="min-width: 250px;">
+                                            <h6 class="dropdown-header">Notifications</h6>
+                                            <div id="notificationsContainer" style="max-height: 200px; overflow-y: auto;">
+                                                <p class="dropdown-item text-muted mb-0">No notifications</p>
                                             </div>
                                         </div>
-                                    }
-                                </div>
+                                    </li>
+                                }
                             </div>
                         </div>
-                    </div>
-                    <button class="navbar-toggler pt-1 pr-0 first-button" type="button" data-toggle="collapse" data-target="#main_nav"
-                            aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="animated-icon1"><span></span><span></span><span></span></span>
-                    </button>
-                </nav>
+                        <button class="navbar-toggler pt-1 pr-0 first-button" type="button" data-toggle="collapse" data-target="#main_nav"
+                                aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="animated-icon1"><span></span><span></span><span></span></span>
+                        </button>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <!-- Scripts -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        // Khởi tạo kết nối SignalR đến NotificationHub
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/notificationHub")
+            .build();
+
+        let notifications = [];
+
+        // Khi nhận được thông báo từ server
+        connection.on("ReceiveNotification", function (message) {
+            notifications.push(message);
+            updateNotificationsUI();
+        });
+
+        function updateNotificationsUI() {
+            const container = $("#notificationsContainer");
+            container.empty();
+            if (notifications.length === 0) {
+                container.append('<p class="dropdown-item text-muted mb-0">No notifications</p>');
+            } else {
+                notifications.forEach(function (notification) {
+                    container.append('<a class="dropdown-item" href="#">' + notification + '</a>');
+                });
+            }
+            $("#notificationCount").text(notifications.length);
+        }
+
+        connection.start().then(function () {
+            console.log("SignalR connected.");
+            // Nếu cần, bạn có thể gửi userId lên server để đăng ký nhóm riêng (nếu cấu hình authentication)
+        }).catch(function (err) {
+            console.error(err.toString());
+        });
+    </script>

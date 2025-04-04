@@ -28,7 +28,7 @@ namespace VaccineTrakingSystem.BLL.PaymentService
             payment.CreatedAt = DateTime.Now;
             payment.UpdatedAt = DateTime.Now;
             payment.PaymentDate = DateTime.Now;
-            payment.PaymentStatus = (byte)ConstantEnums.PaymentStatus.Pending;
+            payment.PaymentStatus = (byte)ConstantEnums.PaymentStatus.UnPaid;
             int paymentId = await _paymentRepository.CreatePaymentAsync(payment);
 
             if (payment.PaymentMethod == (byte)ConstantEnums.PaymentMethod.Momo)
@@ -57,9 +57,9 @@ namespace VaccineTrakingSystem.BLL.PaymentService
 
         public Task<bool> UpdatePaymentStatusAsync(int paymentId, int status, DateTime paymentDat) => _paymentRepository.UpdatePaymentStatusAsync(paymentId, status, paymentDat);
 
-        public Task<IEnumerable<AppointmentDTO>> GetUnpaidAppointmentsAsync(int? appointmentId, string? phoneNumber, string? username)
+        public Task<IEnumerable<AppointmentDTO>> GetFilteredAppointmentsAsync(int? appointmentId, string? paymentStatus, string? phoneNumber, System.DateTime? appointmentDate, string? username)
         {
-            return _paymentRepository.GetUnpaidAppointmentsAsync(appointmentId, phoneNumber, username);
+            return _paymentRepository.GetFilteredAppointmentsAsync(appointmentId, paymentStatus, phoneNumber, appointmentDate, username);
         }
     }
 }

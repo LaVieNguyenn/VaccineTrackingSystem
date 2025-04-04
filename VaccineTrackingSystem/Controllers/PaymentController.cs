@@ -52,7 +52,7 @@ namespace VaccineTrackingSystem.Controllers
                 CustomerId = userId,
                 Amount = amount,
                 PaymentMethod = paymentMethod.Equals("Momo") ? (byte)ConstantEnums.PaymentMethod.Momo : (byte)ConstantEnums.PaymentMethod.Cash,
-                PaymentStatus = (byte)ConstantEnums.PaymentStatus.Pending
+                PaymentStatus = (byte)ConstantEnums.PaymentStatus.UnPaid
             };
             return View(model);
         }
@@ -96,13 +96,15 @@ namespace VaccineTrackingSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int? appointmentId, string? phoneNumber, string? username)
+        public async Task<IActionResult> Index(int? appointmentId, string? paymentStatus, string? phoneNumber, DateTime? appointmentDate, string? username)
         {
-            var appointments = await _paymentService.GetUnpaidAppointmentsAsync(appointmentId, phoneNumber, username);
+            var appointments = await _paymentService.GetFilteredAppointmentsAsync(appointmentId, paymentStatus, phoneNumber, appointmentDate, username);
             var viewModel = new SearchAppointmentsViewModel
             {
                 AppointmentID = appointmentId,
+                PaymentStatus = paymentStatus,
                 PhoneNumber = phoneNumber,
+                AppointmentDate = appointmentDate,
                 Username = username,
                 Appointments = appointments
             };

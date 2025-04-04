@@ -1,24 +1,77 @@
 ﻿@model VaccineTrackingSystem.Models.SearchAppointmentsViewModel
 
 @{
-    ViewData["Title"] = "Unpaid Appointments";
+    ViewData["Title"] = "Appointments";
+}
+
+@functions {
+    public string GetPaymentStatusBadge(int status)
+    {
+        switch(status)
+        {
+            case 0:
+                return "<span class='badge bg-warning text-dark'>UnPaid</span>";
+            case 1:
+                return "<span class='badge bg-success'>Paid</span>";
+            case 2:
+                return "<span class='badge bg-danger'>Failed</span>";
+            case 3:
+                return "<span class='badge bg-secondary'>Cancel</span>";
+            case 4:
+                return "<span class='badge bg-info text-dark'>Refunded</span>";
+            default:
+                return $"<span class='badge bg-light text-dark'>{status}</span>";
+        }
+    }
+
+    public string GetAppointmentStatusBadge(int status)
+    {
+        switch(status)
+        {
+            case 0:
+                return "<span class='badge bg-warning text-dark'>Waiting</span>";
+            case 1:
+                return "<span class='badge bg-primary'>Process</span>";
+            case 2:
+                return "<span class='badge bg-success'>Success</span>";
+            case 3:
+                return "<span class='badge bg-danger'>Failed</span>";
+            case 4:
+                return "<span class='badge bg-secondary'>Cancelled</span>";
+            default:
+                return $"<span class='badge bg-light text-dark'>{status}</span>";
+        }
+    }
 }
 
 <div class="container mt-5">
-    <h2 class="mb-4">Unpaid Appointments for Payment</h2>
+    <h2 class="mb-4">Appointments</h2>
 
     <!-- Form tìm kiếm -->
     <form method="get" class="row g-3 mb-4">
-        <div class="col-md-3">
-            <input type="number" name="appointmentId" class="form-control" placeholder="Appointment ID" value="@Model.AppointmentID" />
+        <div class="col-md-2">
+            <input type="number" name="appointmentId" class="form-control" placeholder="Appointment ID" value="@Model.AppointmentID" min=1 />
         </div>
-        <div class="col-md-3">
-            <input type="text" name="phoneNumber" class="form-control" placeholder="Customer Phone Number" value="@Model.PhoneNumber" />
+        <div class="col-md-2">
+            <input type="text" name="phoneNumber" class="form-control" placeholder="Phone Number" value="@Model.PhoneNumber" />
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <input type="text" name="username" class="form-control" placeholder="Username" value="@Model.Username" />
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
+            <select name="paymentStatus" class="form-select">
+                <option value="">All Payment Status</option>
+                <option value="0">UnPaid</option>
+                <option value="1">Paid</option>
+                <option value="2">Failed</option>
+                <option value="3">Cancel</option>
+                <option value="4">Refunded</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input type="date" name="appointmentDate" class="form-control" placeholder="Appointment Date" />
+        </div>
+        <div class="col-md-2">
             <button type="submit" class="btn btn-primary w-100">Search</button>
         </div>
     </form>
@@ -47,8 +100,8 @@
                         <td>@appt.AppointmentID</td>
                         <td>@appt.AppointmentDate.ToString("yyyy-MM-dd HH:mm")</td>
                         <td>@appt.BookingDate.ToString("yyyy-MM-dd HH:mm")</td>
-                        <td>@appt.Status</td>
-                        <td>@appt.PaymentStatus</td>
+                        <td>@Html.Raw(GetAppointmentStatusBadge(int.Parse(appt.Status)))</td>
+                        <td>@Html.Raw(GetPaymentStatusBadge(int.Parse(appt.PaymentStatus)))</td>
                         <td>@appt.Username</td>
                         <td>@appt.PhoneNumber</td>
                         <td>@appt.FullName</td>

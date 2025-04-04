@@ -29,6 +29,7 @@ using VaccineTrakingSystem.BLL.PaymentService;
 using VaccineTrakingSystem.DAL.DAOs.PaymentDAO;
 using VaccineTrakingSystem.DAL.Repositories.PaymentRepository;
 using VaccineTrakingSystem.BLL.Services;
+using VaccineTrackingSystem.Hubs;
 namespace VaccineTrackingSystem
 {
     public class Program
@@ -41,6 +42,7 @@ namespace VaccineTrackingSystem
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSignalR();
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -125,6 +127,7 @@ namespace VaccineTrackingSystem
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.MapHub<NotificationHub>("/notificationHub");
 
             app.Run();
         }

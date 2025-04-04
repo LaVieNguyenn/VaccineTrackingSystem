@@ -29,7 +29,8 @@
                 <div class="filter-container">
                     <input type="text" id="searchInput" placeholder="🔍 Tìm kiếm theo tên trẻ..." onkeyup="filterTable()">
                     <select id="statusFilter" onchange="filterTable()">
-                        <option value="">-- All --</option>
+                        <option value="">-- All --</option>    
+                        <option value="Waiting">Waiting</option>
                         <option value="Processing">Processing</option>
                         <option value="Success">Success</option>
                         <option value="Canceled">Canceled</option>
@@ -62,8 +63,9 @@
                                     <td>@schedule.AppointmentId</td>
                                     <td class="schedule-date">@schedule.ScheduledDate.ToString("yyyy-MM-dd")</td>
                                     <td class="status">
-                                        @(schedule.Status == 1 ? "Success" :
-                                            schedule.Status == 0 ? "Processing" :
+                                        @(schedule.Status == 1 ? "Processing" :
+                                            schedule.Status == 0 ? "Waiting" :
+                                            schedule.Status == 2 ? "Success" :
                                             schedule.Status == 3 ? "Canceled" : "Unknown")
                                     </td>
 

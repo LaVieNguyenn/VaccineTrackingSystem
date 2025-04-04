@@ -72,24 +72,51 @@ namespace VaccineTrakingSystem.DAL.DAOs.PaymentDAO
             }
         }
 
-        public async Task<IEnumerable<AppointmentDTO>> GetUnpaidAppointmentsAsync(int? appointmentId, string? phoneNumber, string? username)
+        public async Task<IEnumerable<AppointmentDTO>> GetFilteredAppointmentsAsync(int? appointmentId, string? paymentStatus, string? phoneNumber, DateTime? appointmentDate, string? username)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
+
                 var sql = @"
                     SELECT a.AppointmentID, a.AppointmentDate, a.BookingDate, a.Status, a.PaymentStatus,
                            u.Username, u.PhoneNumber, u.FullName
                     FROM Appointments a
                     INNER JOIN Children c ON a.ChildID = c.ChildID
                     INNER JOIN Users u ON c.ParentID = u.UserID
-                    WHERE a.PaymentStatus = 1
-                      AND (@AppointmentID IS NULL OR a.AppointmentID = @AppointmentID)
-                      AND (@PhoneNumber IS NULL OR u.PhoneNumber LIKE '%' + @PhoneNumber + '%')
-                      AND (@Username IS NULL OR u.Username LIKE '%' + @Username + '%')
-                    ORDER BY a.AppointmentDate DESC";
+                    WHERE 1=1";
 
-                return await connection.QueryAsync<AppointmentDTO>(sql, new { AppointmentID = appointmentId, PhoneNumber = phoneNumber, Username = username });
+                if (appointmentId.HasValue)
+                {
+                    sql += " AND a.AppointmentID = @AppointmentID";
+                }
+                if (!string.IsNullOrEmpty(paymentStatus))
+                {
+                    sql += " AND a.PaymentStatus = @PaymentStatus";
+                }
+                if (!string.IsNullOrEmpty(phoneNumber))
+                {
+                    sql += " AND u.PhoneNumber LIKE '%' + @PhoneNumber + '%'";
+                }
+                if (appointmentDate.HasValue)
+                {
+                    sql += " AND CAST(a.AppointmentDate AS date) = @AppointmentDate";
+                }
+                if (!string.IsNullOrEmpty(username))
+                {
+                    sql += " AND u.Username LIKE '%' + @Username + '%'";
+                }
+
+                sql += " ORDER BY a.AppointmentDate DESC";
+
+                return await connection.QueryAsync<AppointmentDTO>(sql, new
+                {
+                    AppointmentID = appointmentId,
+                    PaymentStatus = paymentStatus,
+                    PhoneNumber = phoneNumber,
+                    AppointmentDate = appointmentDate,
+                    Username = username
+                });
             }
         }
     }

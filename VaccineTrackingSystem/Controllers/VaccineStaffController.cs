@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
+using VaccineTrakingSystem.BLL.DTOs;
 using VaccineTrakingSystem.BLL.ServicesService;
 using VaccineTrakingSystem.BLL.VaccineRecordService;
 using VaccineTrakingSystem.BLL.VaccineScheduleService;
@@ -35,8 +37,16 @@ namespace VaccineTrackingSystem.Controllers
             return View("Vaccination", vaccineSchedule);
         }
         [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] VaccinationRecord model)
+        public async Task<IActionResult> Create([FromBody] ScheduleDTO input)
         {
+            var model = new VaccinationRecord
+            {
+                VaccinationDate = input.VaccinationDate,
+                AdverseReaction = input.AdverseReaction,
+                AppointmentId = input.AppointmentId,
+                ChildId = input.ChildId,
+                VaccineId = input.VaccineId
+            };
             if (model == null || model.AppointmentId == 0)
                 return BadRequest("Dữ liệu không hợp lệ");
 
@@ -53,10 +63,10 @@ namespace VaccineTrackingSystem.Controllers
                 model.StaffId = 0; // hoặc throw new Exception("Invalid role ID");
             }
             Console.WriteLine("Create: " + model.StaffId);
-            await _recordService.CreateVaccineRecordServiceAsync(model);
+           await _recordService.CreateVaccineRecordServiceAsync(model);
 
             // 🌟 GỌI LẠI LOGIC CỦA VaccinationPost
-            var vaccineSchedule = await _services.GetVaccineScheduleServiceByIdAsync(model.AppointmentId);
+            var vaccineSchedule = await _services.GetVaccineScheduleServiceByIdAsync(input.ScheduleId);
             if (vaccineSchedule == null)
                 return NotFound("Không tìm thấy lịch tiêm chủng này.");
 

@@ -71,10 +71,8 @@ namespace VaccineTrackingSystem.Controllers
                 model.CreatedAt = model.CreatedAt == default ? DateTime.UtcNow : model.CreatedAt;
                 model.UpdatedAt = model.UpdatedAt == default ? DateTime.UtcNow : model.UpdatedAt;
 
-                if (model.Status != 0 && model.Status != 1)
-                {
-                    model.Status = 0; // Mặc định là Pending
-                }
+                model.Status = 0; // Mặc định là Pending
+        
                 model.PaymentStatus = 0; // Mặc định là Unpaid
 
                 Console.WriteLine($"BookingDate: {model.BookingDate}");
@@ -119,9 +117,6 @@ namespace VaccineTrackingSystem.Controllers
                 {
                     return NotFound(new { Message = "Không tìm thấy lịch hẹn để cập nhật" });
                 }
-
-                // Giữ nguyên PaymentStatus từ bản ghi cũ, không cho phép cập nhật từ dữ liệu gửi lên
-                model.PaymentStatus = existingAppointment.PaymentStatus;
 
                 if (model.BookingDate == default || model.BookingDate < new DateTime(1753, 1, 1))
                 {
