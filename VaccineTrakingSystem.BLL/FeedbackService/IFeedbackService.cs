@@ -12,7 +12,9 @@ namespace VaccineTrakingSystem.BLL.FeedbackService
         Task<int> CreateAsync(FeedbackDTO feedback);
         Task<bool> UpdateAsync(FeedbackDTO feedback);
         Task<bool> DeleteAsync(int id);
-        Task<IEnumerable<FeedbackDTO>> GetFeedbacksByCustomerId(int customerId);
+        //Task<IEnumerable<FeedbackDTO>> GetFeedbacksByCustomerId(int customerId);
         Task<IEnumerable<FeedbackDTO>> GetFeedbacksByAppointmentId(int appointmentId);
+        Task<IEnumerable<FeedbackDTO>> GetFeedbacksByCustomerId(int customerId, int? appointmentId = null);
+
     }
 } 

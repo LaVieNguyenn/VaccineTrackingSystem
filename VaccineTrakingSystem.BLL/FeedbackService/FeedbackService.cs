@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,11 +42,12 @@ namespace VaccineTrakingSystem.BLL.FeedbackService
                 CustomerId = dto.CustomerId,
                 Rating = dto.Rating,
                 Comments = dto.Comments,
-                FeedbackDate = dto.FeedbackDate,
-                CreatedAt = dto.CreatedAt,
-                UpdatedAt = dto.UpdatedAt
+                FeedbackDate = dto.FeedbackDate == default ? DateTime.UtcNow : dto.FeedbackDate,  
+                CreatedAt = dto.CreatedAt == default ? DateTime.UtcNow : dto.CreatedAt,  
+                UpdatedAt = dto.UpdatedAt == default ? DateTime.UtcNow : dto.UpdatedAt  
             };
         }
+
 
         public async Task<IEnumerable<FeedbackDTO>> GetAllAsync()
         {
@@ -88,11 +89,12 @@ namespace VaccineTrakingSystem.BLL.FeedbackService
             return await _feedbackDAO.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<FeedbackDTO>> GetFeedbacksByCustomerId(int customerId)
+        public async Task<IEnumerable<FeedbackDTO>> GetFeedbacksByCustomerId(int customerId, int? appointmentId = null)
         {
-            var feedbacks = await _feedbackDAO.GetFeedbacksByCustomerId(customerId);
+            var feedbacks = await _feedbackDAO.GetFeedbacksByCustomerId(customerId, appointmentId);
             return feedbacks.Select(MapToDTO);
         }
+
 
         public async Task<IEnumerable<FeedbackDTO>> GetFeedbacksByAppointmentId(int appointmentId)
         {

@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
@@ -29,6 +28,40 @@ namespace VaccineTrackingSystem.Controllers
             throw new InvalidOperationException("User ID not found in claims");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] FeedbackDTO feedback)
+        {
+            feedback.CustomerId = GetCurrentUserId();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _feedbackService.CreateAsync(feedback);
+                    return Json(new { success = true, message = "Feedback submitted successfully!" });
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { success = false, message = $"Error: {ex.Message}" });
+                }
+            }
+            else
+            {
+                return Json(new { success = false, message = "Please provide all required fields!" });
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetFeedbacksByCustomer(int? appointmentId = null)
+        {
+            var customerId = GetCurrentUserId(); // Lấy customerId từ Claims
+
+            // Lấy danh sách feedback theo customerId, có thể lọc theo appointmentId nếu có
+            var feedbacks = await _feedbackService.GetFeedbacksByCustomerId(customerId, appointmentId);
+
+            return Json(feedbacks); // Trả về dữ liệu dạng JSON
+        }
+
+
         public async Task<IActionResult> Index()
         {
             var userId = GetCurrentUserId();
@@ -45,10 +78,11 @@ namespace VaccineTrackingSystem.Controllers
             return View(feedback);
         }
 
-        public IActionResult Create()
+        public IActionResult Create(int appointmentId)
         {
             var feedback = new FeedbackDTO
             {
+                AppointmentId = appointmentId,
                 CustomerId = GetCurrentUserId(),
                 FeedbackDate = DateTime.UtcNow
             };
@@ -57,7 +91,7 @@ namespace VaccineTrackingSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(FeedbackDTO feedback)
+        public async Task<IActionResult> CreateF(FeedbackDTO feedback)
         {
             feedback.CustomerId = GetCurrentUserId();
             feedback.FeedbackDate = DateTime.UtcNow;
@@ -127,4 +161,4 @@ namespace VaccineTrackingSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
     }
-} 
+}
