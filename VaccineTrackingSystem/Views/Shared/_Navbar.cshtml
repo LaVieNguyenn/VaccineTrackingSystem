@@ -52,61 +52,11 @@
                                         <a class="dropdown-toggle" href="#" role="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left: 2rem;">
                                             Hi, @userName
                                         </a>
-<<<<<<< HEAD
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                                             @if (userRole == "2")
                                             {
-                                                <a class="dropdown-item" asp-controller="Feedback" asp-action="Index">Feedback</a>
                                                 <a class="dropdown-item" asp-controller="Child" asp-action="Index">Manage Child</a>
                                                 <a class="dropdown-item" asp-controller="Appointment" asp-action="Index">Manage Appointment</a>
-=======
-                                    }
-                                    else
-                                    {
-                                        var userName = _httpContextAccessor.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
-                                        var userRole = _httpContextAccessor.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
-                                        <div class="dropdown d-inline">
-                                            <a class="dropdown-toggle" href="#" role="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left: 2rem;">
-                                                Hi, @userName
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                                @if (userRole == "2")
-                                                {
-                                                   
-                                                    <a class="dropdown-item" asp-controller="Child" asp-action="Index">
-                                                        Manage Child
-                                                    </a>
-                                                    <a class="dropdown-item" asp-controller="Appointment" asp-action="Index">
-                                                        Manage Appointment
-                                                    </a>
-                                                    <div class="dropdown-divider"></div>
-
-                                                    <a class="dropdown-item" asp-controller="CustomerRecords" asp-action="Index">
-                                                        Vaccine Records
-                                                    </a>
-                                                    <div class="dropdown-divider"></div>
-                                                }
-                                                @if (userRole == "4")
-                                                {
-                                                    <a class="dropdown-item" asp-controller="Service" asp-action="Services">Manage Service</a>
-                                                    <a class="dropdown-item" asp-controller="Users" asp-action="Index">Manage Account</a>
-                                                    <a class="dropdown-item" asp-controller="CenterInfo" asp-action="CenterInfor">Manage Center Information</a>
-                                                <a class="dropdown-item" asp-controller="AdminDashboard" asp-action="Index">
-    <i class="fas fa-chart-line"></i> Dashboard
-</a>
-<div class="dropdown-divider"></div>
-                                                }else if(userRole == "3"){
-                                                    <a class="dropdown-item" asp-controller="VaccineStaff" asp-action="Index">
-                                                        <img src="~/images/VaccineLogo.png" style="height: 20px; width: 20px; margin-right: 8px;" /> Vaccine Schedule
-                                                    </a>
-                                                    <a class="dropdown-item" asp-controller="VaccineManagerStaff" asp-action="Index">
-                                                        <img src="~/images/VileLogo.png" style="height: 20px; width: 20px; margin-right: 8px;" />Manage Vaccines
-                                                    </a>
-                                                    <a class="dropdown-item" asp-controller="Payment" asp-action="Index">
-                                                        <img src="~/images/VileLogo.png" style="height: 20px; width: 20px; margin-right: 8px;" />View Appointment
-                                                    </a>
-                                                }
->>>>>>> 5d242a9ae0bbe32cde38d71d5fffd1b25e59a556
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" asp-controller="CustomerRecords" asp-action="Index">Vaccine Records</a>
                                                 <div class="dropdown-divider"></div>
